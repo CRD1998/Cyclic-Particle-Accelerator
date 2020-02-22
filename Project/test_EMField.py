@@ -5,6 +5,11 @@ import scipy.constants as const
 import numpy as np
 
 def test_getAcceleration():
+    """
+    This function will test the getAcceleration method in the EMField class. The NumPy all-
+    close method checks that the returned value is equal to the hand-calculated expected value to 
+    9 significant figures. 
+    """
     proton = ChargedParticle('proton-1', const.m_p, const.e, [0,0,0], [2000,-4000,6000])
     field = EMField([-0.3,0.1,0.2], [6*10**(-5),-7*10**(-5),8*10**(-5)])
     charge_mass = const.physical_constants['proton charge to mass quotient'][0]
