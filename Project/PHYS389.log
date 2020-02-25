@@ -1,6 +1,5 @@
-2020-02-25 10:44:27,275 - {Particle.py:28} - INFO - proton-1 has been generated
-2020-02-25 10:44:27,275 - {Particle.py:28} - INFO - proton-2 has been generated
-2020-02-25 10:44:27,275 - {EMField.py:13} - INFO - electromagentic field generated
-2020-02-25 10:44:27,275 - {main.py:19} - INFO - starting simulation
-2020-02-25 10:44:27,355 - {main.py:29} - INFO - simulation finished
-2020-02-25 10:44:27,355 - {main.py:31} - INFO - creating plots
+2020-02-25 11:29:30,788 - {Particle.py:28} - INFO - proton-1 has been generated
+2020-02-25 11:29:30,788 - {EMField.py:13} - INFO - electromagentic field generated
+2020-02-25 11:29:30,788 - {main.py:17} - INFO - starting simulation
+2020-02-25 11:29:31,095 - {main.py:24} - INFO - simulation finished
+2020-02-25 11:29:31,095 - {main.py:26} - INFO - creating plots

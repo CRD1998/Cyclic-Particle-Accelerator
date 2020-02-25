@@ -22,7 +22,11 @@ class EMField:
         return np.linalg.norm(self.magneticMag)
     
     def getAcceleration(self,particle):
-        lorentz = np.array(self.electric, dtype=float)
+        lorentz = np.array([0,0,0],dtype=float)
+        if particle.position[0] > -0.98:
+            lorentz += -1*self.electric
+        if particle.position[0] < 0.098:
+            lorentz += self.electric
         lorentz += np.cross(particle.velocity, self.magnetic)
         lorentz *= (particle.charge / particle.mass)
         particle.acceleration = lorentz
