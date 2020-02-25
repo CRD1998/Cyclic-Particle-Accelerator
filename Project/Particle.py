@@ -40,10 +40,10 @@ class Particle:
         return np.linalg.norm(vector)
 
     def KineticEnergy(self):
-        return 0.5*self.mass*self.magnitude(self.velocity)*self.magnitude(self.velocity)
+        return (self.gamma()-1)*self.mass*const.c*const.c
   
     def momentum(self):
-        return self.mass*np.array(self.velocity,dtype=float)
+        return self.gamma()*self.mass*self.velocity
 
     def euler(self, deltaT):
         self.position +=  self.velocity*deltaT

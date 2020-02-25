@@ -20,6 +20,24 @@ def test_gamma():
     proton = Particle('proton', const.m_p, [0,0,0], [200000000,0,0])
     assert calculated_value == pytest.approx(proton.gamma())
 
+@pytest.mark.parametrize('test_input,expected',[(Particle('proton', const.m_p, [0,0,0], [3000,0,0]),7.526798657*10**(-21)),
+                        (Particle('proton', const.m_p, [0,0,0], [200000000,0,0]),5.146992568*10**(-11))])
+def test_KineticEnergy(test_input,expected):
+    """
+    This test checks that the Kinetic Energy method correctly returns the kinetic energy 
+    of a particle in both the relativistic and non-relativistic case.
+    """    
+    assert expected == pytest.approx(test_input.KineticEnergy())
+
+@pytest.mark.parametrize('test_input,expected',[(Particle('proton', const.m_p, [0,0,0], [3000,0,0]),const.m_p*np.array([3000,0,0],dtype=float)),
+                        (Particle('proton', const.m_p, [0,0,0], [200000000,0,0]),const.m_p*1.342384701*np.array([200000000,0,0]))])
+def test_momentum(test_input,expected):
+    """
+    This test checks that the momentum method correctly returns the kinetic energy 
+    of a particle in both the relativistic and non-relativistic case.
+    """    
+    assert np.allclose(test_input.momentum(),expected,rtol=10**(-10))
+
 def test_Euler():
     """
     This test checks that the Euler method is correctly updating a particle's position and
@@ -44,4 +62,4 @@ def test_EulerCromer():
     calculated_position = np.array([-47.5,105,142.5], dtype=float)
     proton.eulerCromer(deltaT)
     assert np.array_equal(calculated_velocity,proton.velocity)
-    assert np.array_equal(calculated_position,proton.position) 
+    assert np.array_equal(calculated_position,proton.position)
