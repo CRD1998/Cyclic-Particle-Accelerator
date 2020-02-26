@@ -35,11 +35,11 @@ class EMField:
 
     def ImplementElectricField(self,particle,time):
         if particle.position[0] > -0.98 and particle.position[0] < 0.98:
-            return np.array([i*math.cos(self.frequency(particle)*time) for i in self.electric],dtype=float)
+            return [i*math.cos(self.frequency(particle)*time) for i in self.electric]
         return [0,0,0]
 
     def getAcceleration(self,particle,time):
-        lorentz = self.ImplementElectricField(particle,time)
+        lorentz = np.array(self.ImplementElectricField(particle,time),dtype=float)
         lorentz += np.cross(particle.velocity, self.magnetic)
         lorentz *= (particle.charge / particle.mass)
         particle.acceleration = lorentz
