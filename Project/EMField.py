@@ -41,5 +41,5 @@ class EMField:
     def getAcceleration(self,particle,time):
         lorentz = np.array(self.ImplementElectricField(particle,time),dtype=float)
         lorentz += np.cross(particle.velocity, self.magnetic)
-        lorentz *= (particle.charge / particle.mass)
+        lorentz *= particle.charge/ (particle.mass*particle.gamma())
         particle.acceleration = lorentz
