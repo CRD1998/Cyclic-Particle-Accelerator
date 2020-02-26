@@ -1,5 +1,4 @@
 [
-  "test_EMField.py::test_getAcceleration",
   "test_Particle.py::test_exceedingC",
   "test_Particle.py::test_gamma",
   "test_Particle.py::test_KineticEnergy[test_input0-7.526798657e-21]",
