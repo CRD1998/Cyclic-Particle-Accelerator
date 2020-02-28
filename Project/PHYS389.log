@@ -1,6 +1,4 @@
-2020-02-26 18:04:23,471 - {Particle.py:28} - INFO - proton-1 has been generated
-2020-02-26 18:04:23,472 - {EMField.py:22} - INFO - electromagentic field generated
-2020-02-26 18:04:23,472 - {main.py:19} - INFO - starting simulation
-2020-02-26 18:04:23,973 - {main.py:28} - INFO - simulation finished
-2020-02-26 18:04:23,974 - {main.py:30} - INFO - proton-1's final linear speed: 27408 m/s
-2020-02-26 18:04:23,974 - {main.py:32} - INFO - creating plots
+2020-02-28 20:01:03,115 - {Particle.py:28} - INFO - proton has been generated
+2020-02-28 20:01:03,116 - {Particle.py:28} - INFO - proton has been generated
+2020-02-28 20:01:03,117 - {Particle.py:28} - INFO - proton has been generated
+2020-02-28 20:01:03,117 - {Particle.py:28} - INFO - proton has been generated

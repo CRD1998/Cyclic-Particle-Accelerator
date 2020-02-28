@@ -13,17 +13,17 @@ def test_frequency():
     calculated_frequency = 11692.45605
     assert calculated_frequency == pytest.approx(field.frequency(proton))
 
-@pytest.mark.parametrize('test_input,expected',[(EMField([0.1,0,0],[0,0,10**(-5)]).ImplementElectricField(ChargedParticle('proton-1', const.m_p, const.e),1),
-                        np.array([-0.095461349,0,0],dtype=float)),
-                        (EMField([0.1,0,0],[0,0,10**(-5)]).ImplementElectricField(ChargedParticle('proton-1', const.m_p, const.e,[2,0,0]),1),
-                        np.array([0,0,0],dtype=float))])
-def test_ImplementElectricField(test_input,expected):
-    """
-    This function will test that the electric field is correctly being implemented:
-        1) It exists within the specified coordinates in EMField.py
-        2) It is zero outside of these coordinates.
-    """
-    assert np.allclose(test_input,expected,rtol=10**(-9))
+#@pytest.mark.parametrize('test_input,expected',[(EMField([0.1,0,0],[0,0,10**(-5)]).ImplementElectricField(ChargedParticle('proton-1', const.m_p, const.e),1),
+#                        np.array([-0.095461349,0,0],dtype=float)),
+#                        (EMField([0.1,0,0],[0,0,10**(-5)]).ImplementElectricField(ChargedParticle('proton-1', const.m_p, const.e,[2,0,0]),1),
+#                        np.array([0,0,0],dtype=float))])
+#def test_ImplementElectricField(test_input,expected):
+#    """
+#    This function will test that the electric field is correctly being implemented:
+#        1) It exists within the specified coordinates in EMField.py
+#        2) It is zero outside of these coordinates.
+ #   """
+ #   assert np.allclose(test_input,expected,rtol=10**(-9))
 
 
 def test_getAcceleration():
