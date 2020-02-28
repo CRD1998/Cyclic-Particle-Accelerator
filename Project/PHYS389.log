@@ -1,4 +1,10 @@
-2020-02-28 20:01:03,115 - {Particle.py:28} - INFO - proton has been generated
-2020-02-28 20:01:03,116 - {Particle.py:28} - INFO - proton has been generated
-2020-02-28 20:01:03,117 - {Particle.py:28} - INFO - proton has been generated
-2020-02-28 20:01:03,117 - {Particle.py:28} - INFO - proton has been generated
+2020-02-28 21:24:03,973 - {Particle.py:28} - INFO - proton has been generated
+2020-02-28 21:24:03,973 - {Particle.py:28} - INFO - proton has been generated
+2020-02-28 21:24:03,974 - {Particle.py:28} - INFO - proton has been generated
+2020-02-28 21:24:03,974 - {Particle.py:28} - INFO - proton has been generated
+2020-02-28 21:24:03,992 - {Particle.py:28} - INFO - proton-1 has been generated
+2020-02-28 21:24:03,992 - {EMField.py:24} - INFO - electromagentic field generated
+2020-02-28 21:24:04,008 - {Particle.py:25} - ERROR - proton cannot have a speed greater than the speed of light
+2020-02-28 21:24:04,013 - {Particle.py:28} - INFO - proton has been generated
+2020-02-28 21:24:04,051 - {Particle.py:28} - INFO - proton has been generated
+2020-02-28 21:24:04,058 - {Particle.py:28} - INFO - proton has been generated

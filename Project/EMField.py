@@ -2,7 +2,6 @@ import log
 import numpy as np
 import scipy.constants as const
 import math
-from System import system
 
 class EMField:
     """
