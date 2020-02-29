@@ -1,15 +1,14 @@
 import log
 import numpy as np
 from ChargedParticle import ChargedParticle
-from Bunch import Bunch
 from EMField import EMField
 import scipy.constants as const
 import matplotlib.pyplot as plt
 import copy
+from ProtonBunch import ProtonBunch
 
 field = EMField([.1,0,0], [0,0,1.6*10**(-5)])
-proton = ChargedParticle('proton',const.m_p,const.e)
-protons = Bunch(proton,0.047,3)
+protons = ProtonBunch(0.047)
 
 time, deltaT, duration = 0, 10**(-5), 0.03
 

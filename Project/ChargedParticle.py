@@ -1,7 +1,7 @@
+import log
 import numpy as np
 from Particle import Particle
 import scipy.constants as const
-import logging
 
 class ChargedParticle(Particle):
     """
