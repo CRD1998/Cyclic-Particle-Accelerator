@@ -28,9 +28,14 @@ def test_frequency():
 
 def test_getAcceleration():
     """
-    This function will test the getAcceleration method in the EMField class. The NumPy all-
-    close method checks that the returned value is equal to the hand-calculated expected value to 
-    9 significant figures. 
+    This function will test the getAcceleration method in the EMField class. It will check that in
+    the presence of both an electric and magnetic field, the acceleration is correctly calculated. 
+    It will also check that the electric field is being correctly constrained. The three test cases
+    are:
+        1) An electric field exists within the specified coordinates
+        2) The electric field is zero outside of these coordinates.
+        3) Given both an electric and magnetic field, the acceleration due to the Lorentz force
+           is correctly being calculated.
     """
     pass
     #proton = ChargedParticle('proton-1', const.m_p, const.e, [0,0,0], [2000,-4000,6000])

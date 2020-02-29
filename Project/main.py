@@ -1,10 +1,9 @@
 import log
 import numpy as np
-from ChargedParticle import ChargedParticle
-from EMField import EMField
 import scipy.constants as const
 import matplotlib.pyplot as plt
 import copy
+from EMField import EMField
 from ProtonBunch import ProtonBunch
 
 field = EMField([.1,0,0], [0,0,1.6*10**(-5)])
