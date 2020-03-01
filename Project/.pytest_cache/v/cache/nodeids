@@ -1,3 +1,21 @@
 [
-  "test_ProtonBunch.py::test_averageVelocity"
+  "test_EMField.py::test_frequency",
+  "test_EMField.py::test_getAcceleration[test_input0-expected0]",
+  "test_EMField.py::test_getAcceleration[test_input1-expected1]",
+  "test_EMField.py::test_getAcceleration[test_input2-expected2]",
+  "test_Particle.py::test_exceedingC",
+  "test_Particle.py::test_gamma",
+  "test_Particle.py::test_KineticEnergy[test_input0-7.526911023e-21]",
+  "test_Particle.py::test_KineticEnergy[test_input1-5.146992568e-11]",
+  "test_Particle.py::test_momentum[test_input0-expected0]",
+  "test_Particle.py::test_momentum[test_input1-expected1]",
+  "test_Particle.py::test_Euler",
+  "test_Particle.py::test_EulerCromer",
+  "test_ProtonBunch.py::test_averagePosition",
+  "test_ProtonBunch.py::test_averageVelocity",
+  "test_ProtonBunch.py::test_momentum",
+  "test_ProtonBunch.py::test_KineticEnergy",
+  "test_ProtonBunch.py::test_assignVelocities",
+  "test_ProtonBunch.py::test_spread",
+  "test_ProtonBunch.py::test_createBunch"
 ]

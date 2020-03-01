@@ -15,6 +15,7 @@ class Particle:
     """
 
     def __init__(self,  Name='Point', Mass=1.0, Position=np.array([0,0,0], dtype=float), Velocity=np.array([0,0,0], dtype=float), Acceleration=np.array([0,0,0], dtype=float)):
+
         self.name = Name
         self.position = np.array(Position,dtype=float)
         self.velocity = np.array(Velocity,dtype=float)
@@ -31,8 +32,16 @@ class Particle:
         return 'Particle: {0}, Mass: {1:12.3e}, Position: {2}, Velocity: {3}, Acceleration: {4}'.format(self.name,self.mass,self.position, self.velocity,self.acceleration)
 
     def __eq__(self, other):
-        return self.__dict__ == other.__dict__ # FIXME not working when attribute is numpy array. Also implement __ne__
-
+        equality = []
+        instance1_values = self.__dict__.values()
+        instance2_values = other.__dict__.values()
+        for (i,j) in zip(instance1_values, instance2_values):
+            if isinstance(i,np.ndarray) and isinstance(j,np.ndarray):
+                equality.append(np.array_equal(i,j))
+                continue
+            equality.append(i==j)
+        return all(equality)
+    
     def gamma(self):
         """
         Returns the Lorentz factor for any given Particle object.

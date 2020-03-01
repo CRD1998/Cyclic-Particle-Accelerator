@@ -15,4 +15,4 @@ class ChargedParticle(Particle):
         self.charge = float(Charge)
     
     def __repr__(self):
-        return 'Particle: {0} \n Mass: {1} \n Charge: {2} \n Position: {3} \nVelocity: {4} \n Acceleration: {5}'.format(self.name,self.mass,self.charge,self.position, self.velocity,self.acceleration)
+        return 'ChargedParticle: {0} \n Mass: {1} \n Charge: {2} \n Position: {3} \nVelocity: {4} \n Acceleration: {5}'.format(self.name,self.mass,self.charge,self.position, self.velocity,self.acceleration)

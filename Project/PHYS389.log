@@ -1,6 +1,12 @@
-2020-03-01 22:21:54,266 - {Particle.py:28} - INFO - proton-1 has been generated
-2020-03-01 22:21:54,267 - {Particle.py:28} - INFO - proton-2 has been generated
-2020-03-01 22:21:54,267 - {ProtonBunch.py:38} - INFO - generating bunch
-2020-03-01 22:21:54,267 - {Particle.py:28} - INFO - proton-1 has been generated
-2020-03-01 22:21:54,267 - {Particle.py:28} - INFO - proton-2 has been generated
-2020-03-01 22:21:54,267 - {ProtonBunch.py:43} - INFO - bunch generated
+2020-03-01 23:50:46,460 - {EMField.py:24} - INFO - electromagentic field generated
+2020-03-01 23:50:46,461 - {ProtonBunch.py:38} - INFO - generating bunch
+2020-03-01 23:50:46,461 - {Particle.py:29} - INFO - proton-1 has been generated
+2020-03-01 23:50:46,461 - {Particle.py:29} - INFO - proton-2 has been generated
+2020-03-01 23:50:46,462 - {Particle.py:29} - INFO - proton-3 has been generated
+2020-03-01 23:50:46,462 - {ProtonBunch.py:43} - INFO - bunch generated
+2020-03-01 23:50:46,462 - {main.py:12} - INFO - Initial average kinetic energy: 0.04512766299930943 eV
+2020-03-01 23:50:46,463 - {main.py:13} - INFO - Initial average momentum: [4.90020788e-24 0.00000000e+00 0.00000000e+00] kg m/s
+2020-03-01 23:50:46,464 - {main.py:14} - INFO - Initial bunch spread: [0.01016215 0.00385724 0.00731996] m
+2020-03-01 23:50:46,464 - {main.py:22} - INFO - starting simulation
+2020-03-01 23:50:48,055 - {main.py:30} - INFO - simulation finished
+2020-03-01 23:50:48,055 - {main.py:34} - INFO - creating plots
