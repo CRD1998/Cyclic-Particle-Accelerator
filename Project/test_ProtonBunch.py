@@ -37,8 +37,33 @@ def test_KineticEnergy():
 
 @patch.object(ProtonBunch, 'distributeEnergies')
 def test_assignVelocities(mock_energies):
-    mock_energies.return_value=np.array([10**8,0.75])
+    """
+    This will test that the assignVelocities method correctly calculates a linear speed given a
+    kinetic energy. It also tests that the function returns a list of velocity vectors where the
+    calculated speeds are the x-components in these velocity vectors.
+    """
+    mock_energies.return_value=np.array([10**8,0.75]) # return these values instead of values sampled from normal distribution
     velocity_1, velocity_2 = [128369776.9,0,0], [11986.4508,0,0]
     calculated_velocities = [velocity_1, velocity_2]
     assigned_velocities = bunch_of_protons.assignVelocities()
-    assert np.allclose(calculated_velocities, assigned_velocities, rtol=10**(-4))
+    assert np.allclose(calculated_velocities, assigned_velocities, rtol=10**(-4)) # FIXME Why only accurate to 10^(-4)?
+
+def test_spread():
+    """
+    This will test that the spread method (numpy standard deviation) is correctly returning the variance
+    of all the particles' positions in a bunch.
+    """
+    calculated_spread = np.array([62.5,5,35],dtype=float)
+    assert np.array_equal(calculated_spread, bunch_of_protons.spread())
+
+@patch.object(ProtonBunch, 'assignVelocities')
+@patch.object(ProtonBunch, 'assignPositions')
+def test_createBunch(mock_positions, mock_velocities):
+    mock_positions.return_value = [[1,2,3], [4,5,6]]
+    mock_velocities.return_value = [[10,20,30], [40,50,60]]
+    particle_1 = ChargedParticle('proton-1', const.m_p, const.e, [1,2,3], [10,20,30])
+    particle_2 = ChargedParticle('proton-2', const.m_p, const.e, [4,5,6], [40,50,60])
+    expected_bunch = [particle_1, particle_2]
+    actual_bunch = bunch_of_protons.createBunch()
+    assert np.array_equal(expected_bunch, actual_bunch)
+    

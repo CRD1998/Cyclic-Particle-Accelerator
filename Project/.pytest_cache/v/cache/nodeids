@@ -13,5 +13,7 @@
   "test_Particle.py::test_EulerCromer",
   "test_ProtonBunch.py::test_momentum",
   "test_ProtonBunch.py::test_KineticEnergy",
-  "test_ProtonBunch.py::test_assignVelocities"
+  "test_ProtonBunch.py::test_assignVelocities",
+  "test_ProtonBunch.py::test_spread",
+  "test_ProtonBunch.py::test_createBunch"
 ]

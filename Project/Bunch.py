@@ -74,4 +74,4 @@ class Bunch(ABC):
         return np.array(np.sum([i.momentum() for i in self.bunch],axis=0),dtype=float)
 
     def spread(self):
-        return np.array(np.var([i.position for i in self.bunch],axis=0),dtype=float)
+        return np.array(np.std([i.position for i in self.bunch],axis=0),dtype=float)
