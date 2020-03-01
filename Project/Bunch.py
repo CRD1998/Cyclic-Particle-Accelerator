@@ -62,6 +62,12 @@ class Bunch(ABC):
     def distributeEnergies(self):
         mu, sigma = self.average_kinetic_energy, self.energySigma
         return np.random.normal(mu, sigma, self.bunch_number)
+    
+    def averagePosition(self):
+        return np.array(np.mean([i.position for i in self.bunch],axis=0),dtype=float)
+
+    def averageVelocity(self):
+        return np.array(np.mean([i.velocity for i in self.bunch],axis=0),dtype=float)
 
     def KineticEnergy(self, total=False):
         if total == False:

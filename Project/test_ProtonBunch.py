@@ -10,6 +10,14 @@ proton_2 = ChargedParticle('proton-2', const.m_p, const.e, [-75,-30,80], [4000,5
 bunch_of_protons = ProtonBunch(3,2) # initialise a ProtonBunch
 bunch_of_protons.bunch = [proton_1,proton_2] # overwrite the bunch attribute to replace pseudo-random ChargedParticle objects
 
+def test_averagePosition():
+    calculated_position = np.array([-12.5,-25,45],dtype=float)
+    assert np.array_equal(calculated_position, bunch_of_protons.averagePosition())
+
+def test_averageVelocity():
+    calculated_velocity = np.array([2500,1500,-1500],dtype=float)
+    assert np.array_equal(calculated_velocity, bunch_of_protons.averageVelocity())
+
 def test_momentum():
     """
     This will test that the momentum function in the Bunch ABC is correctly returning the average

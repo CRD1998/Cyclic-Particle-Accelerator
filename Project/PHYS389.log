@@ -1,12 +1,6 @@
-2020-03-01 21:13:01,559 - {Particle.py:28} - INFO - proton-1 has been generated
-2020-03-01 21:13:01,559 - {Particle.py:28} - INFO - proton-2 has been generated
-2020-03-01 21:13:01,559 - {ProtonBunch.py:38} - INFO - generating bunch
-2020-03-01 21:13:01,560 - {Particle.py:28} - INFO - proton-1 has been generated
-2020-03-01 21:13:01,560 - {Particle.py:28} - INFO - proton-2 has been generated
-2020-03-01 21:13:01,560 - {ProtonBunch.py:43} - INFO - bunch generated
-2020-03-01 21:13:01,569 - {Particle.py:28} - INFO - proton-1 has been generated
-2020-03-01 21:13:01,570 - {Particle.py:28} - INFO - proton-2 has been generated
-2020-03-01 21:13:01,570 - {ProtonBunch.py:38} - INFO - generating bunch
-2020-03-01 21:13:01,570 - {Particle.py:28} - INFO - proton-1 has been generated
-2020-03-01 21:13:01,571 - {Particle.py:28} - INFO - proton-2 has been generated
-2020-03-01 21:13:01,571 - {ProtonBunch.py:43} - INFO - bunch generated
+2020-03-01 22:21:54,266 - {Particle.py:28} - INFO - proton-1 has been generated
+2020-03-01 22:21:54,267 - {Particle.py:28} - INFO - proton-2 has been generated
+2020-03-01 22:21:54,267 - {ProtonBunch.py:38} - INFO - generating bunch
+2020-03-01 22:21:54,267 - {Particle.py:28} - INFO - proton-1 has been generated
+2020-03-01 22:21:54,267 - {Particle.py:28} - INFO - proton-2 has been generated
+2020-03-01 22:21:54,267 - {ProtonBunch.py:43} - INFO - bunch generated
