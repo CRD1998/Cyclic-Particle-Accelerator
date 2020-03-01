@@ -22,8 +22,8 @@ class Bunch(ABC):
         4) momentum - takes an optional arguement "total" (defaults to False). Returns the average 
         three-momentum for a particle in a bunch (kg m/s). If total is True then it returns the 
         momentum of the entire bunch.
-        5) spread - returns the variance of the x-position, y-position and z-position of the particles
-        in the bunch as 3D numpy array.
+        5) spread - returns the standard deviation of the x-positions, y-positions and z-positions of 
+        all the particles in the bunch as 3D numpy array.
 
     Abstract Methods:
     -----------------
