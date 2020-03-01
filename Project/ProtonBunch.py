@@ -1,6 +1,7 @@
 import log
 import scipy.constants as const
 import math
+from statistics import mean
 from Bunch import Bunch
 from ChargedParticle import ChargedParticle
 
@@ -9,11 +10,13 @@ class ProtonBunch(Bunch):
     Class to generate a bunch of protons as Charged Particle objects, the list can be accessed 
     through the bunch attribute (derived from Bunch abstract base class). 
 
-    Arguements:
+    Attributes:
+    -----------
         1) AverageKinetic - the average kinetic energy of a particle in the bunch, 
         measured in eV.
     
-    Optional Arguements:
+    Optional Attributes:
+    --------------------
         2) particleNumber - number of particles in the bunch, defaults to 3.
         3) positionSigma - the S.D of the particles' normal position distribution 
         about the origin, defaults to 0.01 .
@@ -24,7 +27,8 @@ class ProtonBunch(Bunch):
         self.particleName = 'proton'
         self.particleMass = const.m_p
         self.particleCharge = const.e
-        super().__init__(AverageKinetic, particleNumber=3, positionSigma=0.01, energySigma=0.01)
+        super().__init__(AverageKinetic=AverageKinetic, particleNumber=particleNumber, 
+        positionSigma=positionSigma, energySigma=energySigma)
 
     def createBunch(self):
         positions = self.assignPositions()
