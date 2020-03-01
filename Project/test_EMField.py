@@ -30,7 +30,7 @@ def test_getAcceleration(test_input,expected):
            is correctly being calculated.
     """
     proton, field = test_input
-    field.getAcceleration(proton,0) # set time to 0 so the electric field is equal to its magnitude 
-    calculated_lorentz = np.array(expected,dtype=float) # get Lorentz force
+    field.getAcceleration(proton,0) # get Lorentz force, set time to 0 so the electric field is equal to its magnitude 
+    calculated_lorentz = np.array(expected,dtype=float)
     calculated_lorentz *= const.physical_constants['proton charge to mass quotient'][0] # convert to acceleration
     assert np.allclose(calculated_lorentz, proton.acceleration, rtol=10**(-9))

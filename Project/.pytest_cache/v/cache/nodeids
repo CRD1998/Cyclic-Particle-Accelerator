@@ -10,5 +10,8 @@
   "test_Particle.py::test_momentum[test_input0-expected0]",
   "test_Particle.py::test_momentum[test_input1-expected1]",
   "test_Particle.py::test_Euler",
-  "test_Particle.py::test_EulerCromer"
+  "test_Particle.py::test_EulerCromer",
+  "test_ProtonBunch.py::test_momentum",
+  "test_ProtonBunch.py::test_KineticEnergy",
+  "test_ProtonBunch.py::test_assignVelocities"
 ]

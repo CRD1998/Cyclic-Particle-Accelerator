@@ -7,7 +7,7 @@ from EMField import EMField
 from ProtonBunch import ProtonBunch
 
 field = EMField([.1,0,0], [0,0,1.6*10**(-5)])
-protons = ProtonBunch(0.047,5)
+protons = ProtonBunch(0.047,3)
 
 log.logger.info('Initial average kinetic energy: %s eV' % protons.KineticEnergy())
 log.logger.info('Initial average momentum: %s kg m/s' % protons.momentum())
