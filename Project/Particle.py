@@ -31,7 +31,7 @@ class Particle:
         return 'Particle: {0}, Mass: {1:12.3e}, Position: {2}, Velocity: {3}, Acceleration: {4}'.format(self.name,self.mass,self.position, self.velocity,self.acceleration)
 
     def __eq__(self, other):
-        return self.__dict__ == other.__dict__ # FIXME not working when attribute is numpy array
+        return self.__dict__ == other.__dict__ # FIXME not working when attribute is numpy array. Also implement __ne__
 
     def gamma(self):
         """
