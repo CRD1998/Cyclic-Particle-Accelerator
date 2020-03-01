@@ -2,7 +2,6 @@ import log
 import numpy as np
 import scipy.constants as const
 import math
-from System import system
 
 class EMField:
     """
@@ -16,9 +15,12 @@ class EMField:
     """
 
     def __init__(self, ElectricField = np.array([0,0,0], dtype=float), 
-                MagneticField = np.array([0,0,0], dtype=float)):
+                MagneticField = np.array([0,0,0], dtype=float), 
+                ElectricFieldWidth = np.array([-1,1], dtype=float)):
         self.magnetic = np.array(MagneticField,dtype=float)
         self.electric = np.array(ElectricField,dtype=float)
+        self.electricLowerBound  = float(ElectricFieldWidth[0])
+        self.electricUpperBound  = float(ElectricFieldWidth[1])
         log.logger.info('electromagentic field generated')
 
     def __repr__(self):
@@ -33,13 +35,9 @@ class EMField:
     def frequency(self,particle):
         return abs(particle.charge)*self.magneticMag()/particle.mass
 
-    def ImplementElectricField(self,particle,time):
-        if particle.position[0] > -0.98 and particle.position[0] < 0.98:
-            return [i*math.cos(self.frequency(particle)*time) for i in self.electric]
-        return [0,0,0]
-
     def getAcceleration(self,particle,time):
-        lorentz = np.array(self.ImplementElectricField(particle,time),dtype=float)
+        electricField = lambda x: [i*math.cos(self.frequency(particle)*time) for i in self.electric] if self.electricLowerBound < x < self.electricUpperBound else [0,0,0]
+        lorentz = np.array(electricField(particle.position[0]),dtype=float)
         lorentz += np.cross(particle.velocity, self.magnetic)
         lorentz *= particle.charge/ (particle.mass*particle.gamma())
         particle.acceleration = lorentz

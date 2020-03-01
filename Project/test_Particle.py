@@ -20,7 +20,7 @@ def test_gamma():
     proton = Particle('proton', const.m_p, [0,0,0], [200000000,0,0])
     assert calculated_value == pytest.approx(proton.gamma())
 
-@pytest.mark.parametrize('test_input,expected',[(Particle('proton', const.m_p, [0,0,0], [3000,0,0]),7.526798657*10**(-21)),
+@pytest.mark.parametrize('test_input,expected',[(Particle('proton', const.m_p, [0,0,0], [3000,0,0]),7.526911023*10**(-21)),
                         (Particle('proton', const.m_p, [0,0,0], [200000000,0,0]),5.146992568*10**(-11))])
 def test_KineticEnergy(test_input,expected):
     """
