@@ -1,6 +1,8 @@
 [
   "test_EMField.py::test_frequency",
-  "test_EMField.py::test_getAcceleration",
+  "test_EMField.py::test_getAcceleration[test_input0-expected0]",
+  "test_EMField.py::test_getAcceleration[test_input1-expected1]",
+  "test_EMField.py::test_getAcceleration[test_input2-expected2]",
   "test_Particle.py::test_exceedingC",
   "test_Particle.py::test_gamma",
   "test_Particle.py::test_KineticEnergy[test_input0-7.526911023e-21]",

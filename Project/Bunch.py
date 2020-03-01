@@ -66,7 +66,7 @@ class Bunch(ABC):
     def KineticEnergy(self, total=False):
         if total == False:
             return mean([i.KineticEnergy() for i in self.bunch])/self.conversion
-        return sum([i.KineticEnergy() for i in self.bunch])
+        return sum([i.KineticEnergy() for i in self.bunch])/self.conversion
 
     def momentum(self, total=False):
         if total == False:
