@@ -6,14 +6,14 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
-field = EMField([.1,0,0], [0,0,1.6*10**(-5)])
-protons = ProtonBunch(0.047)
+field = EMField([.1,0,0], [0,0,1.6*10**(-5)]) 
+protons = ProtonBunch(0.047,5)
 
 log.logger.info('Initial average kinetic energy: %s eV' % protons.KineticEnergy())
 log.logger.info('Initial average momentum: %s kg m/s' % protons.momentum())
 log.logger.info('Initial bunch spread: %s m' % protons.spread())
 
-time, deltaT, duration = 0, 10**(-6), 0.005
+time, deltaT, duration = 0, 10**(-6), 0.0041
 
 timeSeries = []
 Data = []
@@ -35,20 +35,35 @@ plt.figure('Cyclotron with Bunch')
 plt.axvspan(field.electricLowerBound,field.electricUpperBound,alpha=0.5, color='grey',label='Electric Field')
 #plt.scatter(magneticX,magneticY,marker=r'$\bigotimes$',s=95,color='black',label='Magnetic Field')
 
-x,y,y_downSpread,y_upSpread = [],[],[],[]
+x,y,y_downSpread,y_upSpread, x_spread, y_spread = [],[],[],[],[],[]
 for bunch in Data:
     x.append(bunch.averagePosition()[0])
     y.append(bunch.averagePosition()[1])
-    y_downSpread.append(bunch.averagePosition()[1] - abs(bunch.spread()[1]))
-    y_upSpread.append(bunch.averagePosition()[1] + abs(bunch.spread()[1]))
+    y_downSpread.append(bunch.averagePosition()[1] - bunch.spread()[1])
+    y_upSpread.append(bunch.averagePosition()[1] + bunch.spread()[1])
+    x_spread.append(bunch.spread()[0])
+    y_spread.append(bunch.spread()[1])
 final = [x[-1], y[-1]]
 plt.plot(x,y,label=protons.bunchName)
 plt.scatter(final[0], final[1], marker='.')
 plt.fill_between(x,y_downSpread,y_upSpread)
 plt.xlabel(r'x  position  [m]')
 plt.ylabel(r'y  position [m]')
-plt.legend(loc='upper left',framealpha=1)
+plt.legend(loc='best',framealpha=1)
 
+plt.figure('Spread')
+plt.plot(timeSeries,x_spread,label=r'$\sigma_{x}$')
+plt.plot(timeSeries,y_spread,label=r'$\sigma_{y}$')
+plt.xlabel('Time [s]')
+plt.ylabel('Spread [m]')
+plt.legend()
 
+plt.figure('Bunch_with_Spread')
+plt.plot(timeSeries,y,label=r'$\mu_{y-bunch}$' )
+plt.plot(timeSeries,y_upSpread,label=r'$\mu_{y-bunch}$ + $\sigma_{y}$')
+plt.plot(timeSeries,y_downSpread,label=r'$\mu_{y-bunch}$ - $\sigma_{y}$')
+plt.xlabel('Time [s]')
+plt.ylabel('Spread [m]')
+plt.legend()
 
 plt.show()
