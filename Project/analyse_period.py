@@ -19,7 +19,7 @@ a pickled csv file containing the time periods of the five simulated revoltions.
 the required csv, the simualtion will run and generate it for you.
 """
 field = EMField([0,0,0], [0,0,1.6*10**(-5)])
-proton = ChargedParticle('proton', const.m_p, const.e, [0,0,0], [3000,0,0])
+proton = ChargedParticle('proton', const.m_p, const.e, [0,0,0], [-3000,0,0])
 theoretical_period = 2*const.pi*proton.mass / (proton.charge*field.magneticMag())
 
 def simulation():
@@ -60,7 +60,8 @@ try:
 except FileNotFoundError as err:
     df = simulation()
 
-df.drop([df.index[0], df.index[1]], inplace=True) # FIXME what is wrong with revolution 2?
+print(df)
+df.drop([df.index[0]], inplace=True) 
 average_period = df['Measured Period'].mean() # seconds
 error = df['Measured Period'].std() # seconds
 print('time period from simulation: {0} ± {1} s'.format(round(average_period,15),round(error,15)))
