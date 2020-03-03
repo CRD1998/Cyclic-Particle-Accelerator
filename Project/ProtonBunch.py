@@ -27,6 +27,7 @@ class ProtonBunch(Bunch):
         self.particleName = 'proton'
         self.particleMass = const.m_p
         self.particleCharge = const.e
+        self.bunchName = self.particleName + '-bunch'
         super().__init__(AverageKinetic=AverageKinetic, particleNumber=particleNumber, 
         positionSigma=positionSigma, energySigma=energySigma)
 

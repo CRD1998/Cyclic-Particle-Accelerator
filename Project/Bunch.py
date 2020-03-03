@@ -57,7 +57,10 @@ class Bunch(ABC):
 
     def assignPositions(self):
         mu, sigma = 0., self.positionSigma
-        return np.random.normal(mu, sigma, (self.bunch_number,3))
+        positions = np.random.normal(mu, sigma, (self.bunch_number,3))
+        for i in positions:
+            i[2] = 0. # set all z values to zero
+        return positions
 
     def distributeEnergies(self):
         mu, sigma = self.average_kinetic_energy, self.energySigma

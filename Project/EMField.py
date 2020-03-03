@@ -35,9 +35,11 @@ class EMField:
     def frequency(self,particle):
         return abs(particle.charge)*self.magneticMag()/particle.mass
 
-    def getAcceleration(self,particle,time):
-        electricField = lambda x: [i*math.cos(self.frequency(particle)*time) for i in self.electric] if self.electricLowerBound < x < self.electricUpperBound else [0,0,0]
-        lorentz = np.array(electricField(particle.position[0]),dtype=float)
-        lorentz += np.cross(particle.velocity, self.magnetic)
-        lorentz *= particle.charge/ (particle.mass*particle.gamma())
-        particle.acceleration = lorentz
+    def getAcceleration(self,particleBunch,time,deltaT):
+        for particle in particleBunch:
+            electricField = lambda x: [i*math.cos(self.frequency(particle)*time) for i in self.electric] if self.electricLowerBound < x < self.electricUpperBound else [0,0,0]
+            lorentz = np.array(electricField(particle.position[0]),dtype=float)
+            lorentz += np.cross(particle.velocity, self.magnetic)
+            lorentz *= particle.charge/ (particle.mass*particle.gamma())
+            particle.acceleration = lorentz
+            particle.eulerCromer(deltaT)

@@ -74,4 +74,3 @@ def test_createBunch(mock_positions, mock_velocities):
     expected_bunch = [particle_1, particle_2]
     actual_bunch = bunch_of_protons.createBunch()
     assert np.array_equal(expected_bunch, actual_bunch)
-    
