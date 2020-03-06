@@ -7,7 +7,7 @@ class EMField:
     """
     Class to represent an  electromagnetic field.
 
-    Parse in the electric field at its maximum and it will be converted to a time-varying
+    Parse in the electric field's amplitudes in x,y,z and it will be converted to a time-varying
     electric field of the form Acos(wt+phi) 
 
     Electric field in N/C or V/m
@@ -16,7 +16,7 @@ class EMField:
 
     def __init__(self, ElectricField = np.array([0,0,0], dtype=float), 
                 MagneticField = np.array([0,0,0], dtype=float), 
-                ElectricFieldWidth = np.array([-1,1], dtype=float)):
+                ElectricFieldWidth = np.array([-0.26,0.26], dtype=float)):
         self.magnetic = np.array(MagneticField,dtype=float)
         self.electric = np.array(ElectricField,dtype=float)
         self.electricLowerBound  = float(ElectricFieldWidth[0])
@@ -39,7 +39,8 @@ class EMField:
         for particle in particleBunch:
             electricField = lambda x: [i*math.cos(self.frequency(particle)*time) for i in self.electric] if self.electricLowerBound < x < self.electricUpperBound else [0,0,0]
             lorentz = np.array(electricField(particle.position[0]),dtype=float)
-            lorentz += np.cross(particle.velocity, self.magnetic)
+            if not self.electricLowerBound < particle.position[0] < self.electricUpperBound:
+                lorentz += np.cross(particle.velocity, self.magnetic)
             lorentz *= particle.charge/ (particle.mass*particle.gamma())
             particle.acceleration = lorentz
             particle.eulerCromer(deltaT)
