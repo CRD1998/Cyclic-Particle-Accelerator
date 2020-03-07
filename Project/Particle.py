@@ -32,6 +32,8 @@ class Particle:
         return 'Particle: {0}, Mass: {1:12.3e}, Position: {2}, Velocity: {3}, Acceleration: {4}'.format(self.name,self.mass,self.position, self.velocity,self.acceleration)
 
     def __eq__(self, other):
+        if not isinstance(self.__class__, other):
+            return False
         equality = []
         instance1_values = self.__dict__.values()
         instance2_values = other.__dict__.values()

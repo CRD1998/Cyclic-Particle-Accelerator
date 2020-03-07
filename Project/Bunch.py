@@ -4,6 +4,7 @@ import numpy as np
 import math
 from statistics import mean
 import scipy.constants as const
+import copy
 
 class Bunch(ABC):
     """
@@ -52,6 +53,11 @@ class Bunch(ABC):
     @abstractmethod
     def assignVelocities(self):
         pass
+
+    def __add__(self, other):
+        Bunch = copy.deepcopy(self) # make a copy of the current instance 
+        Bunch.bunch += other.bunch # add the bunches of the two parsed bunch objects together
+        return Bunch # return a bunch object made up of the two parsed bunches
 
     def assignPositions(self):
         mu = 0.

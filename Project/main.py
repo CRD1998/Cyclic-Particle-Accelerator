@@ -7,7 +7,9 @@ from EMField import EMField
 from ProtonBunch import ProtonBunch
 
 field = EMField([.1,0,0], [0,0,1.6*10**(-5)], [-0.026,0.026]) 
-protons = ProtonBunch(0.047)
+protons_1 = ProtonBunch(0.0047,2)
+protons_2 = ProtonBunch(0.0047,3)
+protons = protons_1 + protons_2
 
 log.logger.info('Initial average kinetic energy: %s eV' % protons.KineticEnergy())
 log.logger.info('Initial average momentum: %s kg m/s' % protons.momentum())
@@ -50,7 +52,7 @@ time_period = 2*const.pi*protons.particleMass / (protons.particleCharge*field.ma
 revolutions = np.linspace(0,round(timeSeries[-1]/time_period),len(timeSeries))
 
 final = [x[-1], y[-1]]
-magneticX, magneticY = np.meshgrid(list(range(-4,4,1)), list(range(-5,3,1)))
+magneticX, magneticY = np.meshgrid(list(range(-3,4,1)), list(range(-3,3,1)))
 
 
 log.logger.info('creating plots')
@@ -73,7 +75,7 @@ plt.plot(timeSeries, bunch_spread_y, label=r'$\sigma_{y}$')
 plt.xlabel('time [s]')
 plt.ylabel('spread [m]')
 ax2 = plt.twiny()
-ax2.set_xlabel('Revolutions')
+ax2.set_xlabel('Revolution')
 ax2.plot(revolutions,bunch_spread_x, label=r'$\sigma_{x}$')
 ax2.plot(revolutions,bunch_spread_y, label=r'$\sigma_{y}$')
 ax2.legend(loc='upper left',framealpha=1)
