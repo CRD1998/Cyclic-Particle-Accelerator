@@ -55,9 +55,9 @@ class Bunch(ABC):
         pass
 
     def __add__(self, other):
-        Bunch = copy.deepcopy(self) # make a copy of the current instance 
-        Bunch.bunch += other.bunch # add the bunches of the two parsed bunch objects together
-        return Bunch # return a bunch object made up of the two parsed bunches
+        new_bunch = copy.deepcopy(self) # make a copy of the current instance 
+        new_bunch.bunch += other.bunch # add the bunches of the two parsed Bunch objects together
+        return new_bunch # return a Bunch object made up of the two parsed bunches
 
     def assignPositions(self):
         mu = 0.

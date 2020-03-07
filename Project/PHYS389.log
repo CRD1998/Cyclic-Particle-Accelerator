@@ -1,2 +1,16 @@
-2020-03-07 19:50:09,963 - {EMField.py:24} - INFO - electromagentic field generated
-2020-03-07 19:50:09,965 - {Particle.py:29} - INFO - proton has been generated
+2020-03-07 19:58:52,643 - {Particle.py:29} - INFO - proton-1 has been generated
+2020-03-07 19:58:52,643 - {EMField.py:24} - INFO - electromagentic field generated
+2020-03-07 19:58:52,644 - {Particle.py:29} - INFO - proton-1 has been generated
+2020-03-07 19:58:52,644 - {EMField.py:24} - INFO - electromagentic field generated
+2020-03-07 19:58:52,644 - {Particle.py:29} - INFO - proton-1 has been generated
+2020-03-07 19:58:52,644 - {EMField.py:24} - INFO - electromagentic field generated
+2020-03-07 19:58:52,657 - {Particle.py:29} - INFO - proton has been generated
+2020-03-07 19:58:52,657 - {Particle.py:29} - INFO - proton has been generated
+2020-03-07 19:58:52,658 - {Particle.py:29} - INFO - proton has been generated
+2020-03-07 19:58:52,659 - {Particle.py:29} - INFO - proton has been generated
+2020-03-07 19:58:52,693 - {Particle.py:29} - INFO - proton-1 has been generated
+2020-03-07 19:58:52,693 - {Particle.py:29} - INFO - proton-2 has been generated
+2020-03-07 19:58:52,697 - {ProtonBunch.py:38} - INFO - generating bunch
+2020-03-07 19:58:52,697 - {Particle.py:29} - INFO - proton-1 has been generated
+2020-03-07 19:58:52,697 - {Particle.py:29} - INFO - proton-2 has been generated
+2020-03-07 19:58:52,698 - {ProtonBunch.py:43} - INFO - bunch generated
