@@ -54,20 +54,18 @@ revolutions = np.linspace(0,round(timeSeries[-1]/time_period),len(timeSeries))
 final = [x[-1], y[-1]]
 magneticX, magneticY = np.meshgrid(list(range(-3,4,1)), list(range(-3,3,1)))
 
-
 log.logger.info('creating plots')
 
 plt.figure('Cyclotron Bunch with Spread')
 plt.axvspan(field.electricLowerBound,field.electricUpperBound,alpha=0.5, color='grey',label='Electric Field')
 plt.scatter(magneticX,magneticY,marker=r'$\odot$',s=95,color='black',label='Magnetic Field')
-plt.plot(x,y,label=protons.bunchName,color='blue')
+plt.plot(x,y,label= 'combined '+protons.bunchName,color='blue')
 plt.fill_between(x,y_downSpread,y_upSpread, color='cornflowerblue',label="spread")
 plt.fill_betweenx(y, x_downSpread, x_upSpread, color='cornflowerblue')
 plt.scatter(final[0], final[1],color='blue')
 plt.xlabel(r'x  position  [m]')
 plt.ylabel(r'y  position [m]')
 plt.legend(loc='upper left',framealpha=1)
-
 
 plt.figure('Spread')
 plt.plot(timeSeries, bunch_spread_x, label=r'$\sigma_{x}$')
