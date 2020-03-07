@@ -11,7 +11,9 @@ import pandas as pd
 """
 This file is an independent file that tests the simulated time period of a proton in a constant magnetic 
 field against the expected time period given by:
+
 T = 2*pi*m / (qB)
+
 If you do not have the csv containing approximately 100 revolutions, the simulation will run and generate
 the csv file for you. It will then print the mean time period and its error (one standard deviation) and the
 time period predicted by the equation above. Finally it will print, the ratio of the two time periods; the 
