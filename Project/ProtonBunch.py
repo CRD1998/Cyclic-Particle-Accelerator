@@ -23,13 +23,12 @@ class ProtonBunch(Bunch):
         4) energySigma - the S.D of the particles' normal kinetic distribution about 
         AverageKinetic, defaults to 0.01 .
     """
-    def __init__(self, AverageKinetic, particleNumber=3, positionSigma=0.01, energySigma=0.01):
+    def __init__(self, AverageKinetic, particleNumber=3):
         self.particleName = 'proton'
         self.particleMass = const.m_p
         self.particleCharge = const.e
         self.bunchName = self.particleName + '-bunch'
-        super().__init__(AverageKinetic=AverageKinetic, particleNumber=particleNumber, 
-        positionSigma=positionSigma, energySigma=energySigma)
+        super().__init__(AverageKinetic=AverageKinetic, particleNumber=particleNumber)
 
     def createBunch(self):
         positions = self.assignPositions()

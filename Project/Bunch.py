@@ -37,11 +37,9 @@ class Bunch(ABC):
     conversion = const.physical_constants['electron volt'][0] # eV => joules
 
     @abstractmethod
-    def __init__(self, AverageKinetic, particleNumber=3, positionSigma=0.01, energySigma=0.01):
+    def __init__(self, AverageKinetic, particleNumber=3):
         self.average_kinetic_energy= float(AverageKinetic)
         self.bunch_number = int(particleNumber)
-        self.positionSigma = float(positionSigma)
-        self.energySigma = float(energySigma)
         
         self.bunch = self.createBunch()
 
@@ -56,14 +54,16 @@ class Bunch(ABC):
         pass
 
     def assignPositions(self):
-        mu, sigma = 0., self.positionSigma
+        mu = 0.
+        sigma = 0.001
         positions = np.random.normal(mu, sigma, (self.bunch_number,3))
         for i in positions:
             i[2] = 0. # set all z values to zero
         return positions
 
     def distributeEnergies(self):
-        mu, sigma = self.average_kinetic_energy, self.energySigma
+        mu = self.average_kinetic_energy
+        sigma = 0.01 * mu
         return np.random.normal(mu, sigma, self.bunch_number)
     
     def averagePosition(self):
