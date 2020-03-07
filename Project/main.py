@@ -46,8 +46,11 @@ for bunch in Data:
     bunch_spread_x.append(bunch.spread()[0])
     bunch_spread_y.append(bunch.spread()[1])
 
+time_period = 2*const.pi*protons.particleMass / (protons.particleCharge*field.magneticMag())
+revolutions = np.linspace(0,round(timeSeries[-1]/time_period),len(timeSeries))
+
 final = [x[-1], y[-1]]
-magneticX, magneticY = np.meshgrid(list(range(-4,4,1)), list(range(-5,5,1)))
+magneticX, magneticY = np.meshgrid(list(range(-4,4,1)), list(range(-5,3,1)))
 
 
 log.logger.info('creating plots')
@@ -63,11 +66,16 @@ plt.xlabel(r'x  position  [m]')
 plt.ylabel(r'y  position [m]')
 plt.legend(loc='upper left',framealpha=1)
 
+
 plt.figure('Spread')
 plt.plot(timeSeries, bunch_spread_x, label=r'$\sigma_{x}$')
 plt.plot(timeSeries, bunch_spread_y, label=r'$\sigma_{y}$')
 plt.xlabel('time [s]')
 plt.ylabel('spread [m]')
-plt.legend(loc='best',framealpha=1)
+ax2 = plt.twiny()
+ax2.set_xlabel('Revolutions')
+ax2.plot(revolutions,bunch_spread_x, label=r'$\sigma_{x}$')
+ax2.plot(revolutions,bunch_spread_y, label=r'$\sigma_{y}$')
+ax2.legend(loc='upper left',framealpha=1)
 
 plt.show()
