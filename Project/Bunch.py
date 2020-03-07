@@ -2,9 +2,9 @@ import log
 from abc import ABC, abstractmethod
 import numpy as np
 import math
+import copy
 from statistics import mean
 import scipy.constants as const
-import copy
 
 class Bunch(ABC):
     """
@@ -55,8 +55,13 @@ class Bunch(ABC):
         pass
 
     def __add__(self, other):
+        if not isinstance(other, self.__class__):
+            raise TypeError('Cannot add bunches of different types together.')
         new_bunch = copy.deepcopy(self) # make a copy of the current instance 
         new_bunch.bunch += other.bunch # add the bunches of the two parsed Bunch objects together
+        new_bunch.bunch_number += other.bunch_number
+        new_bunch.bunchName = 'combined ' + other.bunchName
+        delattr(new_bunch, 'average_kinetic_energy')
         return new_bunch # return a Bunch object made up of the two parsed bunches
 
     def assignPositions(self):
