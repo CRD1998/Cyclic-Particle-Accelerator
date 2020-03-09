@@ -1,18 +1,28 @@
-2020-03-07 21:20:02,638 - {EMField.py:24} - INFO - electromagentic field generated
-2020-03-07 21:20:02,639 - {ProtonBunch.py:39} - INFO - generating bunch
-2020-03-07 21:20:02,639 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-07 21:20:02,639 - {Particle.py:29} - INFO - proton-2 has been generated
-2020-03-07 21:20:02,639 - {ProtonBunch.py:44} - INFO - bunch generated
-2020-03-07 21:20:02,639 - {ProtonBunch.py:39} - INFO - generating bunch
-2020-03-07 21:20:02,639 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-07 21:20:02,640 - {Particle.py:29} - INFO - proton-2 has been generated
-2020-03-07 21:20:02,640 - {Particle.py:29} - INFO - proton-3 has been generated
-2020-03-07 21:20:02,640 - {ProtonBunch.py:44} - INFO - bunch generated
-2020-03-07 21:20:02,640 - {main.py:14} - INFO - Initial average kinetic energy: 0.004709694561884032 eV
-2020-03-07 21:20:02,641 - {main.py:15} - INFO - Initial average momentum: [1.58877041e-24 0.00000000e+00 0.00000000e+00] kg m/s
-2020-03-07 21:20:02,641 - {main.py:16} - INFO - Initial average position [-0.00032605  0.00040266  0.        ] m
-2020-03-07 21:20:02,642 - {main.py:17} - INFO - Initial bunch spread: [0.00023695 0.00055338 0.        ] m
-2020-03-07 21:20:02,642 - {main.py:26} - INFO - starting simulation
-2020-03-07 21:20:04,707 - {main.py:34} - INFO - simulation finished
-2020-03-07 21:20:04,707 - {main.py:35} - INFO - building lists
-2020-03-07 21:20:06,308 - {main.py:57} - INFO - creating plots
+2020-03-09 20:41:42,010 - {EMField.py:26} - INFO - electromagentic field generated
+2020-03-09 20:41:42,010 - {ProtonBunch.py:38} - INFO - generating bunch
+2020-03-09 20:41:42,010 - {Particle.py:29} - INFO - proton-1 has been generated
+2020-03-09 20:41:42,010 - {Particle.py:29} - INFO - proton-2 has been generated
+2020-03-09 20:41:42,010 - {Particle.py:29} - INFO - proton-3 has been generated
+2020-03-09 20:41:42,011 - {Particle.py:29} - INFO - proton-4 has been generated
+2020-03-09 20:41:42,011 - {Particle.py:29} - INFO - proton-5 has been generated
+2020-03-09 20:41:42,011 - {Particle.py:29} - INFO - proton-6 has been generated
+2020-03-09 20:41:42,011 - {Particle.py:29} - INFO - proton-7 has been generated
+2020-03-09 20:41:42,011 - {Particle.py:29} - INFO - proton-8 has been generated
+2020-03-09 20:41:42,011 - {Particle.py:29} - INFO - proton-9 has been generated
+2020-03-09 20:41:42,011 - {Particle.py:29} - INFO - proton-10 has been generated
+2020-03-09 20:41:42,011 - {Particle.py:29} - INFO - proton-11 has been generated
+2020-03-09 20:41:42,011 - {Particle.py:29} - INFO - proton-12 has been generated
+2020-03-09 20:41:42,011 - {Particle.py:29} - INFO - proton-13 has been generated
+2020-03-09 20:41:42,011 - {Particle.py:29} - INFO - proton-14 has been generated
+2020-03-09 20:41:42,011 - {Particle.py:29} - INFO - proton-15 has been generated
+2020-03-09 20:41:42,011 - {Particle.py:29} - INFO - proton-16 has been generated
+2020-03-09 20:41:42,012 - {Particle.py:29} - INFO - proton-17 has been generated
+2020-03-09 20:41:42,012 - {Particle.py:29} - INFO - proton-18 has been generated
+2020-03-09 20:41:42,012 - {Particle.py:29} - INFO - proton-19 has been generated
+2020-03-09 20:41:42,012 - {Particle.py:29} - INFO - proton-20 has been generated
+2020-03-09 20:41:42,012 - {ProtonBunch.py:43} - INFO - bunch generated
+2020-03-09 20:41:42,012 - {analyse_phase.py:21} - INFO - starting simulation
+2020-03-09 20:41:42,013 - {analyse_phase.py:27} - INFO - phase currently being investigated: 0 radians
+2020-03-09 20:41:56,183 - {analyse_phase.py:27} - INFO - phase currently being investigated: 0.7853981633974483 radians
+2020-03-09 20:42:10,024 - {analyse_phase.py:27} - INFO - phase currently being investigated: 1.5707963267948966 radians
+2020-03-09 20:42:23,915 - {analyse_phase.py:36} - INFO - simulation finished

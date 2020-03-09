@@ -66,7 +66,7 @@ class Bunch(ABC):
 
     def assignPositions(self):
         mu = 0.
-        sigma = 0.001
+        sigma = 0.01*0.001 # 1% of 1cm
         positions = np.random.normal(mu, sigma, (self.bunch_number,3))
         for i in positions:
             i[2] = 0. # set all z values to zero
