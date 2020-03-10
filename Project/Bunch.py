@@ -66,7 +66,7 @@ class Bunch(ABC):
 
     def assignPositions(self):
         mu = 0.
-        sigma = 0.01*0.001 # 1% of 1cm
+        sigma = 0.01*0.01/5 # all of the protons are within 0.0001 m 
         positions = np.random.normal(mu, sigma, (self.bunch_number,3))
         for i in positions:
             i[2] = 0. # set all z values to zero
@@ -74,7 +74,7 @@ class Bunch(ABC):
 
     def distributeEnergies(self):
         mu = self.average_kinetic_energy
-        sigma = 0.01 * mu
+        sigma = 0.01 * mu/5
         return np.random.normal(mu, sigma, self.bunch_number)
     
     def averagePosition(self):
