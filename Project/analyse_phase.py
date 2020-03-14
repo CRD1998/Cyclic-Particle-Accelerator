@@ -7,8 +7,15 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
-phases = [i*np.pi/8 for i in range(0,16)]
-phases = [angle for angle in phases if np.cos(angle) >= -0.00001]
+phase_keys = [
+    r'$0$', r'$\frac{1}{8} \pi$', r'$\frac{1}{4} \pi$', r'$\frac{3}{8} \pi$',
+    r'$\frac{1}{2} \pi$', r'$\frac{5}{8} \pi$', r'$\frac{3}{4} \pi$', r'$\frac{7}{8} \pi$',
+    r'$\pi$', r'$\frac{9}{8} \pi$', r'$\frac{5}{4} \pi$', r'$\frac{11}{8} \pi$',
+    r'$\frac{3}{2} \pi$', r'$\frac{13}{8} \pi$', r'$\frac{14}{8} \pi$', r'$\frac{15}{8} \pi$'
+]
+phase_values = [i*np.pi/8 for i in range(0,16)]
+phase_dict = {phase_keys[i]:phase_values[i] for i in range(len(phase_keys)) if np.cos(phase_values[i])>=-0.00001}
+phases = list(phase_dict.values())
 
 def generate_file(phases):
     field = EMField([.1,0,0], [0,0,1.6*10**(-5)], [-0.026,0.026]) 
@@ -54,9 +61,9 @@ revolutions = np.linspace(0,round(timeSeries[-1]/0.0041),len(timeSeries))
 
 plt.figure('Phase Spreads')
 #ax2 = plt.twiny()
-for (i,phase) in zip(iterations,phases):
+for (i,phase) in zip(iterations,phase_dict.keys()):
     x_spread = [j[1] for j in i]
-    plt.plot(timeSeries,x_spread,label='Phase: '+str(round(phase,2)))
+    plt.plot(timeSeries,x_spread,label='Phase: '+ phase)
     #ax2.plot(revolutions,x_spread)
 plt.xlabel('time [s]')
 plt.ylabel(r'$\sigma_x$ [m]')
@@ -70,12 +77,12 @@ fig, ax = plt.subplots()
 #ip = InsetPosition(ax1, [0.2,0.135,0.55,0.55]) # all of these are fractional, format: x coordinate of plot. y coordinate of plot, height, width
 #ax1.set_axes_locator(ip) # assign inset position to inset instance
 #mark_inset(ax, ax1, loc1=3, loc2=4, fc="none", ec='0.5') # draw grey lines from inset position to data on plot
-for (i,phase) in zip(iterations,phases):
+for (i,phase) in zip(iterations,phase_dict.keys()):
     x_spread = [j[0] for j in i]
     linear_fit = np.polynomial.polynomial.Polynomial.fit(timeSeries,x_spread,1)
     line = np.poly1d(linear_fit.coef)
     spread = [line(t) for t in timeSeries]
-    ax.plot(timeSeries,spread,label='Phase: '+str(round(phase,2)))
+    ax.plot(timeSeries,spread,label='Phase: '+phase)
     #ax2.plot(revolutions,spread)
     #ax1_x, ax1_y = [], []
     #for (x,y) in zip(timeSeries,spread):
