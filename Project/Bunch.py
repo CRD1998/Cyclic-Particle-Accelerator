@@ -66,7 +66,7 @@ class Bunch(ABC):
 
     def assignPositions(self):
         mu = 0.
-        sigma = 0.01*0.01/5 # all of the protons are within 0.0001 m 
+        sigma = 0.01*0.2 # all of the protons are within 1cm of eachother
         positions = np.random.normal(mu, sigma, (self.bunch_number,3))
         for i in positions:
             i[2] = 0. # set all z values to zero
