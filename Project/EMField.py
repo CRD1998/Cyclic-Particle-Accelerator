@@ -45,4 +45,3 @@ class EMField:
                 lorentz += np.cross(particle.velocity, self.magnetic)
             lorentz *= particle.charge/ (particle.mass*particle.gamma())
             particle.acceleration = lorentz
-            particle.eulerCromer(deltaT)

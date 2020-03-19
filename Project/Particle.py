@@ -66,3 +66,36 @@ class Particle:
     def eulerCromer(self, deltaT):
         self.velocity +=  self.acceleration*deltaT
         self.position +=  self.velocity*deltaT
+
+    def RungeKutta4(self, deltaT, field, time):
+        particle = copy.deepcopy(self)
+        field.getAcceleration([particle],time,deltaT)
+        k1_v = deltaT*particle.acceleration
+        k1_x = deltaT*particle.velocity
+
+        particle2 = copy.deepcopy(self)
+        particle2.position += k1_x*0.5
+        particle2.velocity += k1_v*0.5
+        time_2 = time + 0.5*deltaT
+        field.getAcceleration([particle2],time_2,deltaT)
+        k2_v = deltaT*particle2.acceleration
+        k2_x = deltaT*particle2.velocity
+
+        particle3 = copy.deepcopy(self)
+        particle3.position += k2_x*0.5
+        particle3.velocity += k2_v*0.5
+        time_3 = time_2
+        field.getAcceleration([particle3],time_3,deltaT)
+        k3_v = particle3.acceleration*deltaT
+        k3_x = particle3.velocity*deltaT
+
+        particle4 = copy.deepcopy(self)
+        particle4.position += k3_x
+        particle4.velocity += k3_v
+        time_4 = time + deltaT
+        field.getAcceleration([particle4],time_4,deltaT)
+        k4_v = particle4.acceleration*deltaT
+        k4_x = particle4.velocity*deltaT
+
+        self.velocity += 1/6 * (k1_v + 2*k2_v + 2*k3_v + k4_v)
+        self.position += 1/6 * (k1_x + 2*k2_x + 2*k3_x + k4_x)

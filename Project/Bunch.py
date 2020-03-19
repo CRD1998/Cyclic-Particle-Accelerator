@@ -95,3 +95,7 @@ class Bunch(ABC):
 
     def spread(self):
         return np.array(np.std([i.position for i in self.bunch],axis=0),dtype=float)
+
+    def update(self,deltaT,field,time):
+        for particle in self.bunch:
+            particle.RungeKutta4(deltaT,field,time)
