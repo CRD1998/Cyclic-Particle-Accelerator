@@ -22,15 +22,17 @@ def generate_file(phases):
     protons = ProtonBunch(0.0047,100)
     inital_bunch = copy.deepcopy(protons)
 
-    deltaT, duration = 10**(-5), 0.0041*3
+    deltaT, duration = 10**(-5), 0.0041*101
     timeSeries = []
-    Data = []
+    positionSpread = []
+    energySpread = []
     for _ in range(len(phases)):
-        Data.append([])
+        positionSpread.append([])
+        energySpread.append([])
 
     log.logger.info('starting simulation')
 
-    for (angle,loop) in zip(phases,Data):
+    for (angle,loop_1,loop_2) in zip(phases,positionSpread,energySpread):
         time = 0
         field.phase = angle
         protons = copy.deepcopy(inital_bunch)
@@ -40,12 +42,15 @@ def generate_file(phases):
             if angle == phases[0]: # only save data to the time series on the final iteration
                 timeSeries.append(time)
             field.getAcceleration(protons.bunch, time, deltaT)
-            temp_spread = copy.deepcopy(protons.spread())
-            loop.append(temp_spread)
+            protons.update(deltaT,field,time)
+            temp_spread = copy.deepcopy(protons.positionSpread())
+            temp_energy = copy.deepcopy(protons.energySpread())
+            loop_1.append(temp_spread)
+            loop_2.append(temp_energy/const.e)
     log.logger.info('simulation finished')
 
     log.logger.info('writing to file')
-    np.savez('phase_data', time=timeSeries, spreads=Data)
+    np.savez('phase_data', time=timeSeries, positions=positionSpread, energies=energySpread)
     log.logger.info('file written')
     return np.load('phase_data.npz')
 
@@ -55,45 +60,46 @@ except FileNotFoundError:
     simulation_data = generate_file(phases)
 
 timeSeries = simulation_data['time']
-iterations = simulation_data['spreads']
+positions = simulation_data['positions']
+energies = simulation_data['energies']
 
 revolutions = np.linspace(0,round(timeSeries[-1]/0.0041),len(timeSeries))
 
-plt.figure('Phase Spreads')
-#ax2 = plt.twiny()
-for (i,phase) in zip(iterations,phase_dict.keys()):
+plt.figure('Phase Position Spreads')
+for (i,phase) in zip(positions,phase_dict.keys()):
     x_spread = [j[1] for j in i]
     plt.plot(timeSeries,x_spread,label='Phase: '+ phase)
-    #ax2.plot(revolutions,x_spread)
 plt.xlabel('time [s]')
 plt.ylabel(r'$\sigma_x$ [m]')
-#ax2.set_xlabel('Revolutions')
 plt.legend()
 
-fig, ax = plt.subplots()
-#ax2 = plt.twiny()
-#ax2.set_xlabel('Revolutions')
-#ax1 = plt.axes([0,0,1,1]) # create inset instance
-#ip = InsetPosition(ax1, [0.2,0.135,0.55,0.55]) # all of these are fractional, format: x coordinate of plot. y coordinate of plot, height, width
-#ax1.set_axes_locator(ip) # assign inset position to inset instance
-#mark_inset(ax, ax1, loc1=3, loc2=4, fc="none", ec='0.5') # draw grey lines from inset position to data on plot
-for (i,phase) in zip(iterations,phase_dict.keys()):
+plt.figure('Phase Energy Spreads')
+for (i,phase) in zip(energies,phase_dict.keys()):
+    plt.plot(timeSeries,i,label='Phase: '+ phase)
+plt.xlabel('time [s]')
+plt.ylabel(r'Kinetic Energy Spread ($1\sigma$) [eV]')
+plt.legend()
+
+plt.figure('Linear Position Phase Spreads')
+for (i,phase) in zip(positions,phase_dict.keys()):
     x_spread = [j[0] for j in i]
     linear_fit = np.polynomial.polynomial.Polynomial.fit(timeSeries,x_spread,1)
     line = np.poly1d(linear_fit.coef)
     spread = [line(t) for t in timeSeries]
-    ax.plot(timeSeries,spread,label='Phase: '+phase)
-    #ax2.plot(revolutions,spread)
-    #ax1_x, ax1_y = [], []
-    #for (x,y) in zip(timeSeries,spread):
-        #if 0.<y<0.00005: # the data we are focusing on
-            #ax1_x.append(x)
-            #ax1_y.append(y)
-    #ax1.plot(ax1_x,ax1_y) # plot the data on the inset
-ax.set_xlabel('time [s]')
-ax.set_ylabel(r'$\sigma_x$ [m]')
-ax.legend()
-#plt.savefig('Linear_Spreads_Zoom.png')
+    plt.plot(timeSeries,spread,label='Phase: '+phase)
+plt.xlabel('time [s]')
+plt.ylabel(r'$\sigma_x$ [m]')
+plt.legend()
+
+plt.figure('Linear Energy Phase Spreads')
+for (i,phase) in zip(energies,phase_dict.keys()):
+    linear_fit = np.polynomial.polynomial.Polynomial.fit(timeSeries,i,1)
+    line = np.poly1d(linear_fit.coef)
+    spread = [line(t) for t in timeSeries]
+    plt.plot(timeSeries,spread,label='Phase: '+phase)
+plt.xlabel('time [s]')
+plt.ylabel(r'Kinetic Energy Spread ($1\sigma$) [eV]')
+plt.legend()
 
 plt.figure('Phases')
 theta = np.linspace(0,2*np.pi,10000)

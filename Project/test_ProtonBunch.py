@@ -56,13 +56,16 @@ def test_assignVelocities(mock_energies):
     assigned_velocities = bunch_of_protons.assignVelocities()
     assert np.allclose(calculated_velocities, assigned_velocities, rtol=10**(-4)) # FIXME Why only accurate to 10^(-4)?
 
-def test_spread():
+def test_positionSpread():
     """
     This will test that the spread method (numpy standard deviation) is correctly returning the variance
     of all the particles' positions in a bunch.
     """
     calculated_spread = np.array([62.5,5,35],dtype=float)
-    assert np.array_equal(calculated_spread, bunch_of_protons.spread())
+    assert np.array_equal(calculated_spread, bunch_of_protons.positionSpread())
+
+def test_energySpread():
+    pass
 
 @patch.object(ProtonBunch, 'assignVelocities')
 @patch.object(ProtonBunch, 'assignPositions')

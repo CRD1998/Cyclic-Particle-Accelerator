@@ -48,7 +48,16 @@ class Particle:
         """
         Returns the Lorentz factor for any given Particle object.
         """
-        return 1/(math.sqrt(1-(self.magnitude(self.velocity)*self.magnitude(self.velocity))/(const.c*const.c)))
+        try:
+            lorentz_factor = 1/(math.sqrt(1-(self.magnitude(self.velocity)*self.magnitude(self.velocity))/(const.c*const.c)))
+        except ValueError:
+            log.logger.error("%s's speed has exceeded the speed of light" % self.name)
+            raise ValueError(str(self.name) + "'s speed has exceeded the speed of light")
+        except ZeroDivisionError:
+            log.logger.error("%s's speed is equal to the speed of light" % self.name)
+            raise ZeroDivisionError(str(self.name) + "'s speed is equal to the speed of light")
+        else:
+            return lorentz_factor
 
     def magnitude(self, vector):
         return np.linalg.norm(vector)

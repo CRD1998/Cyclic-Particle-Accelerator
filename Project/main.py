@@ -51,6 +51,11 @@ revolutions = np.linspace(0,round(timeSeries[-1]/time_period),len(timeSeries))
 final = [x[-1], y[-1]]
 magneticX, magneticY = np.meshgrid(list(range(-3,4,1)), list(range(-3,3,1)))
 
+log.logger.info('Final average kinetic energy: %s eV' % protons.KineticEnergy())
+log.logger.info('Final average momentum: %s kg m/s' % protons.momentum())
+log.logger.info('Final average position %s m' % protons.averagePosition())
+log.logger.info('Final bunch spread: %s m' % protons.spread())
+
 log.logger.info('creating plots')
 
 plt.figure('Cyclotron Bunch with Spread')

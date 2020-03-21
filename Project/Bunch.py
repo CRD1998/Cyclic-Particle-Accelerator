@@ -62,11 +62,14 @@ class Bunch(ABC):
         new_bunch.bunch_number += other.bunch_number
         new_bunch.bunchName = 'combined ' + other.bunchName
         delattr(new_bunch, 'average_kinetic_energy')
+        for particle in new_bunch.bunch:
+            new_name = particle.name[:-1] + str(new_bunch.bunch.index(particle)+1)
+            particle.name = new_name
         return new_bunch # return a Bunch object made up of the two parsed bunches
 
     def assignPositions(self):
         mu = 0.
-        sigma = 0.01*0.2 # all of the protons are within 1cm of eachother
+        sigma = 0.01
         positions = np.random.normal(mu, sigma, (self.bunch_number,3))
         for i in positions:
             i[2] = 0. # set all z values to zero
@@ -74,8 +77,14 @@ class Bunch(ABC):
 
     def distributeEnergies(self):
         mu = self.average_kinetic_energy
-        sigma = 0.01 * mu/5
-        return np.random.normal(mu, sigma, self.bunch_number)
+        sigma = 0.01 * mu
+        energies = np.random.normal(mu, sigma, self.bunch_number)
+        while all([i>0 for i in energies]) is not True:
+            for energy in energies:
+                energies_list = list(energies)
+                if energy <= 0:
+                    energies[energies_list.index(energy)] = np.random.normal(mu, sigma)
+        return energies
     
     def averagePosition(self):
         return np.array(np.mean([i.position for i in self.bunch],axis=0),dtype=float)
@@ -93,8 +102,11 @@ class Bunch(ABC):
             return np.array(np.mean([i.momentum() for i in self.bunch],axis=0),dtype=float)
         return np.array(np.sum([i.momentum() for i in self.bunch],axis=0),dtype=float)
 
-    def spread(self):
+    def positionSpread(self):
         return np.array(np.std([i.position for i in self.bunch],axis=0),dtype=float)
+
+    def energySpread(self):
+        return np.array(np.std([i.KineticEnergy() for i in self.bunch]),dtype=float)
 
     def update(self,deltaT,field,time):
         for particle in self.bunch:

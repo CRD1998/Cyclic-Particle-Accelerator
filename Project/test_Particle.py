@@ -14,11 +14,19 @@ def test_exceedingC():
 def test_gamma():
     """
     This test checks that the gamma function correctly calculates the Lorenzt factor. Using the 
-    approximation function accounts for the floating point error. 
+    approximation function accounts for the floating point error. It will also test that if a
+    singularity occurs (particle's speed equal to the speed of light) or if a math domain error occurs
+    (particle's velocity is greater than the speed of light), the correct error is raised.
     """
     calculated_value = 1.342384701 # calculated by hand using c = 299792458 [ms^(-1)]
     proton = Particle('proton', const.m_p, [0,0,0], [200000000,0,0])
     assert calculated_value == pytest.approx(proton.gamma())
+    proton.velocity = np.array([1.1*const.c,0,0])
+    with pytest.raises(ValueError):
+        proton.gamma()
+    proton.velocity = np.array([const.c,0,0])
+    with pytest.raises(ZeroDivisionError):
+        proton.gamma()
 
 @pytest.mark.parametrize('test_input,expected',[(Particle('proton', const.m_p, [0,0,0], [3000,0,0]),7.526911023*10**(-21)),
                         (Particle('proton', const.m_p, [0,0,0], [200000000,0,0]),5.146992568*10**(-11))])
@@ -63,3 +71,11 @@ def test_EulerCromer():
     proton.eulerCromer(deltaT)
     assert np.array_equal(calculated_velocity,proton.velocity)
     assert np.array_equal(calculated_position,proton.position)
+
+def test_RungeKutta4():
+    """
+    This tests that the fourth order Runge-Kutta update method is correctly updating a particle's
+    position and velocity. It will not just assert that the particle's position and velocity are
+    correct, it will assert that all the steps in the Runge-Kutta method are being correctly calcualted.
+    """
+    pass
