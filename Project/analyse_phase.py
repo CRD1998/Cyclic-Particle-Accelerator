@@ -6,6 +6,19 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
+"""
+This file will analyse several different electric field phase shifts. It will then plot the spread of
+the x-position of a proton bunch as well as the bunch's spread of kinetic energy against time. It will
+then fit a linear curve to the position and energy spreads so the variation of the spreads against time
+can be more easily visualised.
+
+The 'phase_data.npz' contains the position and kinetic energy spreads for a proton bunch containing
+100 protons over approximately 100 revolutions. If you do not have the file in the same location as
+this file, the simulation will run and generate it for you. I would recommend you reduce the size of the
+bunch and the simulation's duration as running the simulation for 100 revolutions with a 100 particle
+bunch size took just over six hours to run on my machine.
+"""
+
 phase_keys = [
     r'$0$', r'$\frac{1}{8} \pi$', r'$\frac{1}{4} \pi$', r'$\frac{3}{8} \pi$',
     r'$\frac{1}{2} \pi$', r'$\frac{5}{8} \pi$', r'$\frac{3}{4} \pi$', r'$\frac{7}{8} \pi$',
@@ -104,7 +117,13 @@ cosine = [np.cos(x) for x in theta]
 phase_points = [np.cos(x) for x in phases]
 plt.plot(theta, cosine, label=r'$cos(\theta)$', color='red',zorder=1)
 plt.scatter(phases, phase_points, label='Electric field phases',color='black',zorder=10)
+for x,y,name in zip(phases,phase_points,phase_dict.keys()):
+    if phases.index(x) < 5:
+        plt.text(x+0.15,y+0.1,name)
+    else:
+        plt.text(x-0.25,y+0.1,name)
+plt.ylim(-1.25,1.25)
 plt.xlabel(r'$\theta$ (radians)')
-plt.legend()
+plt.legend(loc='lower left')
 
 plt.show()
