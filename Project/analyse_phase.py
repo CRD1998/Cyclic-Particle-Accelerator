@@ -2,7 +2,6 @@ import log
 import numpy as np
 import scipy.constants as const
 import matplotlib.pyplot as plt
-from mpl_toolkits.axes_grid1.inset_locator import (inset_axes,InsetPosition,mark_inset)
 import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
@@ -11,7 +10,7 @@ phase_keys = [
     r'$0$', r'$\frac{1}{8} \pi$', r'$\frac{1}{4} \pi$', r'$\frac{3}{8} \pi$',
     r'$\frac{1}{2} \pi$', r'$\frac{5}{8} \pi$', r'$\frac{3}{4} \pi$', r'$\frac{7}{8} \pi$',
     r'$\pi$', r'$\frac{9}{8} \pi$', r'$\frac{5}{4} \pi$', r'$\frac{11}{8} \pi$',
-    r'$\frac{3}{2} \pi$', r'$\frac{13}{8} \pi$', r'$\frac{14}{8} \pi$', r'$\frac{15}{8} \pi$'
+    r'$\frac{3}{2} \pi$', r'$\frac{13}{8} \pi$', r'$\frac{7}{4} \pi$', r'$\frac{15}{8} \pi$'
 ]
 phase_values = [i*np.pi/8 for i in range(0,16)]
 phase_dict = {phase_keys[i]:phase_values[i] for i in range(len(phase_keys)) if np.cos(phase_values[i])>=-0.00001}
@@ -39,7 +38,7 @@ def generate_file(phases):
         log.logger.info('phase currently being investigated: %s radians' % angle)
         while time <= duration:
             time += deltaT
-            if angle == phases[0]: # only save data to the time series on the final iteration
+            if angle == phases[0]: # only save data to the time series on the first iteration
                 timeSeries.append(time)
             field.getAcceleration(protons.bunch, time, deltaT)
             protons.update(deltaT,field,time)
@@ -62,8 +61,6 @@ except FileNotFoundError:
 timeSeries = simulation_data['time']
 positions = simulation_data['positions']
 energies = simulation_data['energies']
-
-revolutions = np.linspace(0,round(timeSeries[-1]/0.0041),len(timeSeries))
 
 plt.figure('Phase Position Spreads')
 for (i,phase) in zip(positions,phase_dict.keys()):
@@ -105,8 +102,8 @@ plt.figure('Phases')
 theta = np.linspace(0,2*np.pi,10000)
 cosine = [np.cos(x) for x in theta]
 phase_points = [np.cos(x) for x in phases]
-plt.plot(theta, cosine, label=r'$cos(\theta)$', color='red',)
-plt.scatter(phases, phase_points, label='Electric field phases',color='black')
+plt.plot(theta, cosine, label=r'$cos(\theta)$', color='red',zorder=1)
+plt.scatter(phases, phase_points, label='Electric field phases',color='black',zorder=10)
 plt.xlabel(r'$\theta$ (radians)')
 plt.legend()
 
