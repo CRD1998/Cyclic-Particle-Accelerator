@@ -108,6 +108,20 @@ class Bunch(ABC):
     def energySpread(self):
         return np.array(np.std([i.KineticEnergy() for i in self.bunch]),dtype=float)
 
-    def update(self,deltaT,field,time):
-        for particle in self.bunch:
-            particle.RungeKutta4(deltaT,field,time)
+    def update(self,deltaT, field, time, set_method=3):
+        if set_method == 0:
+            for particle in self.bunch:
+                particle.euler(deltaT)
+        elif set_method == 1:
+            for particle in self.bunch:
+                particle.eulerCromer(deltaT)
+        elif set_method == 2:
+            for particle in self.bunch:
+                particle.verlet(deltaT,field,time)
+        elif set_method == 3:
+            for particle in self.bunch:
+                particle.RungeKutta4(deltaT,field,time)
+        else:
+            log.logger.warning('Invalid set_method parameter, defaulting to fourth order Runge-Kutta')
+            for particle in self.bunch:
+                particle.RungeKutta4(deltaT,field,time)

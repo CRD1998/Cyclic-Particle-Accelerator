@@ -76,6 +76,13 @@ class Particle:
         self.velocity +=  self.acceleration*deltaT
         self.position +=  self.velocity*deltaT
 
+    def verlet(self, deltaT, field, time):
+        particle = copy.deepcopy(self)
+        field.getAcceleration([particle],time+deltaT,deltaT)
+
+        self.position += self.velocity*deltaT + 0.5*self.acceleration*deltaT*deltaT
+        self.velocity += 0.5*(particle.acceleration + self.acceleration)*deltaT
+
     def RungeKutta4(self, deltaT, field, time):
         particle = copy.deepcopy(self)
         field.getAcceleration([particle],time,deltaT)

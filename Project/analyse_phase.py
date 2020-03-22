@@ -2,6 +2,7 @@ import log
 import numpy as np
 import scipy.constants as const
 import matplotlib.pyplot as plt
+import matplotlib
 import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
@@ -81,14 +82,16 @@ for (i,phase) in zip(positions,phase_dict.keys()):
     plt.plot(timeSeries,x_spread,label='Phase: '+ phase)
 plt.xlabel('time [s]')
 plt.ylabel(r'$\sigma_x$ [m]')
-plt.legend()
+plt.legend(loc='upper left')
+plt.tick_params(which='both',direction='in',right=True,top=True)
 
 plt.figure('Phase Energy Spreads')
 for (i,phase) in zip(energies,phase_dict.keys()):
     plt.plot(timeSeries,i,label='Phase: '+ phase)
 plt.xlabel('time [s]')
 plt.ylabel(r'Kinetic Energy Spread ($1\sigma$) [eV]')
-plt.legend()
+plt.legend(loc='upper left')
+plt.tick_params(which='both',direction='in',right=True,top=True)
 
 plt.figure('Linear Position Phase Spreads')
 for (i,phase) in zip(positions,phase_dict.keys()):
@@ -99,7 +102,8 @@ for (i,phase) in zip(positions,phase_dict.keys()):
     plt.plot(timeSeries,spread,label='Phase: '+phase)
 plt.xlabel('time [s]')
 plt.ylabel(r'$\sigma_x$ [m]')
-plt.legend()
+plt.legend(loc='upper left')
+plt.tick_params(which='both',direction='in',right=True,top=True)
 
 plt.figure('Linear Energy Phase Spreads')
 for (i,phase) in zip(energies,phase_dict.keys()):
@@ -109,7 +113,8 @@ for (i,phase) in zip(energies,phase_dict.keys()):
     plt.plot(timeSeries,spread,label='Phase: '+phase)
 plt.xlabel('time [s]')
 plt.ylabel(r'Kinetic Energy Spread ($1\sigma$) [eV]')
-plt.legend()
+plt.legend(loc='upper left')
+plt.tick_params(which='both',direction='in',right=True,top=True)
 
 plt.figure('Phases')
 theta = np.linspace(0,2*np.pi,10000)
@@ -125,5 +130,18 @@ for x,y,name in zip(phases,phase_points,phase_dict.keys()):
 plt.ylim(-1.25,1.25)
 plt.xlabel(r'$\theta$ (radians)')
 plt.legend(loc='lower left')
+plt.tick_params(which='both',direction='in',right=True,top=True)
+
+# format plots so that they look similar to QtiPlot
+matplotlib.rcParams['lines.linewidth'] = 6
+matplotlib.rcParams['axes.linewidth'] = 2.0
+matplotlib.rcParams['xtick.major.size'] = 9
+matplotlib.rcParams['xtick.minor.size'] = 5
+matplotlib.rcParams['xtick.major.width'] = 1.9
+matplotlib.rcParams['xtick.minor.width'] = 1.3
+matplotlib.rcParams['ytick.major.size'] = 9
+matplotlib.rcParams['ytick.minor.size'] = 4
+matplotlib.rcParams['ytick.major.width'] = 1.9
+matplotlib.rcParams['ytick.minor.width'] = 1.3
 
 plt.show()
