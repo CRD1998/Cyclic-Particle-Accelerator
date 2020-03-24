@@ -106,7 +106,16 @@ class Bunch(ABC):
         return np.array(np.std([i.position for i in self.bunch],axis=0),dtype=float)
 
     def energySpread(self):
-        return np.array(np.std([i.KineticEnergy() for i in self.bunch]),dtype=float)
+        return np.std([i.KineticEnergy() for i in self.bunch])/self.conversion
+
+    def adaptiveStep(self,deltaT,field):
+        lowerBound = field.electricLowerBound - 0.1*abs(field.electricLowerBound)
+        upperBound = field.electricUpperBound + 0.1*abs(field.electricUpperBound)
+        myList = [lowerBound<=i.position[0]<=upperBound for i in self.bunch]
+        if any(myList):
+            return deltaT*0.01
+        else:
+            return deltaT
 
     def update(self,deltaT, field, time, set_method=3):
         if set_method == 0:
@@ -117,7 +126,7 @@ class Bunch(ABC):
                 particle.eulerCromer(deltaT)
         elif set_method == 2:
             for particle in self.bunch:
-                particle.verlet(deltaT,field,time)
+                particle.velocityVerlet(deltaT,field,time)
         elif set_method == 3:
             for particle in self.bunch:
                 particle.RungeKutta4(deltaT,field,time)

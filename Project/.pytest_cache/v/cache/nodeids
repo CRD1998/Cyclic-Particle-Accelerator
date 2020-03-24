@@ -19,5 +19,9 @@
   "test_ProtonBunch.py::test_assignVelocities",
   "test_ProtonBunch.py::test_positionSpread",
   "test_ProtonBunch.py::test_energySpread",
-  "test_ProtonBunch.py::test_createBunch"
+  "test_ProtonBunch.py::test_createBunch",
+  "test_ProtonBunch.py::test_adaptiveStep[test_input0-1]",
+  "test_ProtonBunch.py::test_adaptiveStep[test_input1-100]",
+  "test_ProtonBunch.py::test_adaptiveStep[test_input2-1]",
+  "test_ProtonBunch.py::test_adaptiveStep[test_input3-1]"
 ]

@@ -3,6 +3,7 @@ import scipy.constants as const
 import numpy as np
 from unittest.mock import patch
 from ProtonBunch import ProtonBunch
+from EMField import EMField
 from ChargedParticle import ChargedParticle
 
 proton_1 = ChargedParticle('proton-1', const.m_p, const.e, [50,-20,10], [1000,-2000,3000])
@@ -11,10 +12,18 @@ bunch_of_protons = ProtonBunch(3,2) # initialise a ProtonBunch
 bunch_of_protons.bunch = [proton_1,proton_2] # overwrite the bunch attribute to replace pseudo-random ChargedParticle objects
 
 def test_averagePosition():
+    """
+    This will test that the averagePosition method correctly returns a 3D numpy array, containing
+    the mean position in x, y and z for a Bunch object.
+    """
     calculated_position = np.array([-12.5,-25,45],dtype=float)
     assert np.array_equal(calculated_position, bunch_of_protons.averagePosition())
 
 def test_averageVelocity():
+    """
+    This will test that the averageVelocity method correctly returns a 3D numpy array, containing
+    the mean velocity in x, y and z for a Bunch object.
+    """
     calculated_velocity = np.array([2500,1500,-1500],dtype=float)
     assert np.array_equal(calculated_velocity, bunch_of_protons.averageVelocity())
 
@@ -58,18 +67,27 @@ def test_assignVelocities(mock_energies):
 
 def test_positionSpread():
     """
-    This will test that the spread method (numpy standard deviation) is correctly returning the variance
-    of all the particles' positions in a bunch.
+    This will test that the positionSpread method (numpy standard deviation) is correctly returning the standard
+    deviation of all the particles' positions in a bunch.
     """
     calculated_spread = np.array([62.5,5,35],dtype=float)
     assert np.array_equal(calculated_spread, bunch_of_protons.positionSpread())
 
 def test_energySpread():
+    """
+    This will test that the energySpread (numpy standard deviation) is correctly returning the standard
+    deviation of all the particles' kinetic energies in a bunch
+    """
     pass
 
 @patch.object(ProtonBunch, 'assignVelocities')
 @patch.object(ProtonBunch, 'assignPositions')
 def test_createBunch(mock_positions, mock_velocities):
+    """
+    Tests that a Bunch object is successfully created. The patched methods above mock out
+    the normally sampled positions and velocites so that a created bunch can be compared the
+    expected one.
+    """
     mock_positions.return_value = [[1,2,3], [4,5,6]]
     mock_velocities.return_value = [[10,20,30], [40,50,60]]
     particle_1 = ChargedParticle('proton-1', const.m_p, const.e, [1,2,3], [10,20,30])
@@ -77,3 +95,19 @@ def test_createBunch(mock_positions, mock_velocities):
     expected_bunch = [particle_1, particle_2]
     actual_bunch = bunch_of_protons.createBunch()
     assert np.array_equal(expected_bunch, actual_bunch)
+
+@pytest.mark.parametrize('test_input,expected',[(np.array([0,0,0],dtype=float),1),
+                        (np.array([10,10,10],dtype=float),100),
+                        (np.array([1.05,0,0],dtype=float),1),
+                        (np.array([-1.05,0,0],dtype=float),1)])
+def test_adaptiveStep(test_input,expected):
+    """
+    This will test that the step size in any integrator correctly reduces when any of the particles
+    in the bunch are either, in the electric field, or within ±10% of the electric field's
+    boundaries.
+    """
+    deltaT = 100
+    protons = ProtonBunch(100,1)
+    protons.bunch[0].position = test_input
+    field = EMField(ElectricFieldWidth=[-1,1])
+    assert protons.adaptiveStep(deltaT,field) == expected
