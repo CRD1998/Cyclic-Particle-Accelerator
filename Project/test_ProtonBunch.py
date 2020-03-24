@@ -78,7 +78,8 @@ def test_energySpread():
     This will test that the energySpread (numpy standard deviation) is correctly returning the standard
     deviation of all the particles' kinetic energies in a bunch
     """
-    pass
+    calculated_spread = 0.164390625025
+    assert calculated_spread == pytest.approx(bunch_of_protons.energySpread(),rel=1e-3)
 
 @patch.object(ProtonBunch, 'assignVelocities')
 @patch.object(ProtonBunch, 'assignPositions')

@@ -23,8 +23,13 @@ class Bunch(ABC):
         4) momentum - takes an optional arguement "total" (defaults to False). Returns the average 
         three-momentum for a particle in a bunch (kg m/s). If total is True then it returns the 
         momentum of the entire bunch.
-        5) spread - returns the standard deviation of the x-positions, y-positions and z-positions of 
+        5) positionSpread - returns the standard deviation of the x-positions, y-positions and z-positions of 
         all the particles in the bunch as 3D numpy array.
+        6) energySpread - returns the standard deviation of all of the particles' kinetic energies.
+        7) adaptiveStep - reduces the integrator's time step by a factor of 100 if any of the particles 
+        in the bunch are approaching, or still in the electric field.
+        8) update - sets the integrator to be used to update the position and velocity of every particle
+        in the bunch 
 
     Abstract Methods:
     -----------------
@@ -35,7 +40,7 @@ class Bunch(ABC):
         the final list of Charged Particle objects.
     """
 
-    conversion = const.physical_constants['electron volt'][0] # eV => joules
+    conversion = const.physical_constants['electron volt'][0] # eV <=> joules
 
     @abstractmethod
     def __init__(self, AverageKinetic, particleNumber=3):
@@ -111,8 +116,8 @@ class Bunch(ABC):
     def adaptiveStep(self,deltaT,field):
         lowerBound = field.electricLowerBound - 0.1*abs(field.electricLowerBound)
         upperBound = field.electricUpperBound + 0.1*abs(field.electricUpperBound)
-        myList = [lowerBound<=i.position[0]<=upperBound for i in self.bunch]
-        if any(myList):
+        electric_influence = [lowerBound<=i.position[0]<=upperBound for i in self.bunch]
+        if any(electric_influence):
             return deltaT*0.01
         else:
             return deltaT

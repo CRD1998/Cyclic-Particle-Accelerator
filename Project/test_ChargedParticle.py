@@ -1,8 +1,10 @@
 import pytest
+from ChargedParticle import ChargedParticle
 from Particle import Particle
+from EMField import EMField
 import scipy.constants as const
 import numpy as np
-
+# TODO in exceedingC test, look into adding raising errors in update methods as well
 def test_exceedingC():
     """
     This test will check that if the user tries to create a particle whose speed exceeds the speed
@@ -72,10 +74,28 @@ def test_EulerCromer():
     assert np.array_equal(calculated_velocity,proton.velocity)
     assert np.array_equal(calculated_position,proton.position)
 
+def test_velocityVerlet():
+    """
+    This tests that the velocity Verlet update method is correctly updating a particle's
+    position and velocity.
+    """
+    proton = ChargedParticle(Position=[0,0,0],Velocity=[3000,0,0],Acceleration=[0,-9000,0],Charge=2,Mass=1)
+    field = EMField(MagneticField=[0,0,1.5],ElectricFieldWidth=[0,0])
+    proton.velocityVerlet(0.1,field,0)
+    expected_position = [300., -45., 0.]
+    expected_velocity = [2865., -879.75, 0.]
+    assert np.array_equal(expected_position,proton.position)
+    assert np.allclose(expected_velocity,proton.velocity,atol=0.01)
+
 def test_RungeKutta4():
     """
     This tests that the fourth order Runge-Kutta update method is correctly updating a particle's
-    position and velocity. It will not just assert that the particle's position and velocity are
-    correct, it will assert that all the steps in the Runge-Kutta method are being correctly calcualted.
+    position and velocity.
     """
-    pass
+    proton = ChargedParticle(Position=[0,0,0],Velocity=[3000,0,0],Acceleration=[0,-9000,0],Charge=2,Mass=1)
+    field = EMField(MagneticField=[0,0,1.5],ElectricFieldWidth=[0,0])
+    proton.RungeKutta4(0.1,field,0)
+    expected_position = [295.5, -44.6625, 0.]
+    expected_velocity = [2866.0125, -886.5, 0.]
+    assert np.allclose(expected_position,proton.position,atol=0.0001)
+    assert np.allclose(expected_velocity,proton.velocity,atol=0.01)
