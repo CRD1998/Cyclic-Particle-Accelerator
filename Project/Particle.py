@@ -13,14 +13,12 @@ class Particle:
     rest mass in kg 
     position and velocity in m 
     """
-
     def __init__(self,  Name='Point', Mass=1.0, Position=np.array([0,0,0], dtype=float), Velocity=np.array([0,0,0], dtype=float), Acceleration=np.array([0,0,0], dtype=float)):
-
-        self.name = Name
+        self.name = str(Name)
         self.position = np.array(Position,dtype=float)
         self.velocity = np.array(Velocity,dtype=float)
         self.acceleration = np.array(Acceleration,dtype=float)
-        self.mass = Mass
+        self.mass = float(Mass)
 
         if self.magnitude(self.velocity) >= const.c:
             log.logger.error('%s cannot have a speed greater than the speed of light' % self.name)
@@ -71,10 +69,14 @@ class Particle:
     def euler(self, deltaT):
         self.position +=  self.velocity*deltaT
         self.velocity +=  self.acceleration*deltaT
+        if self.magnitude(self.velocity) >= const.c:
+            raise ValueError("%s's speed is equal to or greater than the speed of light")
 
     def eulerCromer(self, deltaT):
         self.velocity +=  self.acceleration*deltaT
         self.position +=  self.velocity*deltaT
+        if self.magnitude(self.velocity) >= const.c:
+            raise ValueError("%s's speed is equal to or greater than the speed of light")
 
     def velocityVerlet(self, deltaT, field, time):
         particle_1, particle_2 = copy.deepcopy(self), copy.deepcopy(self)
@@ -88,6 +90,8 @@ class Particle:
 
         field.getAcceleration([particle_1],nextTime,deltaT)
         self.velocity += 0.5*deltaT * (self.acceleration + particle_1.acceleration)
+        if self.magnitude(self.velocity) >= const.c:
+            raise ValueError("%s's speed is equal to or greater than the speed of light")
 
     def RungeKutta4(self, deltaT, field, time):
         particle = copy.deepcopy(self)
@@ -121,3 +125,5 @@ class Particle:
 
         self.velocity += 1/6 * (k1_v + 2*k2_v + 2*k3_v + k4_v)
         self.position += 1/6 * (k1_x + 2*k2_x + 2*k3_x + k4_x)
+        if self.magnitude(self.velocity) >= const.c:
+            raise ValueError("%s's speed is equal to or greater than the speed of light")

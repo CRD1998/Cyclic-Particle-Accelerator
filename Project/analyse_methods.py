@@ -7,46 +7,11 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
-def generate_methods_file():
-    field = EMField([0,0,0], [0,0,1.6*10**(-5)], [0,0]) 
-    protons_1 = ProtonBunch(0.0047,1) ; protons_2 = copy.deepcopy(protons_1)
-    protons_3 = copy.deepcopy(protons_1) ; protons_4 = copy.deepcopy(protons_1)
-    
-    time, deltaT, duration = 0, 10**(-5), 0.0041*101
-
-    inital_bunch_1 = copy.deepcopy(protons_1) ; inital_bunch_2 = copy.deepcopy(protons_2)
-    inital_bunch_3 = copy.deepcopy(protons_3) ; inital_bunch_4 = copy.deepcopy(protons_4)
-
-    timeSeries = [0.]
-    eulerData = [inital_bunch_1] ; cromerData = [inital_bunch_2]
-    verletData = [inital_bunch_3] ; RK4Data = [inital_bunch_4]
-
-    while time <= duration:
-        time += deltaT
-        timeSeries.append(time)
-        field.getAcceleration(protons_1.bunch, time, deltaT)
-        field.getAcceleration(protons_2.bunch, time, deltaT)
-        field.getAcceleration(protons_3.bunch, time, deltaT)
-        field.getAcceleration(protons_4.bunch, time, deltaT)
-        protons_1.update(deltaT,field,time,0)
-        protons_2.update(deltaT,field,time,1)
-        protons_3.update(deltaT,field,time,2)
-        protons_4.update(deltaT,field,time,3)
-        temp_bunch_1 = copy.deepcopy(protons_1)
-        temp_bunch_2 = copy.deepcopy(protons_2)
-        temp_bunch_3 = copy.deepcopy(protons_3)
-        temp_bunch_4 = copy.deepcopy(protons_4)
-        eulerData.append(temp_bunch_1)
-        cromerData.append(temp_bunch_2)
-        verletData.append(temp_bunch_3)
-        RK4Data.append(temp_bunch_4)
-    np.savez('methods_data',time=timeSeries,euler=eulerData,cromer=cromerData,verlet=verletData,rk=RK4Data)
-    return np.load('methods_data.npz',allow_pickle=True)
-
 try:
     simulation_data = np.load('methods_data.npz', allow_pickle=True)
 except FileNotFoundError:
-    simulation_data = generate_methods_file()
+    import RecordCyclotron
+    simulation_data = np.load('cyclotron_data.npz', allow_pickle=True)
 
 time = simulation_data['time']
 eulerData = simulation_data['euler']
@@ -119,19 +84,5 @@ plt.ylabel(r'Fractional $\parallel\vec{p}\parallel$')
 plt.legend()
 plt.tick_params(which='both',direction='in',right=True,top=True)
 plt.ticklabel_format(useOffset=False)
-
-"""
-# format plots so that they look similar to QtiPlot
-matplotlib.rcParams['lines.linewidth'] = 6
-matplotlib.rcParams['axes.linewidth'] = 2.0
-matplotlib.rcParams['xtick.major.size'] = 9
-matplotlib.rcParams['xtick.minor.size'] = 5
-matplotlib.rcParams['xtick.major.width'] = 1.9
-matplotlib.rcParams['xtick.minor.width'] = 1.3
-matplotlib.rcParams['ytick.major.size'] = 9
-matplotlib.rcParams['ytick.minor.size'] = 4
-matplotlib.rcParams['ytick.major.width'] = 1.9
-matplotlib.rcParams['ytick.minor.width'] = 1.3
-"""
 
 plt.show()

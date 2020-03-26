@@ -16,7 +16,7 @@ class EMField:
 
     def __init__(self, ElectricField = np.array([0,0,0], dtype=float), 
                 MagneticField = np.array([0,0,0], dtype=float), 
-                ElectricFieldWidth = np.array([-0.26,0.26], dtype=float),
+                ElectricFieldWidth = np.array([-0.104,0.104], dtype=float),
                 ElectricFieldPhase=0):
         self.magnetic = np.array(MagneticField,dtype=float)
         self.electric = np.array(ElectricField,dtype=float)

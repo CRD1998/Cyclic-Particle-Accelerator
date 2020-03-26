@@ -1,50 +1,18 @@
-2020-03-24 23:19:09,459 - {Particle.py:29} - INFO - proton has been generated
-2020-03-24 23:19:09,459 - {Particle.py:29} - INFO - proton has been generated
-2020-03-24 23:19:09,460 - {Particle.py:29} - INFO - proton has been generated
-2020-03-24 23:19:09,460 - {Particle.py:29} - INFO - proton has been generated
-2020-03-24 23:19:09,473 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-24 23:19:09,475 - {EMField.py:26} - INFO - electromagentic field generated
-2020-03-24 23:19:09,476 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-24 23:19:09,476 - {EMField.py:26} - INFO - electromagentic field generated
-2020-03-24 23:19:09,477 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-24 23:19:09,477 - {EMField.py:26} - INFO - electromagentic field generated
-2020-03-24 23:19:09,501 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-24 23:19:09,501 - {Particle.py:29} - INFO - proton-2 has been generated
-2020-03-24 23:19:09,502 - {ProtonBunch.py:38} - INFO - generating bunch
-2020-03-24 23:19:09,502 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-24 23:19:09,502 - {Particle.py:29} - INFO - proton-2 has been generated
-2020-03-24 23:19:09,502 - {ProtonBunch.py:43} - INFO - bunch generated
-2020-03-24 23:19:09,541 - {Particle.py:26} - ERROR - proton cannot have a speed greater than the speed of light
-2020-03-24 23:19:09,550 - {Particle.py:29} - INFO - proton has been generated
-2020-03-24 23:19:09,550 - {Particle.py:54} - ERROR - proton's speed has exceeded the speed of light
-2020-03-24 23:19:09,551 - {Particle.py:57} - ERROR - proton's speed is equal to the speed of light
-2020-03-24 23:19:09,584 - {Particle.py:29} - INFO - proton has been generated
-2020-03-24 23:19:09,591 - {Particle.py:29} - INFO - proton has been generated
-2020-03-24 23:19:09,595 - {Particle.py:29} - INFO - Point has been generated
-2020-03-24 23:19:09,596 - {EMField.py:26} - INFO - electromagentic field generated
-2020-03-24 23:19:09,603 - {Particle.py:29} - INFO - Point has been generated
-2020-03-24 23:19:09,604 - {EMField.py:26} - INFO - electromagentic field generated
-2020-03-24 23:19:09,617 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-24 23:19:09,617 - {EMField.py:26} - INFO - electromagentic field generated
-2020-03-24 23:19:09,693 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-24 23:19:09,694 - {Particle.py:29} - INFO - proton-2 has been generated
-2020-03-24 23:19:09,694 - {ProtonBunch.py:38} - INFO - generating bunch
-2020-03-24 23:19:09,694 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-24 23:19:09,694 - {Particle.py:29} - INFO - proton-2 has been generated
-2020-03-24 23:19:09,694 - {ProtonBunch.py:43} - INFO - bunch generated
-2020-03-24 23:19:09,708 - {ProtonBunch.py:38} - INFO - generating bunch
-2020-03-24 23:19:09,708 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-24 23:19:09,708 - {ProtonBunch.py:43} - INFO - bunch generated
-2020-03-24 23:19:09,708 - {EMField.py:26} - INFO - electromagentic field generated
-2020-03-24 23:19:09,713 - {ProtonBunch.py:38} - INFO - generating bunch
-2020-03-24 23:19:09,714 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-24 23:19:09,714 - {ProtonBunch.py:43} - INFO - bunch generated
-2020-03-24 23:19:09,714 - {EMField.py:26} - INFO - electromagentic field generated
-2020-03-24 23:19:09,723 - {ProtonBunch.py:38} - INFO - generating bunch
-2020-03-24 23:19:09,723 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-24 23:19:09,723 - {ProtonBunch.py:43} - INFO - bunch generated
-2020-03-24 23:19:09,723 - {EMField.py:26} - INFO - electromagentic field generated
-2020-03-24 23:19:09,733 - {ProtonBunch.py:38} - INFO - generating bunch
-2020-03-24 23:19:09,733 - {Particle.py:29} - INFO - proton-1 has been generated
-2020-03-24 23:19:09,733 - {ProtonBunch.py:43} - INFO - bunch generated
-2020-03-24 23:19:09,734 - {EMField.py:26} - INFO - electromagentic field generated
+2020-03-26 23:18:21,163 - {EMField.py:26} - INFO - electromagentic field generated
+2020-03-26 23:18:21,163 - {ProtonBunch.py:38} - INFO - generating bunch
+2020-03-26 23:18:21,163 - {Particle.py:27} - INFO - proton-1 has been generated
+2020-03-26 23:18:21,163 - {ProtonBunch.py:43} - INFO - bunch generated
+2020-03-26 23:18:21,164 - {RecordSynchrocyclotron.py:14} - INFO - Initial average kinetic energy: 119696047.72100961 eV
+2020-03-26 23:18:21,164 - {RecordSynchrocyclotron.py:15} - INFO - Initial average momentum: [2.61237785e-19 0.00000000e+00 0.00000000e+00] kg m/s
+2020-03-26 23:18:21,164 - {RecordSynchrocyclotron.py:16} - INFO - Initial average position [0.00311364 0.00875824 0.        ] m
+2020-03-26 23:18:21,164 - {RecordSynchrocyclotron.py:17} - INFO - Initial bunch position spread: [0. 0. 0.] m
+2020-03-26 23:18:21,165 - {RecordSynchrocyclotron.py:18} - INFO - Initial bunch energy spread: 0.0 eV
+2020-03-26 23:18:21,165 - {RecordSynchrocyclotron.py:28} - INFO - starting simulation
+2020-03-26 23:23:17,635 - {RecordSynchrocyclotron.py:38} - INFO - simulation finished
+2020-03-26 23:23:17,635 - {RecordSynchrocyclotron.py:40} - INFO - Final average kinetic energy: 119693510.6217259 eV
+2020-03-26 23:23:17,640 - {RecordSynchrocyclotron.py:41} - INFO - Final average momentum: [-8.71149824e-20 -2.46281600e-19  0.00000000e+00] kg m/s
+2020-03-26 23:23:17,641 - {RecordSynchrocyclotron.py:42} - INFO - Final average position [ 0.59511236 -0.76220176  0.        ] m
+2020-03-26 23:23:17,645 - {RecordSynchrocyclotron.py:43} - INFO - Final bunch position spread: [0. 0. 0.] m
+2020-03-26 23:23:17,645 - {RecordSynchrocyclotron.py:44} - INFO - Final bunch energy spread: 0.0 eV
+2020-03-26 23:23:17,645 - {RecordSynchrocyclotron.py:46} - INFO - building lists
+2020-03-26 23:23:21,138 - {RecordSynchrocyclotron.py:56} - INFO - creating plots

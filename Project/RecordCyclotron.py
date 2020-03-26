@@ -7,17 +7,17 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
-field = EMField([0,0,0], [0,0,1.6*10**(-5)], [0,0]) 
-protons_1 = ProtonBunch(0.0047,1) ; protons_2 = copy.deepcopy(protons_1)
+field = EMField([.1,0,0], [0,0,1.6*10**(-5)], [-0.104,0.104]) 
+protons_1 = ProtonBunch(0.0047,5) ; protons_2 = copy.deepcopy(protons_1)
 protons_3 = copy.deepcopy(protons_1) ; protons_4 = copy.deepcopy(protons_1)
 
 log.logger.info('Initial average kinetic energy: %s eV' % protons_1.KineticEnergy())
 log.logger.info('Initial average momentum: %s kg m/s' % protons_1.momentum())
 log.logger.info('Initial average position %s m' % protons_1.averagePosition())
 log.logger.info('Initial bunch position spread: %s m' % protons_1.positionSpread())
-log.logger.info('Initial bunch energy spread: %s m' % protons_1.energySpread())
+log.logger.info('Initial bunch energy spread: %s eV' % protons_1.energySpread())
     
-time, deltaT, duration = 0, 10**(-5), 0.0041*3
+time, deltaT, duration = 0, 10**(-5), 0.0041*5
 
 inital_bunch_1 = copy.deepcopy(protons_1) ; inital_bunch_2 = copy.deepcopy(protons_2)
 inital_bunch_3 = copy.deepcopy(protons_3) ; inital_bunch_4 = copy.deepcopy(protons_4)
@@ -46,7 +46,8 @@ while time <= duration:
     cromerData.append(temp_bunch_2)
     verletData.append(temp_bunch_3)
     RK4Data.append(temp_bunch_4)
-    log.logger.info('simulation finished')
+log.logger.info('simulation finished')
+
 log.logger.info('writing lists to file')
 np.savez('cyclotron_data',time=timeSeries,euler=eulerData,cromer=cromerData,verlet=verletData,rk=RK4Data)
 log.logger.info('file writing complete')

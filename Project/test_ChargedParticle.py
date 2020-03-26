@@ -4,14 +4,26 @@ from Particle import Particle
 from EMField import EMField
 import scipy.constants as const
 import numpy as np
-# TODO in exceedingC test, look into adding raising errors in update methods as well
+
 def test_exceedingC():
     """
     This test will check that if the user tries to create a particle whose speed exceeds the speed
-    of light in a vacuum, a ValueError is raised.
+    of light in a vacuum, a ValueError is raised. It will then check that if a particle's speed is
+    ever equal to or greater than the speed of the light in vacuum
     """
     with pytest.raises(ValueError):
         Particle('proton', const.m_p, [0,0,0], [300000000,0,0])
+    proton = ChargedParticle()
+    field = EMField()
+    proton.velocity = np.array([3*10**(8),0,0],dtype=float)
+    with pytest.raises(ValueError):
+        proton.euler(0.1)
+    with pytest.raises(ValueError):
+        proton.eulerCromer(0.1)
+    with pytest.raises(ValueError):
+        proton.velocityVerlet(0.1,field,0)
+    with pytest.raises(ValueError):
+        proton.RungeKutta4(0.1,field,0)
 
 def test_gamma():
     """
