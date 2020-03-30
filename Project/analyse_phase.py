@@ -31,11 +31,11 @@ phase_dict = {phase_keys[i]:phase_values[i] for i in range(len(phase_keys)) if n
 phases = list(phase_dict.values())
 
 def generate_file(phases):
-    field = EMField([.1,0,0], [0,0,1.6*10**(-5)], [-0.026,0.026]) 
-    protons = ProtonBunch(0.0047,100)
+    field = EMField([.1,0,0], [0,0,1.6*10**(-5)]) 
+    protons = ProtonBunch(0.047,100)
     inital_bunch = copy.deepcopy(protons)
 
-    deltaT, duration = 10**(-5), 0.0041*101
+    deltaT, duration = 10**(-5), 0.0041*100
     timeSeries = []
     positionSpread = []
     energySpread = []
@@ -55,7 +55,7 @@ def generate_file(phases):
             if angle == phases[0]: # only save data to the time series on the first iteration
                 timeSeries.append(time)
             field.getAcceleration(protons.bunch, time, deltaT)
-            protons.update(deltaT,field,time)
+            protons.update(deltaT,field,time,2)
             temp_spread = copy.deepcopy(protons.positionSpread())
             temp_energy = copy.deepcopy(protons.energySpread())
             loop_1.append(temp_spread)
@@ -78,10 +78,10 @@ energies = simulation_data['energies']
 
 plt.figure('Phase Position Spreads')
 for (i,phase) in zip(positions,phase_dict.keys()):
-    x_spread = [j[1] for j in i]
-    plt.plot(timeSeries,x_spread,label='Phase: '+ phase)
+    y_spread = [j[1] for j in i]
+    plt.plot(timeSeries,y_spread,label='Phase: '+ phase)
 plt.xlabel('time [s]')
-plt.ylabel(r'$\sigma_x$ [m]')
+plt.ylabel(r'$\sigma_y$ [m]')
 plt.legend(loc='upper left')
 plt.tick_params(which='both',direction='in',right=True,top=True)
 
@@ -95,13 +95,13 @@ plt.tick_params(which='both',direction='in',right=True,top=True)
 
 plt.figure('Linear Position Phase Spreads')
 for (i,phase) in zip(positions,phase_dict.keys()):
-    x_spread = [j[0] for j in i]
+    x_spread = [j[1] for j in i]
     linear_fit = np.polynomial.polynomial.Polynomial.fit(timeSeries,x_spread,1)
     line = np.poly1d(linear_fit.coef)
     spread = [line(t) for t in timeSeries]
     plt.plot(timeSeries,spread,label='Phase: '+phase)
 plt.xlabel('time [s]')
-plt.ylabel(r'$\sigma_x$ [m]')
+plt.ylabel(r'$\sigma_y$ [m]')
 plt.legend(loc='upper left')
 plt.tick_params(which='both',direction='in',right=True,top=True)
 
@@ -131,17 +131,5 @@ plt.ylim(-1.25,1.25)
 plt.xlabel(r'$\theta$ (radians)')
 plt.legend(loc='lower left')
 plt.tick_params(which='both',direction='in',right=True,top=True)
-
-# format plots so that they look similar to QtiPlot
-matplotlib.rcParams['lines.linewidth'] = 6
-matplotlib.rcParams['axes.linewidth'] = 2.0
-matplotlib.rcParams['xtick.major.size'] = 9
-matplotlib.rcParams['xtick.minor.size'] = 5
-matplotlib.rcParams['xtick.major.width'] = 1.9
-matplotlib.rcParams['xtick.minor.width'] = 1.3
-matplotlib.rcParams['ytick.major.size'] = 9
-matplotlib.rcParams['ytick.minor.size'] = 4
-matplotlib.rcParams['ytick.major.width'] = 1.9
-matplotlib.rcParams['ytick.minor.width'] = 1.3
 
 plt.show()

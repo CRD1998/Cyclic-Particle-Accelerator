@@ -6,8 +6,8 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
-field = EMField([0,0,0], [0,0,1.6*10**(-5)],[0,0]) 
-protons = ProtonBunch(0.0047,1)
+field = EMField([0,0,0], [0,0,1.6*10**(-5)]) 
+protons = ProtonBunch(0.047,1)
 
 log.logger.info('Initial average kinetic energy: %s eV' % protons.KineticEnergy())
 log.logger.info('Initial average momentum: %s kg m/s' % protons.momentum())
@@ -15,7 +15,7 @@ log.logger.info('Initial average position %s m' % protons.averagePosition())
 log.logger.info('Initial bunch position spread: %s m' % protons.positionSpread())
 log.logger.info('Initial bunch energy spread: %s eV' % protons.energySpread())
 
-time, deltaT, duration = 0, 10**(-4), 0.0042
+time, deltaT, duration = 0, 10**(-5), 0.0042
 
 inital_bunch = copy.deepcopy(protons)
 
@@ -28,7 +28,7 @@ while time <= duration:
     time += dt
     timeSeries.append(time)
     field.getAcceleration(protons.bunch, time, dt)
-    protons.update(dt,field,time,2)
+    protons.update(dt,field,time,3)
     temp_bunch = copy.deepcopy(protons)
     Data.append(temp_bunch)
 

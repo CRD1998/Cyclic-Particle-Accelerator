@@ -17,7 +17,7 @@ step_dict = {step_strings[i]:timesteps[i] for i in range(len(timesteps))}
 
 def generate_file():
     field = EMField([0,0,0], [0,0,1.6*10**(-5)], [0,0]) 
-    protons = ProtonBunch(0.0047,100)
+    protons = ProtonBunch(0.047,100)
     inital_bunch = copy.deepcopy(protons)
 
     duration = 0.0041*100
