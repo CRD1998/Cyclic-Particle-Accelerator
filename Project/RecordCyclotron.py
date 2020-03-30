@@ -8,7 +8,7 @@ from EMField import EMField
 from ProtonBunch import ProtonBunch
 
 field = EMField([.1,0,0], [0,0,1.6*10**(-5)], [-0.104,0.104]) 
-protons_1 = ProtonBunch(0.0047,5) ; protons_2 = copy.deepcopy(protons_1)
+protons_1 = ProtonBunch(0.0047,100) ; protons_2 = copy.deepcopy(protons_1)
 protons_3 = copy.deepcopy(protons_1) ; protons_4 = copy.deepcopy(protons_1)
 
 log.logger.info('Initial average kinetic energy: %s eV' % protons_1.KineticEnergy())

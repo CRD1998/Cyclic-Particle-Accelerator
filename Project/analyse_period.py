@@ -9,8 +9,8 @@ from ChargedParticle import ChargedParticle
 import pandas as pd
 
 """
-This file is an independent file that tests the simulated time period of a proton in a constant magnetic 
-field against the expected time period given by:
+This file is an independent file that tests the simulated time period of a proton in a cyclotron against 
+the expected time period given by:
 
 T = 2*pi*m / (qB)
 
@@ -19,7 +19,7 @@ the csv file for you. It will then print the mean time period and its error (one
 time period predicted by the equation above. Finally it will print, the ratio of the two time periods; the 
 simulated time period divided by the theoretical one.
 """
-field = EMField([0,0,0], [0,0,1.6*10**(-5)])
+field = EMField([0.1,0,0], [0,0,1.6*10**(-5)])
 proton = ChargedParticle('proton', const.m_p, const.e, [0,0,0], [3000,0,0])
 theoretical_period = 2*const.pi*proton.mass / (proton.charge*field.magneticMag())
 
@@ -38,6 +38,7 @@ def simulation():
         timeSeries.append(time)
         previous_proton = copy.deepcopy(bunch)
         field.getAcceleration(bunch, time, deltaT)
+        bunch[0].RungeKutta4(deltaT,field,time)
 
         temp_bunch = copy.deepcopy(bunch)
 
@@ -65,6 +66,6 @@ print(df)
 df.drop([df.index[0]], inplace=True) 
 average_period = df['Measured Period'].mean() # seconds
 error = df['Measured Period'].std() # seconds
-print('time period from simulation: {0} ± {1} s'.format(round(average_period,6),round(error,6)))
-print('time period from theory: {0} s'.format(round(theoretical_period,6)))
-print('raito of simulated time period to theoretical: {0}'.format(round((average_period/theoretical_period),6)))
+print('time period from simulation: {0} ± {1} s'.format(round(average_period,4),round(error,4)))
+print('time period from theory: {0} s'.format(round(theoretical_period,4)))
+print('raito of simulated time period to theoretical: {0}'.format(round((average_period/theoretical_period),4)))

@@ -49,7 +49,7 @@ def test_KineticEnergy(test_input,expected):
     This test checks that the Kinetic Energy method correctly returns the kinetic energy 
     of a particle in both the relativistic and non-relativistic case.
     """    
-    assert expected == pytest.approx(test_input.KineticEnergy())
+    assert expected == pytest.approx(test_input.KineticEnergy(),rel=10**(-4))
 
 @pytest.mark.parametrize('test_input,expected',[(Particle('proton', const.m_p, [0,0,0], [3000,0,0]),const.m_p*np.array([3000,0,0],dtype=float)),
                         (Particle('proton', const.m_p, [0,0,0], [200000000,0,0]),const.m_p*1.342384701*np.array([200000000,0,0],dtype=float))])

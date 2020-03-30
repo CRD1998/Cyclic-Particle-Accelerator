@@ -6,10 +6,8 @@ import math
 class EMField:
     """
     Class to represent an  electromagnetic field.
-
     Parse in the electric field's amplitudes in x,y,z and it will be converted to a time-varying
     electric field of the form Acos(wt+phi) 
-
     Electric field in N/C or V/m
     Magnetic field in T
     """

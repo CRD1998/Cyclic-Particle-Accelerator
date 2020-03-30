@@ -15,7 +15,7 @@ log.logger.info('Initial average position %s m' % protons.averagePosition())
 log.logger.info('Initial bunch position spread: %s m' % protons.positionSpread())
 log.logger.info('Initial bunch energy spread: %s eV' % protons.energySpread())
 
-time, deltaT, duration = 0, 10**(-5), 0.0041*3
+time, deltaT, duration = 0, 10**(-4), 0.0042
 
 inital_bunch = copy.deepcopy(protons)
 

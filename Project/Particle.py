@@ -70,13 +70,15 @@ class Particle:
         self.position +=  self.velocity*deltaT
         self.velocity +=  self.acceleration*deltaT
         if self.magnitude(self.velocity) >= const.c:
-            raise ValueError("%s's speed is equal to or greater than the speed of light")
+            log.logger.error("%s's speed is equal to or greater than the speed of light" % self.name)
+            raise ValueError("%s's speed is equal to or greater than the speed of light" % self.name)
 
     def eulerCromer(self, deltaT):
         self.velocity +=  self.acceleration*deltaT
         self.position +=  self.velocity*deltaT
         if self.magnitude(self.velocity) >= const.c:
-            raise ValueError("%s's speed is equal to or greater than the speed of light")
+            log.logger.error("%s's speed is equal to or greater than the speed of light" % self.name)
+            raise ValueError("%s's speed is equal to or greater than the speed of light" % self.name)
 
     def velocityVerlet(self, deltaT, field, time):
         particle_1, particle_2 = copy.deepcopy(self), copy.deepcopy(self)
@@ -91,7 +93,8 @@ class Particle:
         field.getAcceleration([particle_1],nextTime,deltaT)
         self.velocity += 0.5*deltaT * (self.acceleration + particle_1.acceleration)
         if self.magnitude(self.velocity) >= const.c:
-            raise ValueError("%s's speed is equal to or greater than the speed of light")
+            log.logger.error("%s's speed is equal to or greater than the speed of light" % self.name)
+            raise ValueError("%s's speed is equal to or greater than the speed of light" % self.name)
 
     def RungeKutta4(self, deltaT, field, time):
         particle = copy.deepcopy(self)
@@ -126,4 +129,5 @@ class Particle:
         self.velocity += 1/6 * (k1_v + 2*k2_v + 2*k3_v + k4_v)
         self.position += 1/6 * (k1_x + 2*k2_x + 2*k3_x + k4_x)
         if self.magnitude(self.velocity) >= const.c:
-            raise ValueError("%s's speed is equal to or greater than the speed of light")
+            log.logger.error("%s's speed is equal to or greater than the speed of light" % self.name)
+            raise ValueError("%s's speed is equal to or greater than the speed of light" % self.name)
