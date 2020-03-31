@@ -3,7 +3,7 @@ import numpy as np
 import scipy.constants as const
 import matplotlib.pyplot as plt
 import matplotlib
-from mpl_toolkits.axes_grid1.inset_locator import (inset_axes,InsetPosition,mark_inset)
+
 import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
@@ -11,16 +11,16 @@ from ProtonBunch import ProtonBunch
 """
 foo
 """
-timesteps = [10**(-6), 10**(-5), 10**(-4)]
-step_strings = ['1e-6', '1e-5', '1e-4']
+timesteps = [10**(-8), 4.5*10**(-9), 10**(-9)]
+step_strings = ['1e-8 s', '5e-9 s', '1e-9 s']
 step_dict = {step_strings[i]:timesteps[i] for i in range(len(timesteps))}
+field = EMField([0,0,0], [0,0,0.07], [0,0]) 
+protons = ProtonBunch(10**(6),1)
 
-def generate_file():
-    field = EMField([0,0,0], [0,0,1.6*10**(-5)], [0,0]) 
-    protons = ProtonBunch(0.047,100)
+def generate_file(protons,field):
     inital_bunch = copy.deepcopy(protons)
 
-    duration = 0.0041*100
+    duration = 10**(-6)*100
     timeSeries = []
     kineticEnergies = []
     momenta = []
@@ -37,11 +37,11 @@ def generate_file():
         deltaT = step
         field.phase = step
         protons = copy.deepcopy(inital_bunch)
-        log.logger.info('phase currently being investigated: %s radians' % step)
+        log.logger.info('time step currently being investigated: %s s' % step)
         while time <= duration:
             time += deltaT
             field.getAcceleration(protons.bunch, time, deltaT)
-            protons.update(deltaT,field,time,2)
+            protons.update(deltaT,field,time,3)
             temp_energy = copy.deepcopy(protons.KineticEnergy())
             temp_momentum = copy.deepcopy(protons.momentum())
             loop_1.append(time)
@@ -54,55 +54,51 @@ def generate_file():
     log.logger.info('file written')
     return np.load('timestep_data.npz',allow_pickle=True)
 
+def timeTOrev(t):
+    T = 2*const.pi*const.m_p / (const.e*field.magneticMag())
+    return t*10**(-6)/T
+
+def revTOtime(r):
+    T = 2*const.pi*const.m_p / (const.e*field.magneticMag())
+    return r*T*10**(6)
+
 try:
     simulation_data = np.load('timestep_data.npz',allow_pickle=True)
 except FileNotFoundError:
-    simulation_data = generate_file()
+    simulation_data = generate_file(protons,field)
 
-timeSeries = simulation_data['time']
+time = simulation_data['time']
 energies = simulation_data['energies']
 momenta = simulation_data['momenta']
+timeSeries = []
+for series in time:
+    timeSeries.append([])
+    for i in series:
+        timeSeries[len(timeSeries)-1].append(i*10**(6))
 
 fig, ax = plt.subplots()
-ax1 = plt.axes([0,0,1,1]) # create inset instance
-ip = InsetPosition(ax1, [0.4,0.4,0.45,0.45]) # all of these are fractional, format: x coordinate of plot. y coordinate of plot, height, width
-ax1.set_axes_locator(ip) # assign inset position to inset instance
-mark_inset(ax, ax1, loc1=1, loc2=2, fc="none", ec='0.5') # draw grey lines from inset position to data on plot
 for i,time,step in zip(momenta,timeSeries,step_dict.keys()):
     fractional_momenta = [j/i[0] for j in i]
     ax.plot(time, fractional_momenta,label=step)
-    if step == '1e-4':
-        continue
-    ax1_x, ax1_y = [],[]
-    for x,y in zip(time,fractional_momenta):
-        if 0.<x<0.4: # the data we are focusing on
-            ax1_x.append(x)
-            ax1_y.append(y)
-    ax1.plot(ax1_x,ax1_y) # plot the data on the inset
-ax.set_xlabel('Time [s]')
+ax.set_xlabel(r'Time [$\mu$s]')
 ax.set_ylabel(r'Fractional $\|\vec{p}\|$')
+secax = ax.secondary_xaxis('top', functions=(timeTOrev,revTOtime))
+secax.set_xlabel('Revolutions')
 ax.legend(loc='lower left')
-ax.tick_params(which='both',direction='in',right=True,top=True)
-plt.savefig('timestep-momentum-constantB.png')
+ax.ticklabel_format(useOffset=False)
+ax.tick_params(which='both',direction='in',right=True,top=False)
 
 fig, ax = plt.subplots()
-ax1 = plt.axes([0,0,1,1]) # create inset instance
-ip = InsetPosition(ax1, [0.4,0.4,0.45,0.45]) # all of these are fractional, format: x coordinate of plot. y coordinate of plot, height, width
-ax1.set_axes_locator(ip) # assign inset position to inset instance
-mark_inset(ax, ax1, loc1=1, loc2=2, fc="none", ec='0.5') # draw grey lines from inset position to data on plot
 for i,time,step in zip(energies,timeSeries,step_dict.keys()):
     fractional_energies = [j/i[0] for j in i]
     ax.plot(time, fractional_energies,label=step)
-    if step == '1e-4':
-        continue
-    ax1_x, ax1_y = [],[]
-    for x,y in zip(time,fractional_energies):
-        if 0.<x<0.4: # the data we are focusing on
-            ax1_x.append(x)
-            ax1_y.append(y)
-    ax1.plot(ax1_x,ax1_y) # plot the data on the inset
-ax.set_xlabel('Time [s]')
+ax.set_xlabel(r'Time [$\mu$s]')
 ax.set_ylabel(r'Fractional $E_k$')
+secax = ax.secondary_xaxis('top', functions=(timeTOrev,revTOtime))
+secax.set_xlabel('Revolutions')
 ax.legend(loc='lower left')
-ax.tick_params(which='both',direction='in',right=True,top=True)
-plt.savefig('timestep-energies-constantB.png')
+ax.ticklabel_format(useOffset=False)
+ax.tick_params(which='both',direction='in',right=True,top=False)
+
+
+plt.show()

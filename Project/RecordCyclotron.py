@@ -7,8 +7,8 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
-field = EMField([.1,0,0], [0,0,1.6*10**(-5)]) 
-protons_1 = ProtonBunch(0.047,100) ; protons_2 = copy.deepcopy(protons_1)
+field = EMField([0,0,0], [0,0,0.07]) 
+protons_1 = ProtonBunch(10**(6),1) ; protons_2 = copy.deepcopy(protons_1)
 protons_3 = copy.deepcopy(protons_1) ; protons_4 = copy.deepcopy(protons_1)
 
 log.logger.info('Initial average kinetic energy: %s eV' % protons_1.KineticEnergy())
@@ -17,7 +17,7 @@ log.logger.info('Initial average position %s m' % protons_1.averagePosition())
 log.logger.info('Initial bunch position spread: %s m' % protons_1.positionSpread())
 log.logger.info('Initial bunch energy spread: %s eV' % protons_1.energySpread())
     
-time, deltaT, duration = 0, 10**(-5), 0.0041*5
+time, deltaT, duration = 0, 10**(-9), 10**(-6)*3
 
 inital_bunch_1 = copy.deepcopy(protons_1) ; inital_bunch_2 = copy.deepcopy(protons_2)
 inital_bunch_3 = copy.deepcopy(protons_3) ; inital_bunch_4 = copy.deepcopy(protons_4)
@@ -28,16 +28,17 @@ verletData = [inital_bunch_3] ; RK4Data = [inital_bunch_4]
 
 log.logger.info('starting simulation')
 while time <= duration:
-    time += deltaT
+    dt = protons_4.adaptiveStep(deltaT,field)
+    time += dt
     timeSeries.append(time)
-    field.getAcceleration(protons_1.bunch, time, deltaT)
-    field.getAcceleration(protons_2.bunch, time, deltaT)
-    field.getAcceleration(protons_3.bunch, time, deltaT)
-    field.getAcceleration(protons_4.bunch, time, deltaT)
-    protons_1.update(deltaT,field,time,0)
-    protons_2.update(deltaT,field,time,1)
-    protons_3.update(deltaT,field,time,2)
-    protons_4.update(deltaT,field,time,3)
+    field.getAcceleration(protons_1.bunch, time, dt)
+    field.getAcceleration(protons_2.bunch, time, dt)
+    field.getAcceleration(protons_3.bunch, time, dt)
+    field.getAcceleration(protons_4.bunch, time, dt)
+    protons_1.update(dt,field,time,0)
+    protons_2.update(dt,field,time,1)
+    protons_3.update(dt,field,time,2)
+    protons_4.update(dt,field,time,3)
     temp_bunch_1 = copy.deepcopy(protons_1)
     temp_bunch_2 = copy.deepcopy(protons_2)
     temp_bunch_3 = copy.deepcopy(protons_3)

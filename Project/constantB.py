@@ -6,8 +6,8 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
-field = EMField([0,0,0], [0,0,1.6*10**(-5)]) 
-protons = ProtonBunch(0.047,1)
+field = EMField([500*10**3,0,0], [0,0,2.82], [-0.05,0.05]) 
+protons = ProtonBunch(120*10**(6),1)
 
 log.logger.info('Initial average kinetic energy: %s eV' % protons.KineticEnergy())
 log.logger.info('Initial average momentum: %s kg m/s' % protons.momentum())
@@ -15,7 +15,7 @@ log.logger.info('Initial average position %s m' % protons.averagePosition())
 log.logger.info('Initial bunch position spread: %s m' % protons.positionSpread())
 log.logger.info('Initial bunch energy spread: %s eV' % protons.energySpread())
 
-time, deltaT, duration = 0, 10**(-5), 0.0042
+time, deltaT, duration = 0, 10**(-10), 2.78*10**(-8)
 
 inital_bunch = copy.deepcopy(protons)
 
@@ -53,6 +53,8 @@ log.logger.info('creating plots')
 
 plt.figure('RK4 vs Exact')
 plt.plot(x,y,label=protons.bunchName,color='blue')
+plt.scatter(x,y,marker='.',color='red')
+plt.axvspan(field.electricLowerBound, field.electricUpperBound, color='grey', alpha=0.5 ,zorder=1, label='Electric Field')
 plt.scatter(final[0], final[1],color='blue')
 plt.xlabel(r'x  position  [m]')
 plt.ylabel(r'y  position [m]')

@@ -10,8 +10,11 @@ from ProtonBunch import ProtonBunch
 try:
     simulation_data = np.load('methods_data.npz', allow_pickle=True)
 except FileNotFoundError:
-    import RecordCyclotron
-    simulation_data = np.load('cyclotron_data.npz', allow_pickle=True)
+    try:
+        simulation_data = np.load('cyclotron_data.npz', allow_pickle=True)
+    except FileNotFoundError:
+        import RecordCyclotron
+        simulation_data = np.load('cyclotron_data.npz', allow_pickle=True)
 
 time = simulation_data['time']
 eulerData = simulation_data['euler']
@@ -29,12 +32,6 @@ fractional_momentum_cromer = [np.linalg.norm(i.momentum())/np.linalg.norm(cromer
 fractional_momentum_verlet = [np.linalg.norm(i.momentum())/np.linalg.norm(verletData[0].momentum()) for i in verletData]
 fractional_momentum_rk4 = [np.linalg.norm(i.momentum())/np.linalg.norm(RK4Data[0].momentum()) for i in RK4Data]
 
-euler_cromer_kinetic = []
-euler_cromer_momentum = []
-for i,j in zip(eulerData,cromerData):
-    euler_cromer_kinetic.append(j.KineticEnergy()/i.KineticEnergy())
-    euler_cromer_momentum.append(np.linalg.norm(j.momentum())/np.linalg.norm(i.momentum()))
-
 plt.figure('Euler-EulerCromer Fractional Kinetic Energy')
 plt.plot(time, fractional_kinetic_euler, label='Euler')
 plt.plot(time, fractional_kinetic_cromer, label='Euler-Cromer')
@@ -51,21 +48,6 @@ plt.ylabel(r'Fractional $\parallel\vec{p}\parallel$')
 plt.legend()
 plt.tick_params(which='both',direction='in',right=True,top=True)
 
-plt.figure('Euler-EulerCromer Kinetic Energy Ratio')
-plt.plot(time, euler_cromer_kinetic)
-plt.xlabel('time [s]')
-plt.ylabel(r'$E_{k,Euler} \ / \ E_{k,Euler-Cromer}$')
-plt.ylim(0.99975,1.00025)
-plt.tick_params(which='both',direction='in',right=True,top=True)
-plt.ticklabel_format(useOffset=False)
-
-plt.figure('Euler-EulerCromer Momentum Ratio')
-plt.plot(time, euler_cromer_momentum)
-plt.xlabel('time [s]')
-plt.ylabel(r'$\parallel\vec{p}_{Euler}\parallel \ / \ \parallel\vec{p}_{Euler-Cromer}\parallel$')
-plt.ylim(0.99975,1.00025)
-plt.tick_params(which='both',direction='in',right=True,top=True)
-plt.ticklabel_format(useOffset=False)
 
 plt.figure('Verlet-RK4 Fractional Kinetic Energy')
 plt.plot(time, fractional_kinetic_verlet, label='Velocity Verlet')

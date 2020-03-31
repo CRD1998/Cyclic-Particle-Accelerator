@@ -33,7 +33,7 @@ class EMField:
         return np.linalg.norm(self.magnetic)
     
     def frequency(self,particle):
-        return abs(particle.charge)*self.magneticMag()/particle.mass
+        return abs(particle.charge)*self.magneticMag()/(particle.mass*particle.gamma())
 
     def getAcceleration(self,particleBunch,time,deltaT):
         for particle in particleBunch:
