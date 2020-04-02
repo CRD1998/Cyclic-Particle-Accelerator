@@ -21,8 +21,8 @@ simulated time period divided by the theoretical one.
 """
 field = EMField([0.1,0,0], [0,0,1.6*10**(-5)])
 proton = ChargedParticle('proton', const.m_p, const.e, [0,0,0], [3000,0,0])
-protons = ProtonBunch(100,1)
-protons.bunch = [proton]
+protons = ProtonBunch(100,1) # create a random bunch obeject
+protons.bunch = [proton] # overwrite bunch atrribute to to remove the pseudo-random characteristics
 theoretical_period = 2*const.pi*proton.mass / (proton.charge*field.magneticMag())
 
 def generate_file(proton,field):
@@ -31,7 +31,7 @@ def generate_file(proton,field):
     timeSeries = []
     data_csv = []
     revolution = 0
-    data_csv.append([revolution,time,0,[0,0,0]]) # ensure data always has one element to avoid length error later
+    data_csv.append([revolution,time,0,[0,0,0]]) # ensure data always has one element to avoid index error on line 47
     log.logger.info('starting simulation')
     while time <= duration:
         time += deltaT
@@ -42,7 +42,7 @@ def generate_file(proton,field):
 
         current_bunch = copy.deepcopy(protons)
 
-        if previous_bunch.averagePosition()[0] < 0 and current_bunch.averagePosition()[0] >= 0:
+        if previous_bunch.averagePosition()[0] < 0 and current_bunch.averagePosition()[0] >= 0: # is the proton crossing the y-axis in the clockwise direction
             log.logger.info('revolution detected')
             period = time - (data_csv[-1])[1]
             revolution += 1

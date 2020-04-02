@@ -24,10 +24,10 @@ phases = list(phase_dict.values())
 
 def generate_file(phases):
     field = EMField([500000,0,0], [0,0,2.82], [-0.05,0.05]) 
-    protons = ProtonBunch(120*10**(6),25)
+    protons = ProtonBunch(120*10**(6),5)
     inital_bunch = copy.deepcopy(protons)
 
-    deltaT, duration = 2*10**(-10), 2.78*10**(-8)*10
+    deltaT, duration = 2*10**(-11), 2.78*10**(-8)*10
     timeSeries = []
     positionSpread = []
     energySpread = []
