@@ -7,7 +7,7 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
-field = EMField([0,0,0], [0,0,0.07]) 
+field = EMField([0,0,0], [0,0,0.07],[0,0]) 
 protons_1 = ProtonBunch(10**(6),1) ; protons_2 = copy.deepcopy(protons_1)
 protons_3 = copy.deepcopy(protons_1) ; protons_4 = copy.deepcopy(protons_1)
 
@@ -17,7 +17,7 @@ log.logger.info('Initial average position %s m' % protons_1.averagePosition())
 log.logger.info('Initial bunch position spread: %s m' % protons_1.positionSpread())
 log.logger.info('Initial bunch energy spread: %s eV' % protons_1.energySpread())
     
-time, deltaT, duration = 0, 10**(-9), 10**(-6)*3
+time, deltaT, duration = 0, 10**(-9), 10**(-6)*100
 
 inital_bunch_1 = copy.deepcopy(protons_1) ; inital_bunch_2 = copy.deepcopy(protons_2)
 inital_bunch_3 = copy.deepcopy(protons_3) ; inital_bunch_4 = copy.deepcopy(protons_4)

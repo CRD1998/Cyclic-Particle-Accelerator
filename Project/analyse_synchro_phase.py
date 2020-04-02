@@ -27,7 +27,7 @@ def generate_file(phases):
     protons = ProtonBunch(120*10**(6),25)
     inital_bunch = copy.deepcopy(protons)
 
-    deltaT, duration = 10**(-10), 2.78*10**(-8)*10
+    deltaT, duration = 2*10**(-10), 2.78*10**(-8)*10
     timeSeries = []
     positionSpread = []
     energySpread = []
@@ -92,21 +92,13 @@ plt.legend(loc='upper left')
 plt.tick_params(which='both',direction='in',right=True,top=True)
 
 fig, ax = plt.subplots()
-ax1 = plt.axes([0,0,1,1])
-ip = InsetPosition(ax, [0.65,0.1,0.3,0.3])
-ax1.set_axes_locator(ip)
-mark_inset(ax, ax1, loc1=2, loc2=2, fc="none", ec='0.5')
 for (i,phase,time) in zip(energies,phase_dict.keys(),timeSeries):
-    linear_fit = np.polynomial.polynomial.Polynomial.fit(time,i,1)
+    adjusted_energies = [j*10**(-6) for j in i]
+    linear_fit = np.polynomial.polynomial.Polynomial.fit(time,adjusted_energies,1)
     line = np.poly1d(linear_fit.coef)
-    spread = [line(t)*10**(-6) for t in time]
+    a, b = line[0], line[1]
+    spread = [a*t+b for t in time]
     ax.plot(time,spread,label='Phase: '+phase)
-    ax1_x, ax1_y = [],[]
-    for (x,y) in zip(time,spread):
-        if 0.1475<x<0.15:
-            ax1_x.append(x)
-            ax1_y.append(y)
-    ax1.plot(ax1_x,ax1_y)
 ax.set_xlabel(r'time [$\mu$s]')
 ax.set_ylabel(r'Kinetic Energy Spread ($1\sigma$) [MeV]')
 ax.legend(loc='upper left')

@@ -87,6 +87,7 @@ secax.set_xlabel('Revolutions')
 ax.legend(loc='lower left')
 ax.ticklabel_format(useOffset=False)
 ax.tick_params(which='both',direction='in',right=True,top=False)
+secax.tick_params(direction='in')
 
 fig, ax = plt.subplots()
 for i,time,step in zip(energies,timeSeries,step_dict.keys()):
@@ -99,6 +100,7 @@ secax.set_xlabel('Revolutions')
 ax.legend(loc='lower left')
 ax.ticklabel_format(useOffset=False)
 ax.tick_params(which='both',direction='in',right=True,top=False)
+secax.tick_params(direction='in')
 
 
 plt.show()

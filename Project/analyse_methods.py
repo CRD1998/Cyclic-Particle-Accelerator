@@ -9,14 +9,27 @@ from ProtonBunch import ProtonBunch
 
 try:
     simulation_data = np.load('methods_data.npz', allow_pickle=True)
+    log.logger.info('methods_data.npz successfully found')
 except FileNotFoundError:
     try:
+        log.logger.warning('methods_data.npz not found, looking for cyclotron_data.npz')
         simulation_data = np.load('cyclotron_data.npz', allow_pickle=True)
     except FileNotFoundError:
+        log.logger.warning('cyclotron_data.npz not found, generating file')
         import RecordCyclotron
         simulation_data = np.load('cyclotron_data.npz', allow_pickle=True)
 
-time = simulation_data['time']
+
+def timeTOrev(t):
+    T = 2*const.pi*const.m_p / (const.e*0.07)
+    return t*10**(-6)/T
+
+def revTOtime(r):
+    T = 2*const.pi*const.m_p / (const.e*0.07)
+    return r*T*10**(6)
+
+timeSeries = simulation_data['time']
+time = [t*10**(6) for t in timeSeries]
 eulerData = simulation_data['euler']
 cromerData = simulation_data['cromer']
 verletData = simulation_data['verlet']
@@ -32,39 +45,79 @@ fractional_momentum_cromer = [np.linalg.norm(i.momentum())/np.linalg.norm(cromer
 fractional_momentum_verlet = [np.linalg.norm(i.momentum())/np.linalg.norm(verletData[0].momentum()) for i in verletData]
 fractional_momentum_rk4 = [np.linalg.norm(i.momentum())/np.linalg.norm(RK4Data[0].momentum()) for i in RK4Data]
 
-plt.figure('Euler-EulerCromer Fractional Kinetic Energy')
-plt.plot(time, fractional_kinetic_euler, label='Euler')
-plt.plot(time, fractional_kinetic_cromer, label='Euler-Cromer')
-plt.xlabel('time [s]')
-plt.ylabel('Fractional Kinetic Energy')
-plt.legend()
-plt.tick_params(which='both',direction='in',right=True,top=True)
 
-plt.figure('Euler-EulerCromer Fractional Momentum')
-plt.plot(time, fractional_momentum_euler, label='Euler')
-plt.plot(time, fractional_momentum_cromer, label='Euler-Cromer')
-plt.xlabel('time [s]')
-plt.ylabel(r'Fractional $\parallel\vec{p}\parallel$')
-plt.legend()
-plt.tick_params(which='both',direction='in',right=True,top=True)
+euler_cromer_kinetic = []
+euler_cromer_momentum = []
+for i,j in zip(eulerData,cromerData):
+    euler_cromer_kinetic.append(j.KineticEnergy()/i.KineticEnergy())
+    euler_cromer_momentum.append(np.linalg.norm(j.momentum())/np.linalg.norm(i.momentum()))
 
+fig, ax = plt.subplots()
+ax.plot(time, fractional_kinetic_euler, label='Euler')
+ax.plot(time, fractional_kinetic_cromer, label='Euler-Cromer')
+secax = ax.secondary_xaxis('top', functions=(timeTOrev,revTOtime))
+secax.set_xlabel('Revolutions')
+ax.set_xlabel(r'time [$\mu$s]')
+ax.set_ylabel('Fractional Kinetic Energy')
+ax.legend()
+ax.tick_params(which='both',direction='in',right=True,top=False)
+secax.tick_params(direction='in')
+ax.ticklabel_format(useOffset=False)
 
-plt.figure('Verlet-RK4 Fractional Kinetic Energy')
-plt.plot(time, fractional_kinetic_verlet, label='Velocity Verlet')
-plt.plot(time, fractional_kinetic_rk4, label='4th Order RK')
-plt.xlabel('time [s]')
-plt.ylabel('Fractional Kinetic Energy')
-plt.legend()
-plt.tick_params(which='both',direction='in',right=True,top=True)
-plt.ticklabel_format(useOffset=False)
+fig, ax = plt.subplots()
+ax.plot(time, fractional_momentum_euler, label='Euler')
+ax.plot(time, fractional_momentum_cromer, label='Euler-Cromer')
+secax = ax.secondary_xaxis('top', functions=(timeTOrev,revTOtime))
+secax.set_xlabel('Revolutions')
+ax.set_xlabel(r'time [$\mu$s]')
+ax.set_ylabel(r'Fractional $\parallel\vec{p}\parallel$')
+ax.legend()
+ax.tick_params(which='both',direction='in',right=True,top=False)
+secax.tick_params(direction='in')
+ax.ticklabel_format(useOffset=False)
 
-plt.figure('Verlet-RK4 Fractional Momentum')
-plt.plot(time, fractional_momentum_verlet, label='Velocity Verlet')
-plt.plot(time, fractional_momentum_rk4, label='4th Order RK')
-plt.xlabel('time [s]')
-plt.ylabel(r'Fractional $\parallel\vec{p}\parallel$')
-plt.legend()
-plt.tick_params(which='both',direction='in',right=True,top=True)
-plt.ticklabel_format(useOffset=False)
+fig, ax = plt.subplots()
+ax.plot(time, fractional_kinetic_verlet, label='Velocity Verlet')
+ax.plot(time, fractional_kinetic_rk4, label='4th Order RK')
+secax = ax.secondary_xaxis('top', functions=(timeTOrev,revTOtime))
+secax.set_xlabel('Revolutions')
+ax.set_xlabel(r'time [$\mu$s]')
+ax.set_ylabel('Fractional Kinetic Energy')
+ax.legend()
+ax.tick_params(which='both',direction='in',right=True,top=False)
+secax.tick_params(direction='in')
+ax.ticklabel_format(useOffset=False)
+
+fig, ax = plt.subplots()
+ax.plot(time, fractional_momentum_verlet, label='Velocity Verlet')
+ax.plot(time, fractional_momentum_rk4, label='4th Order RK')
+secax = ax.secondary_xaxis('top', functions=(timeTOrev,revTOtime))
+secax.set_xlabel('Revolutions')
+ax.set_xlabel(r'time [$\mu$s]')
+ax.set_ylabel(r'Fractional $\parallel\vec{p}\parallel$')
+ax.legend()
+ax.tick_params(which='both',direction='in',right=True,top=False)
+secax.tick_params(direction='in')
+ax.ticklabel_format(useOffset=False)
+
+fig, ax = plt.subplots()
+ax.plot(time, euler_cromer_kinetic)
+secax = ax.secondary_xaxis('top', functions=(timeTOrev,revTOtime))
+secax.set_xlabel('Revolutions')
+ax.set_xlabel(r'time [$\mu$s]')
+ax.set_ylabel(r'$E_{k,Euler} \ / \ E_{k,Euler-Cromer}$')
+ax.tick_params(which='both',direction='in',right=True,top=False)
+secax.tick_params(direction='in')
+ax.ticklabel_format(useOffset=False)
+
+fig, ax = plt.subplots()
+ax.plot(time, euler_cromer_momentum)
+secax = ax.secondary_xaxis('top', functions=(timeTOrev,revTOtime))
+secax.set_xlabel('Revolutions')
+ax.set_xlabel(r'time [$\mu$s]')
+ax.set_ylabel(r'$\parallel\vec{p}_{Euler}\parallel \ / \ \parallel\vec{p}_{Euler-Cromer}\parallel$')
+ax.tick_params(which='both',direction='in',right=True,top=False)
+secax.tick_params(direction='in')
+ax.ticklabel_format(useOffset=False)
 
 plt.show()
