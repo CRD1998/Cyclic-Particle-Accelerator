@@ -1,14 +1,15 @@
-2020-04-02 21:41:55,756 - {EMField.py:24} - INFO - electromagentic field generated
-2020-04-02 21:41:55,757 - {ProtonBunch.py:38} - INFO - generating bunch
-2020-04-02 21:41:55,757 - {Particle.py:27} - INFO - proton-1 has been generated
-2020-04-02 21:41:55,757 - {Particle.py:27} - INFO - proton-2 has been generated
-2020-04-02 21:41:55,757 - {Particle.py:27} - INFO - proton-3 has been generated
-2020-04-02 21:41:55,757 - {Particle.py:27} - INFO - proton-4 has been generated
-2020-04-02 21:41:55,758 - {Particle.py:27} - INFO - proton-5 has been generated
-2020-04-02 21:41:55,758 - {ProtonBunch.py:43} - INFO - bunch generated
-2020-04-02 21:41:55,758 - {analyse_synchro_phase.py:39} - INFO - starting simulation
-2020-04-02 21:41:55,758 - {analyse_synchro_phase.py:45} - INFO - phase currently being investigated: 0.0 radians
-2020-04-02 21:47:46,779 - {analyse_synchro_phase.py:45} - INFO - phase currently being investigated: 0.39269908169872414 radians
-2020-04-02 22:19:05,736 - {analyse_synchro_phase.py:45} - INFO - phase currently being investigated: 0.7853981633974483 radians
-2020-04-02 22:25:03,372 - {analyse_synchro_phase.py:45} - INFO - phase currently being investigated: 1.1780972450961724 radians
-2020-04-02 23:39:11,445 - {analyse_synchro_phase.py:45} - INFO - phase currently being investigated: 1.5707963267948966 radians
+2020-04-04 16:10:04,240 - {EMField.py:25} - INFO - electromagentic field generated
+2020-04-04 16:10:04,241 - {ProtonBunch.py:38} - INFO - generating bunch
+2020-04-04 16:10:04,242 - {Particle.py:27} - INFO - proton-1 has been generated
+2020-04-04 16:10:04,242 - {Particle.py:27} - INFO - proton-2 has been generated
+2020-04-04 16:10:04,242 - {Particle.py:27} - INFO - proton-3 has been generated
+2020-04-04 16:10:04,243 - {Particle.py:27} - INFO - proton-4 has been generated
+2020-04-04 16:10:04,243 - {Particle.py:27} - INFO - proton-5 has been generated
+2020-04-04 16:10:04,243 - {Particle.py:27} - INFO - proton-6 has been generated
+2020-04-04 16:10:04,243 - {Particle.py:27} - INFO - proton-7 has been generated
+2020-04-04 16:10:04,243 - {Particle.py:27} - INFO - proton-8 has been generated
+2020-04-04 16:10:04,243 - {Particle.py:27} - INFO - proton-9 has been generated
+2020-04-04 16:10:04,243 - {Particle.py:27} - INFO - proton-10 has been generated
+2020-04-04 16:10:04,243 - {ProtonBunch.py:43} - INFO - bunch generated
+2020-04-04 16:10:04,244 - {analyse_synchro_phase.py:38} - INFO - starting simulation
+2020-04-04 16:10:04,244 - {analyse_synchro_phase.py:44} - INFO - phase currently being investigated: 0.0 radians

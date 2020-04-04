@@ -1,17 +1,23 @@
 import pytest
 from ChargedParticle import ChargedParticle
 from EMField import EMField
+from ProtonBunch import ProtonBunch
 import scipy.constants as const
 import numpy as np
 
-def test_frequency():
+@pytest.mark.parametrize('test_input,expected',
+                        [(ChargedParticle(Charge=const.e,Mass=const.m_p,Velocity=[0.01*const.c,0,0]),11694.31882),
+                        (ChargedParticle(Charge=const.e,Mass=const.m_p,Velocity=[0.5*const.c,0,0]), 10122.64424)])
+def test_frequency(test_input,expected):
     """
-    This function tests that the cyclotron frequency is correctly being calculated.
+    This function tests that the (sychro)cyclotron frequency is correctly being calculated for both non-relativistic
+    and relativistic particle bunches.
     """
-    proton = ChargedParticle('proton-1', const.m_p, const.e, [0,0,0], [2000,-4000,6000])
     field = EMField([-0.3,0.1,0.2], [6*10**(-5),-7*10**(-5),8*10**(-5)])
-    calculated_frequency = 11692.45605
-    assert calculated_frequency == pytest.approx(field.frequency(proton))
+    protons = ProtonBunch(100,1)
+    protons.bunch = [test_input]
+    field.setFrequency(protons)
+    assert expected == pytest.approx(field.frequency,rel=0.001)
 
 
 @pytest.mark.parametrize('test_input,expected',

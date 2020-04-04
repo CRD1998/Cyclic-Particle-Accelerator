@@ -14,8 +14,9 @@ foo
 timesteps = [10**(-8), 4.5*10**(-9), 10**(-9)]
 step_strings = ['1e-8 s', '5e-9 s', '1e-9 s']
 step_dict = {step_strings[i]:timesteps[i] for i in range(len(timesteps))}
-field = EMField([0,0,0], [0,0,0.07], [0,0]) 
+field = EMField([0,0,0], [0,0,0.07], [0,0])
 protons = ProtonBunch(10**(6),1)
+field.setFrequency(protons)
 
 def generate_file(protons,field):
     inital_bunch = copy.deepcopy(protons)

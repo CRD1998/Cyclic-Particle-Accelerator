@@ -113,6 +113,10 @@ class Bunch(ABC):
     def energySpread(self):
         return np.std([i.KineticEnergy() for i in self.bunch])/self.conversion
 
+    def gamma(self):
+        speed = np.linalg.norm(self.averageVelocity())
+        return 1/(math.sqrt(1-(speed*speed)/(const.c*const.c)))
+
     def adaptiveStep(self,deltaT,field):
         lowerBound = field.electricLowerBound - 0.1*abs(field.electricLowerBound)
         upperBound = field.electricUpperBound + 0.1*abs(field.electricUpperBound)

@@ -33,6 +33,7 @@ phases = list(phase_dict.values())
 def generate_file(phases):
     field = EMField([500000,0,0], [0,0,0.07]) 
     protons = ProtonBunch(10**(6),25)
+    field.setFrequency(protons)
     inital_bunch = copy.deepcopy(protons)
 
     deltaT, duration = 5*10**(-9), 10**(-6)*50

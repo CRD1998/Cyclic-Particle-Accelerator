@@ -23,6 +23,7 @@ field = EMField([0.1,0,0], [0,0,1.6*10**(-5)])
 proton = ChargedParticle('proton', const.m_p, const.e, [0,0,0], [3000,0,0])
 protons = ProtonBunch(100,1) # create a random bunch obeject
 protons.bunch = [proton] # overwrite bunch atrribute to to remove the pseudo-random characteristics
+field.setFrequency(protons)
 theoretical_period = 2*const.pi*proton.mass / (proton.charge*field.magneticMag())
 
 def generate_file(proton,field):

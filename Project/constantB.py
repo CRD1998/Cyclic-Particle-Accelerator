@@ -6,8 +6,8 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
-field = EMField([500*10**3,0,0], [0,0,2.82], [-0.05,0.05]) 
-protons = ProtonBunch(120*10**(6),1)
+field = EMField([500*10**3,0,0], [0,0,2.82], [-0.029,0.029]) 
+protons = ProtonBunch(120*10**(6),5)
 
 log.logger.info('Initial average kinetic energy: %s eV' % protons.KineticEnergy())
 log.logger.info('Initial average momentum: %s kg m/s' % protons.momentum())
@@ -15,22 +15,26 @@ log.logger.info('Initial average position %s m' % protons.averagePosition())
 log.logger.info('Initial bunch position spread: %s m' % protons.positionSpread())
 log.logger.info('Initial bunch energy spread: %s eV' % protons.energySpread())
 
-time, deltaT, duration = 0, 2*10**(-11), 2.78*10**(-8)
+time, deltaT, duration = 0, 2*10**(-11), 2.78*10**(-8)*3
 
 inital_bunch = copy.deepcopy(protons)
 
 timeSeries = [0.]
 Data = [inital_bunch]
+frequency = []
 
 log.logger.info('starting simulation')
 while time <= duration:
     dt = protons.adaptiveStep(deltaT,field)
     time += dt
     timeSeries.append(time)
+    field.setFrequency(protons)
     field.getAcceleration(protons.bunch, time, dt)
-    protons.update(dt,field,time,3)
+    protons.update(dt,field,time,2)
     temp_bunch = copy.deepcopy(protons)
+    temp_frequency = copy.deepcopy(field.frequency)
     Data.append(temp_bunch)
+    frequency.append(temp_frequency)
 
 log.logger.info('simulation finished')
 log.logger.info('building lists')
@@ -60,4 +64,9 @@ plt.xlabel(r'x  position  [m]')
 plt.ylabel(r'y  position [m]')
 plt.legend(loc='upper left',framealpha=1)
 
+plt.figure('RF Frequency')
+plt.plot(timeSeries[1:],frequency)
+plt.scatter(timeSeries[1:],frequency,marker='.',color='red')
+plt.ylabel(r'Electric Field Frequency [Hz]')
+plt.xlabel(r'Time [s]')
 plt.show()

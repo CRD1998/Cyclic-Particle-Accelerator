@@ -91,13 +91,13 @@ plt.ylabel('y-position [m]')
 plt.legend(loc='upper left', framealpha=1)
 plt.tick_params(which='both',direction='in',right=True,top=True)
 
-magneticX, magneticY = np.meshgrid(np.linspace(-0.6,0.6,6),np.linspace(-1.2,0.,6))
+magneticX, magneticY = np.meshgrid(np.linspace(-0.6,0.6,6),np.linspace(-1.2,0.,6)) # TODO make sure the plot is pretty
 
 plt.figure('Synchrocylotron')
 plt.plot(synchro_x,synchro_y)
 plt.scatter(synchro_x[-1],synchro_y[-1],zorder=10,label='proton bunch')
 plt.scatter(magneticX,magneticY,marker=r'$\odot$',s=95,color='black',label='Magnetic Field',zorder=3)
-plt.axvspan(-0.05, 0.05, color='grey', alpha=0.5 ,zorder=1, label='Electric Field')
+plt.axvspan(-0.029, 0.029, color='grey', alpha=0.5 ,zorder=1, label='Electric Field')
 plt.xlabel('x-position [m]')
 plt.ylabel('y-position [m]')
 plt.legend(loc='upper right', framealpha=1)

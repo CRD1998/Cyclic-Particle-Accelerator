@@ -6,7 +6,7 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
-field = EMField([50*10**3,0,0], [0,0,2.82], [-0.05,0.05], 7*np.pi/4) 
+field = EMField([50*10**3,0,0], [0,0,2.82], [-0.029,0.029]) 
 protons = ProtonBunch(120*10**(6),100)
 
 log.logger.info('Initial average kinetic energy: %s eV' % protons.KineticEnergy())
@@ -28,6 +28,7 @@ while time <= duration:
     dt = protons.adaptiveStep(deltaT,field)
     time += dt
     timeSeries.append(time)
+    field.setFrequency(protons)
     field.getAcceleration(protons.bunch, time, dt)
     protons.update(dt,field,time,method)
     temp_bunch = copy.deepcopy(protons)

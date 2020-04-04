@@ -3,7 +3,6 @@ import numpy as np
 import scipy.constants as const
 import matplotlib.pyplot as plt
 import matplotlib
-from mpl_toolkits.axes_grid1.inset_locator import (inset_axes,InsetPosition,mark_inset)
 import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
@@ -23,11 +22,11 @@ phase_dict = {phase_keys[i]:phase_values[i] for i in range(len(phase_keys)) if n
 phases = list(phase_dict.values())
 
 def generate_file(phases):
-    field = EMField([500000,0,0], [0,0,2.82], [-0.05,0.05]) 
-    protons = ProtonBunch(120*10**(6),5)
+    field = EMField([500*10**3,0,0], [0,0,2.82], [-0.029,0.029]) 
+    protons = ProtonBunch(120*10**(6),10)
     inital_bunch = copy.deepcopy(protons)
 
-    deltaT, duration = 2*10**(-11), 2.78*10**(-8)*10
+    deltaT, duration = 2*10**(-11), 2.78*10**(-8)*100
     timeSeries = []
     positionSpread = []
     energySpread = []
@@ -46,8 +45,9 @@ def generate_file(phases):
         while time <= duration:
             dt = protons.adaptiveStep(deltaT,field)
             time += dt
+            field.setFrequency(protons)
             field.getAcceleration(protons.bunch, time, dt)
-            protons.update(dt,field,time,2)
+            protons.update(dt,field,time)
             temp_spread = copy.deepcopy(protons.positionSpread())
             temp_energy = copy.deepcopy(protons.energySpread())
             loop_1.append(temp_spread)
@@ -66,14 +66,14 @@ except FileNotFoundError:
     simulation_data = generate_file(phases)
 
 times = simulation_data['time']
-positions = simulation_data['positions']
+#positions = simulation_data['positions']
 energies = simulation_data['energies']
 timeSeries = []
 for series in times:
     timeSeries.append([])
     for i in series:
         timeSeries[len(timeSeries)-1].append(i*10**(6))
-
+"""
 plt.figure('Synchro Phase Position Spreads')
 for (i,phase,time) in zip(positions,phase_dict.keys(),timeSeries):
     y_spread = [j[1] for j in i]
@@ -82,7 +82,7 @@ plt.xlabel(r'time [$\mu$s]')
 plt.ylabel(r'$\sigma_y$ [m]')
 plt.legend(loc='upper left')
 plt.tick_params(which='both',direction='in',right=True,top=True)
-
+"""
 plt.figure('Synchro Phase Energy Spreads')
 for (i,phase,time) in zip(energies,phase_dict.keys(),timeSeries):
     plt.plot(time,[j*10**(-6) for j in i],label='Phase: '+ phase)

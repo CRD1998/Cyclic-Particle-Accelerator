@@ -21,6 +21,7 @@ class EMField:
         self.electricLowerBound  = float(ElectricFieldWidth[0])
         self.electricUpperBound  = float(ElectricFieldWidth[1])
         self.phase = float(ElectricFieldPhase)
+        self.frequency = 0.
         log.logger.info('electromagentic field generated')
 
     def __repr__(self):
@@ -32,12 +33,12 @@ class EMField:
     def magneticMag(self):
         return np.linalg.norm(self.magnetic)
     
-    def frequency(self,particle):
-        return abs(particle.charge)*self.magneticMag()/(particle.mass*particle.gamma())
+    def setFrequency(self,bunch):
+        self.frequency = abs(bunch.particleCharge)*self.magneticMag()/(bunch.particleMass*bunch.gamma())
 
     def getAcceleration(self,particleBunch,time,deltaT):
         for particle in particleBunch:
-            electricField = lambda x: [i*math.cos(self.frequency(particle)*time+self.phase) for i in self.electric] if self.electricLowerBound < x < self.electricUpperBound else [0,0,0]
+            electricField = lambda x: [i*math.cos(self.frequency*time+self.phase) for i in self.electric] if self.electricLowerBound < x < self.electricUpperBound else [0,0,0]
             lorentz = np.array(electricField(particle.position[0]),dtype=float)
             if not self.electricLowerBound < particle.position[0] < self.electricUpperBound:
                 lorentz += np.cross(particle.velocity, self.magnetic)
