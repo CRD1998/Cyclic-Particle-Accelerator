@@ -1,71 +1,71 @@
-2020-04-11 02:20:39,661 - {Particle.py:64} - INFO - proton has been generated
-2020-04-11 02:20:39,662 - {Particle.py:64} - INFO - proton has been generated
-2020-04-11 02:20:39,662 - {Particle.py:64} - INFO - proton has been generated
-2020-04-11 02:20:39,662 - {Particle.py:64} - INFO - proton has been generated
-2020-04-11 02:20:39,677 - {Particle.py:64} - INFO - Point has been generated
-2020-04-11 02:20:39,677 - {Particle.py:64} - INFO - Point has been generated
-2020-04-11 02:20:39,678 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,678 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 02:20:39,678 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,678 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 02:20:39,678 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,678 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 02:20:39,678 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,678 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 02:20:39,691 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,691 - {Particle.py:64} - INFO - proton-2 has been generated
-2020-04-11 02:20:39,691 - {ProtonBunch.py:52} - INFO - generating bunch
-2020-04-11 02:20:39,691 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,691 - {Particle.py:64} - INFO - proton-2 has been generated
-2020-04-11 02:20:39,692 - {ProtonBunch.py:57} - INFO - bunch generated
-2020-04-11 02:20:39,708 - {Particle.py:61} - ERROR - proton cannot have a speed greater than the speed of light
-2020-04-11 02:20:39,708 - {Particle.py:64} - INFO - Point has been generated
-2020-04-11 02:20:39,708 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 02:20:39,709 - {Particle.py:145} - ERROR - Point's speed is equal to or greater than the speed of light
-2020-04-11 02:20:39,709 - {Particle.py:165} - ERROR - Point's speed is equal to or greater than the speed of light
-2020-04-11 02:20:39,710 - {Particle.py:94} - ERROR - Point's speed has exceeded the speed of light
-2020-04-11 02:20:39,711 - {Particle.py:94} - ERROR - Point's speed has exceeded the speed of light
-2020-04-11 02:20:39,713 - {Particle.py:64} - INFO - proton has been generated
-2020-04-11 02:20:39,714 - {Particle.py:94} - ERROR - proton's speed has exceeded the speed of light
-2020-04-11 02:20:39,715 - {Particle.py:97} - ERROR - proton's speed is equal to the speed of light
-2020-04-11 02:20:39,742 - {Particle.py:64} - INFO - proton has been generated
-2020-04-11 02:20:39,746 - {Particle.py:64} - INFO - proton has been generated
-2020-04-11 02:20:39,749 - {Particle.py:64} - INFO - Point has been generated
-2020-04-11 02:20:39,749 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 02:20:39,759 - {Particle.py:64} - INFO - Point has been generated
-2020-04-11 02:20:39,759 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 02:20:39,764 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 02:20:39,764 - {ProtonBunch.py:52} - INFO - generating bunch
-2020-04-11 02:20:39,764 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,764 - {ProtonBunch.py:57} - INFO - bunch generated
-2020-04-11 02:20:39,770 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 02:20:39,770 - {ProtonBunch.py:52} - INFO - generating bunch
-2020-04-11 02:20:39,771 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,771 - {ProtonBunch.py:57} - INFO - bunch generated
-2020-04-11 02:20:39,815 - {ProtonBunch.py:52} - INFO - generating bunch
-2020-04-11 02:20:39,816 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,816 - {Particle.py:64} - INFO - proton-2 has been generated
-2020-04-11 02:20:39,816 - {Particle.py:64} - INFO - proton-3 has been generated
-2020-04-11 02:20:39,816 - {ProtonBunch.py:57} - INFO - bunch generated
-2020-04-11 02:20:39,831 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,832 - {Particle.py:64} - INFO - proton-2 has been generated
-2020-04-11 02:20:39,832 - {ProtonBunch.py:52} - INFO - generating bunch
-2020-04-11 02:20:39,832 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,832 - {Particle.py:64} - INFO - proton-2 has been generated
-2020-04-11 02:20:39,832 - {ProtonBunch.py:57} - INFO - bunch generated
-2020-04-11 02:20:39,839 - {ProtonBunch.py:52} - INFO - generating bunch
-2020-04-11 02:20:39,839 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,840 - {ProtonBunch.py:57} - INFO - bunch generated
-2020-04-11 02:20:39,840 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 02:20:39,846 - {ProtonBunch.py:52} - INFO - generating bunch
-2020-04-11 02:20:39,846 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,846 - {ProtonBunch.py:57} - INFO - bunch generated
-2020-04-11 02:20:39,846 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 02:20:39,849 - {ProtonBunch.py:52} - INFO - generating bunch
-2020-04-11 02:20:39,849 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,849 - {ProtonBunch.py:57} - INFO - bunch generated
-2020-04-11 02:20:39,849 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 02:20:39,852 - {ProtonBunch.py:52} - INFO - generating bunch
-2020-04-11 02:20:39,853 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 02:20:39,855 - {ProtonBunch.py:57} - INFO - bunch generated
-2020-04-11 02:20:39,856 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-11 02:45:27,271 - {Particle.py:64} - INFO - proton has been generated
+2020-04-11 02:45:27,271 - {Particle.py:64} - INFO - proton has been generated
+2020-04-11 02:45:27,271 - {Particle.py:64} - INFO - proton has been generated
+2020-04-11 02:45:27,271 - {Particle.py:64} - INFO - proton has been generated
+2020-04-11 02:45:27,290 - {Particle.py:64} - INFO - Point has been generated
+2020-04-11 02:45:27,291 - {Particle.py:64} - INFO - Point has been generated
+2020-04-11 02:45:27,291 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,292 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-11 02:45:27,292 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,292 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-11 02:45:27,292 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,292 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-11 02:45:27,292 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,292 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-11 02:45:27,304 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,305 - {Particle.py:64} - INFO - proton-2 has been generated
+2020-04-11 02:45:27,305 - {ProtonBunch.py:52} - INFO - generating bunch
+2020-04-11 02:45:27,305 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,306 - {Particle.py:64} - INFO - proton-2 has been generated
+2020-04-11 02:45:27,306 - {ProtonBunch.py:57} - INFO - bunch generated
+2020-04-11 02:45:27,321 - {Particle.py:61} - ERROR - proton cannot have a speed greater than the speed of light
+2020-04-11 02:45:27,321 - {Particle.py:64} - INFO - Point has been generated
+2020-04-11 02:45:27,321 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-11 02:45:27,321 - {Particle.py:145} - ERROR - Point's speed is equal to or greater than the speed of light
+2020-04-11 02:45:27,321 - {Particle.py:165} - ERROR - Point's speed is equal to or greater than the speed of light
+2020-04-11 02:45:27,322 - {Particle.py:94} - ERROR - Point's speed has exceeded the speed of light
+2020-04-11 02:45:27,322 - {Particle.py:94} - ERROR - Point's speed has exceeded the speed of light
+2020-04-11 02:45:27,327 - {Particle.py:64} - INFO - proton has been generated
+2020-04-11 02:45:27,328 - {Particle.py:94} - ERROR - proton's speed has exceeded the speed of light
+2020-04-11 02:45:27,329 - {Particle.py:97} - ERROR - proton's speed is equal to the speed of light
+2020-04-11 02:45:27,349 - {Particle.py:64} - INFO - proton has been generated
+2020-04-11 02:45:27,352 - {Particle.py:64} - INFO - proton has been generated
+2020-04-11 02:45:27,355 - {Particle.py:64} - INFO - Point has been generated
+2020-04-11 02:45:27,355 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-11 02:45:27,361 - {Particle.py:64} - INFO - Point has been generated
+2020-04-11 02:45:27,362 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-11 02:45:27,365 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-11 02:45:27,366 - {ProtonBunch.py:52} - INFO - generating bunch
+2020-04-11 02:45:27,366 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,366 - {ProtonBunch.py:57} - INFO - bunch generated
+2020-04-11 02:45:27,368 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-11 02:45:27,369 - {ProtonBunch.py:52} - INFO - generating bunch
+2020-04-11 02:45:27,369 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,369 - {ProtonBunch.py:57} - INFO - bunch generated
+2020-04-11 02:45:27,407 - {ProtonBunch.py:52} - INFO - generating bunch
+2020-04-11 02:45:27,407 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,407 - {Particle.py:64} - INFO - proton-2 has been generated
+2020-04-11 02:45:27,408 - {Particle.py:64} - INFO - proton-3 has been generated
+2020-04-11 02:45:27,408 - {ProtonBunch.py:57} - INFO - bunch generated
+2020-04-11 02:45:27,422 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,422 - {Particle.py:64} - INFO - proton-2 has been generated
+2020-04-11 02:45:27,422 - {ProtonBunch.py:52} - INFO - generating bunch
+2020-04-11 02:45:27,422 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,423 - {Particle.py:64} - INFO - proton-2 has been generated
+2020-04-11 02:45:27,424 - {ProtonBunch.py:57} - INFO - bunch generated
+2020-04-11 02:45:27,434 - {ProtonBunch.py:52} - INFO - generating bunch
+2020-04-11 02:45:27,434 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,434 - {ProtonBunch.py:57} - INFO - bunch generated
+2020-04-11 02:45:27,435 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-11 02:45:27,437 - {ProtonBunch.py:52} - INFO - generating bunch
+2020-04-11 02:45:27,437 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,437 - {ProtonBunch.py:57} - INFO - bunch generated
+2020-04-11 02:45:27,437 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-11 02:45:27,440 - {ProtonBunch.py:52} - INFO - generating bunch
+2020-04-11 02:45:27,440 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,440 - {ProtonBunch.py:57} - INFO - bunch generated
+2020-04-11 02:45:27,440 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-11 02:45:27,443 - {ProtonBunch.py:52} - INFO - generating bunch
+2020-04-11 02:45:27,443 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-11 02:45:27,443 - {ProtonBunch.py:57} - INFO - bunch generated
+2020-04-11 02:45:27,444 - {EMField.py:66} - INFO - electromagentic field generated

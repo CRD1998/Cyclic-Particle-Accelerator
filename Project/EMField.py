@@ -69,15 +69,50 @@ class EMField:
         return 'EM Field: \n Electric Field = {0}  \n Magnetic Field = {1}'.format(self.electric,self.magnetic)
 
     def electricMag(self):
+        """
+        Returns the amplitude of the electric field at its peak value in N/m.
+        """
+
         return np.linalg.norm(self.electric)
     
     def magneticMag(self):
+        """
+        Returns the magnitude of the magnetic field in teslas.
+        """
+
         return np.linalg.norm(self.magnetic)
     
     def setFrequency(self,bunch):
+        """
+        Given a particle bunch, this method will calculate the angular frequnecy of the bunch and assign
+        it to frequency attribute.
+
+        Parameters:
+        -----------
+        bunch
+            The particle bunch whose angular frequency will be calculated.
+        """
+
         self.frequency = abs(bunch.particleCharge)*self.magneticMag()/(bunch.particleMass*bunch.gamma())
 
     def getAcceleration(self,particleBunch,time,deltaT):
+        """
+        Calculates the acceleration of every particle in a bunch due to the Lorentz force and assigns the
+        the acceleration to particle's acceleration attribute.
+
+        Parameters:
+        -----------
+        particleBunch
+            List of particles which are being accelerated by the electromagnetic field
+        
+        time
+            The current value of time in the simulation, used to calculate the electric field strength,
+            in seconds
+        
+        deltaT
+            The time step used in the integrator, in seconds
+        """
+
         for particle in particleBunch:
             electricField = lambda x: [i*math.cos(self.frequency*time+self.phase) for i in self.electric] if self.electricLowerBound < x < self.electricUpperBound else [0,0,0]
             lorentz = np.array(electricField(particle.position[0]),dtype=float)
