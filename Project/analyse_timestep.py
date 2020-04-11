@@ -103,5 +103,4 @@ ax.ticklabel_format(useOffset=False)
 ax.tick_params(which='both',direction='in',right=True,top=False)
 secax.tick_params(direction='in')
 
-
 plt.show()

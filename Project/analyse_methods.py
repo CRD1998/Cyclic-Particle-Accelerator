@@ -8,17 +8,10 @@ from EMField import EMField
 from ProtonBunch import ProtonBunch
 
 try:
-    simulation_data = np.load('methods_data.npz', allow_pickle=True)
-    log.logger.info('methods_data.npz successfully found')
+    simulation_data = np.load('cyclotron_data.npz',allow_pickle=True)
 except FileNotFoundError:
-    try:
-        log.logger.warning('methods_data.npz not found, looking for cyclotron_data.npz')
-        simulation_data = np.load('cyclotron_data.npz', allow_pickle=True)
-    except FileNotFoundError:
-        log.logger.warning('cyclotron_data.npz not found, generating file')
-        import RecordCyclotron
-        simulation_data = np.load('cyclotron_data.npz', allow_pickle=True)
-
+    import RecordCyclotron
+    simulation_data = np.load('cyclotron_data.npz',allow_pickle=True)
 
 def timeTOrev(t):
     T = 2*const.pi*const.m_p / (const.e*0.07)
@@ -44,7 +37,6 @@ fractional_momentum_euler = [np.linalg.norm(i.momentum())/np.linalg.norm(eulerDa
 fractional_momentum_cromer = [np.linalg.norm(i.momentum())/np.linalg.norm(cromerData[0].momentum()) for i in cromerData]
 fractional_momentum_verlet = [np.linalg.norm(i.momentum())/np.linalg.norm(verletData[0].momentum()) for i in verletData]
 fractional_momentum_rk4 = [np.linalg.norm(i.momentum())/np.linalg.norm(RK4Data[0].momentum()) for i in RK4Data]
-
 
 euler_cromer_kinetic = []
 euler_cromer_momentum = []

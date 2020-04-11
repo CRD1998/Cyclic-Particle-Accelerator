@@ -32,7 +32,7 @@ def generate_file(proton,field):
     timeSeries = []
     data_csv = []
     revolution = 0
-    data_csv.append([revolution,time,0,[0,0,0]]) # ensure data always has one element to avoid index error on line 47
+    data_csv.append([revolution,time,0,[0,0,0]]) # ensure data always has one element to avoid index error on line 46
     log.logger.info('starting simulation')
     while time <= duration:
         time += deltaT

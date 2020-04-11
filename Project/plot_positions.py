@@ -20,7 +20,7 @@ cromerData = simulation_data['cromer']
 verletData = simulation_data['verlet']
 RK4Data = simulation_data['rk']
 
-data = sychrocyclotron['protons_data']
+synchroData = sychrocyclotron['protons_data']
 
 euler_x, euler_y = [], []
 cromer_x, cromer_y = [], []
@@ -44,48 +44,48 @@ for i,j,k,l in zip(eulerData,cromerData,verletData,RK4Data):
     rk4_x.append(position[0])
     rk4_y.append(position[1])
 
-for i in data:
+for i in synchroData:
     position = i.averagePosition()
     synchro_x.append(position[0])
     synchro_y.append(position[1])
 
-magneticX, magneticY = np.meshgrid(list(range(-3,4,1)), list(range(-5,2,1)))
+magneticX, magneticY = np.meshgrid(list(range(-3,4)), list(range(-5,2)))
 
 plt.figure('Euler')
-plt.plot(euler_x,euler_y)
-plt.scatter(euler_x[-1],euler_y[-1],zorder=10,label='proton bunch')
-plt.scatter(magneticX,magneticY,marker=r'$\odot$',s=95,color='black',label='Magnetic Field',zorder=3)
-plt.axvspan(-0.098, 0.098, color='grey', alpha=0.5 ,zorder=1, label='Electric Field')
+plt.plot(euler_x,euler_y,zorder=3)
+plt.scatter(euler_x[-1],euler_y[-1],zorder=3,label='proton bunch')
+plt.scatter(magneticX,magneticY,marker=r'$\odot$',s=95,color='black',label='Magnetic Field',zorder=1)
+plt.axvspan(-0.103, 0.103, color='darkgray', alpha=1 ,zorder=2, label='Electric Field')
 plt.xlabel('x-position [m]')
 plt.ylabel('y-position [m]')
 plt.legend(loc='upper left', framealpha=1)
 plt.tick_params(which='both',direction='in',right=True,top=True)
 
 plt.figure('Euler-Cromer')
-plt.plot(cromer_x,cromer_y)
-plt.scatter(cromer_x[-1],cromer_y[-1],zorder=10,label='proton bunch')
-plt.scatter(magneticX,magneticY,marker=r'$\odot$',s=95,color='black',label='Magnetic Field',zorder=3)
-plt.axvspan(-0.098, 0.098, color='grey', alpha=0.5 ,zorder=1, label='Electric Field')
+plt.plot(cromer_x,cromer_y,zorder=3)
+plt.scatter(cromer_x[-1],cromer_y[-1],zorder=3,label='proton bunch')
+plt.scatter(magneticX,magneticY,marker=r'$\odot$',s=95,color='black',label='Magnetic Field',zorder=1)
+plt.axvspan(-0.103, 0.103, color='darkgray', alpha=1 ,zorder=2, label='Electric Field')
 plt.xlabel('x-position [m]')
 plt.ylabel('y-position [m]')
 plt.legend(loc='upper left', framealpha=1)
 plt.tick_params(which='both',direction='in',right=True,top=True)
 
 plt.figure('Velocity Verlet')
-plt.plot(verlet_x,verlet_y)
-plt.scatter(verlet_x[-1],verlet_y[-1],zorder=10,label='proton bunch')
-plt.scatter(magneticX,magneticY,marker=r'$\odot$',s=95,color='black',label='Magnetic Field',zorder=3)
-plt.axvspan(-0.098, 0.098, color='grey', alpha=0.5 ,zorder=1, label='Electric Field')
+plt.plot(verlet_x,verlet_y,zorder=3)
+plt.scatter(verlet_x[-1],verlet_y[-1],zorder=3,label='proton bunch')
+plt.scatter(magneticX,magneticY,marker=r'$\odot$',s=95,color='black',label='Magnetic Field',zorder=1)
+plt.axvspan(-0.103, 0.103, color='darkgray', alpha=1 ,zorder=2, label='Electric Field')
 plt.xlabel('x-position [m]')
 plt.ylabel('y-position [m]')
 plt.legend(loc='upper left', framealpha=1)
 plt.tick_params(which='both',direction='in',right=True,top=True)
 
 plt.figure('RK4')
-plt.plot(rk4_x,rk4_y)
-plt.scatter(rk4_x[-1],rk4_y[-1],zorder=10,label='proton bunch')
-plt.scatter(magneticX,magneticY,marker=r'$\odot$',s=95,color='black',label='Magnetic Field',zorder=3)
-plt.axvspan(-0.098, 0.098, color='grey', alpha=0.5 ,zorder=1, label='Electric Field')
+plt.plot(rk4_x,rk4_y,zorder=3)
+plt.scatter(rk4_x[-1],rk4_y[-1],zorder=3,label='proton bunch')
+plt.scatter(magneticX,magneticY,marker=r'$\odot$',s=95,color='black',label='Magnetic Field',zorder=1)
+plt.axvspan(-0.103, 0.103, color='darkgray', alpha=1 ,zorder=2, label='Electric Field')
 plt.xlabel('x-position [m]')
 plt.ylabel('y-position [m]')
 plt.legend(loc='upper left', framealpha=1)

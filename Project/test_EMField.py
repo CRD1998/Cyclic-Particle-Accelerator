@@ -26,12 +26,13 @@ def test_frequency(test_input,expected):
                         ((ChargedParticle('proton-1', const.m_p, const.e, [10,0,0], [2000,-4000,6000]),EMField([0,0,0], [6*10**(-5),-7*10**(-5),8*10**(-5)])), [0.1,0.2,0.1]),
                         ((ChargedParticle('proton-1', const.m_p, const.e, [0,0,0], [2000,-4000,6000]),EMField([0,0,0], [6*10**(-5),-7*10**(-5),8*10**(-5)])), [0,0,0])])
 def test_getAcceleration(test_input,expected):
-    # BUG if you run the tests, they pass as expected but if you debug the tests you get an unbound local error in the EMField getAcceleration method but the tests still pass?
+    # BUG if you run the tests, they pass as expected but if you debug the tests you get an 
+    # unbound local error in the EMField getAcceleration method but the tests still pass, due to 
+    # the lambda function in the getAcceleration method
     """
-    This function will test the getAcceleration method in the EMField class. It will check that in
-    the presence of both an electric and magnetic field, the acceleration is correctly calculated. 
-    It will also check that the electric field is being correctly constrained. The four test cases
-    are:
+    This function will test the getAcceleration method in the EMField class, it will check that in
+    the acceleration is correctly calculated. It will also check that the electric field is being 
+    correctly constrained. The four test cases are:
         1) An electric field exists within the specified coordinates
         2) The electric field is zero outside of these coordinates.
         3) The magnetic fields exists within the dees.

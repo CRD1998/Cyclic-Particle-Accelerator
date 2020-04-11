@@ -9,7 +9,8 @@ def test_exceedingC():
     """
     This test will check that if the user tries to create a particle whose speed exceeds the speed
     of light in a vacuum, a ValueError is raised. It will then check that if a particle's speed is
-    ever equal to or greater than the speed of the light in vacuum
+    ever equal to or greater than the speed of the light in vacuum, the selected integrator will 
+    raise a ValueError.
     """
     with pytest.raises(ValueError):
         Particle('proton', const.m_p, [0,0,0], [300000000,0,0])

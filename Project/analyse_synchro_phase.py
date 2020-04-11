@@ -8,7 +8,7 @@ from EMField import EMField
 from ProtonBunch import ProtonBunch
 
 """
-foo
+5 protons for 4 revolutions gives a very good result
 """
 
 phase_keys = [
@@ -23,10 +23,10 @@ phases = list(phase_dict.values())
 
 def generate_file(phases):
     field = EMField([500*10**3,0,0], [0,0,2.82], [-0.029,0.029]) 
-    protons = ProtonBunch(120*10**(6),10)
+    protons = ProtonBunch(500*10**(6),5)
     inital_bunch = copy.deepcopy(protons)
 
-    deltaT, duration = 2*10**(-11), 2.78*10**(-8)*100
+    deltaT, duration = 10**(-11), 2.78*10**(-8)*4
     timeSeries = []
     positionSpread = []
     energySpread = []
@@ -66,14 +66,10 @@ except FileNotFoundError:
     simulation_data = generate_file(phases)
 
 times = simulation_data['time']
-#positions = simulation_data['positions']
+positions = simulation_data['positions']
 energies = simulation_data['energies']
-timeSeries = []
-for series in times:
-    timeSeries.append([])
-    for i in series:
-        timeSeries[len(timeSeries)-1].append(i*10**(6))
-"""
+timeSeries = list(map(lambda x: [i*10**(6) for i in x],times))
+
 plt.figure('Synchro Phase Position Spreads')
 for (i,phase,time) in zip(positions,phase_dict.keys(),timeSeries):
     y_spread = [j[1] for j in i]
@@ -82,7 +78,7 @@ plt.xlabel(r'time [$\mu$s]')
 plt.ylabel(r'$\sigma_y$ [m]')
 plt.legend(loc='upper left')
 plt.tick_params(which='both',direction='in',right=True,top=True)
-"""
+
 plt.figure('Synchro Phase Energy Spreads')
 for (i,phase,time) in zip(energies,phase_dict.keys(),timeSeries):
     plt.plot(time,[j*10**(-6) for j in i],label='Phase: '+ phase)
@@ -91,17 +87,17 @@ plt.ylabel(r'Kinetic Energy Spread ($1\sigma$) [MeV]')
 plt.legend(loc='upper left')
 plt.tick_params(which='both',direction='in',right=True,top=True)
 
-fig, ax = plt.subplots()
+plt.figure('linear synchro phase energy')
 for (i,phase,time) in zip(energies,phase_dict.keys(),timeSeries):
     adjusted_energies = [j*10**(-6) for j in i]
     linear_fit = np.polynomial.polynomial.Polynomial.fit(time,adjusted_energies,1)
     line = np.poly1d(linear_fit.coef)
     a, b = line[0], line[1]
     spread = [a*t+b for t in time]
-    ax.plot(time,spread,label='Phase: '+phase)
-ax.set_xlabel(r'time [$\mu$s]')
-ax.set_ylabel(r'Kinetic Energy Spread ($1\sigma$) [MeV]')
-ax.legend(loc='upper left')
-ax.tick_params(which='both',direction='in',right=True,top=True)
+    plt.plot(time,spread,label='Phase: '+phase)
+plt.xlabel(r'time [$\mu$s]')
+plt.ylabel(r'Kinetic Energy Spread ($1\sigma$) [MeV]')
+plt.legend(loc='upper left')
+plt.tick_params(which='both',direction='in',right=True,top=True)
 
 plt.show()

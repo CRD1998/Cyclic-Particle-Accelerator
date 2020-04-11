@@ -31,37 +31,35 @@ phase_dict = {phase_keys[i]:phase_values[i] for i in range(len(phase_keys)) if n
 phases = list(phase_dict.values())
 
 def generate_file(phases):
-    field = EMField([500000,0,0], [0,0,0.07]) 
-    protons = ProtonBunch(10**(6),25)
-    field.setFrequency(protons)
-    inital_bunch = copy.deepcopy(protons)
+    field = EMField([50000,0,0], [0,0,0.07]) 
+    inital_bunch = ProtonBunch(10**(6),5,10**(-12))
+    field.setFrequency(inital_bunch)
 
-    deltaT, duration = 5*10**(-9), 10**(-6)*50
+    deltaT, duration = 10**(-9), 10**(-6)*10
     timeSeries = []
     positionSpread = []
     energySpread = []
     for _ in range(len(phases)):
         positionSpread.append([])
         energySpread.append([])
-        timeSeries.append([])
 
     log.logger.info('starting simulation')
 
-    for (angle,loop_1,loop_2,loop_3) in zip(phases,positionSpread,energySpread,timeSeries):
+    for (angle,loop_1,loop_2) in zip(phases,positionSpread,energySpread):
         time = 0
         field.phase = angle
         protons = copy.deepcopy(inital_bunch)
         log.logger.info('phase currently being investigated: %s radians' % angle)
         while time <= duration:
-            dt = protons.adaptiveStep(deltaT,field)
-            time += dt
-            field.getAcceleration(protons.bunch, time, dt)
-            protons.update(dt,field,time,2)
+            time += deltaT
+            if angle == phases[0]:
+                timeSeries.append(time)
+            field.getAcceleration(protons.bunch, time, deltaT)
+            protons.update(deltaT,field,time,2)
             temp_spread = copy.deepcopy(protons.positionSpread())
             temp_energy = copy.deepcopy(protons.energySpread())
             loop_1.append(temp_spread)
             loop_2.append(temp_energy)
-            loop_3.append(time)
     log.logger.info('simulation finished')
 
     log.logger.info('writing to file')
@@ -69,31 +67,46 @@ def generate_file(phases):
     log.logger.info('file written')
     return np.load('phase_data.npz',allow_pickle=True)
 
+def timeTOrev(t):
+    T = 2*const.pi*const.m_p / (const.e*0.07)
+    return t*10**(-6)/T
+
+def revTOtime(r):
+    T = 2*const.pi*const.m_p / (const.e*0.07)
+    return r*T*10**(6)
+
 try:
     simulation_data = np.load('phase_data.npz',allow_pickle=True)
 except FileNotFoundError:
     simulation_data = generate_file(phases)
 
-timeSeries = simulation_data['time']
+times = simulation_data['time']
 positions = simulation_data['positions']
 energies = simulation_data['energies']
+timeSeries = [i*10**(6) for i in times]
 
-plt.figure('Phase Position Spreads')
-for (i,phase,time) in zip(positions,phase_dict.keys(),timeSeries):
+fig, ax = plt.subplots()
+for (i,phase) in zip(positions,phase_dict.keys()):
     y_spread = [j[1] for j in i]
-    plt.plot(time,y_spread,label='Phase: '+ phase)
-plt.xlabel('time [s]')
-plt.ylabel(r'$\sigma_y$ [m]')
-plt.legend(loc='upper left')
-plt.tick_params(which='both',direction='in',right=True,top=True)
+    ax.plot(timeSeries,y_spread,label='Phase: '+ phase)
+secax = ax.secondary_xaxis('top', functions=(timeTOrev,revTOtime))
+secax.set_xlabel('Revolutions')
+ax.set_xlabel(r'time [$\mu$s]')
+ax.set_ylabel(r'$\sigma_y$ [m]')
+ax.legend(loc='upper left')
+secax.tick_params(direction='in')
+ax.tick_params(which='both',direction='in',right=True,top=False)
 
-plt.figure('Phase Energy Spreads')
-for (i,phase,time) in zip(energies,phase_dict.keys(),timeSeries):
-    plt.plot(time,[j*10**(-6) for j in i],label='Phase: '+ phase)
-plt.xlabel('time [s]')
-plt.ylabel(r'Kinetic Energy Spread ($1\sigma$) [MeV]')
-plt.legend(loc='upper left')
-plt.tick_params(which='both',direction='in',right=True,top=True)
+fig, ax = plt.subplots()
+for (i,phase) in zip(energies,phase_dict.keys()):
+    ax.plot(timeSeries,[j*10**(-6) for j in i],label='Phase: '+ phase)
+secax = ax.secondary_xaxis('top', functions=(timeTOrev,revTOtime))
+secax.set_xlabel('Revolutions')
+ax.set_xlabel(r'time [$\mu$s]')
+ax.set_ylabel(r'Kinetic Energy Spread ($1\sigma$) [MeV]')
+ax.legend(loc='upper left')
+secax.tick_params(direction='in')
+ax.tick_params(which='both',direction='in',right=True,top=False)
 
 plt.figure('Phases')
 theta = np.linspace(0,2*np.pi,10000)

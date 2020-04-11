@@ -12,27 +12,41 @@ class ProtonBunch(Bunch):
 
     Attributes:
     -----------
-        1) AverageKinetic - the average kinetic energy of a particle in the bunch, 
+    AverageKinetic: float/int
+        The average kinetic energy of a particle in the bunch, 
         measured in eV.
     
-    Optional Attributes:
-    --------------------
-        2) particleNumber - number of particles in the bunch, defaults to 3.
-        3) positionSigma - the S.D of the particles' normal position distribution 
-        about the origin, defaults to 0.01 .
-        4) energySigma - the S.D of the particles' normal kinetic distribution about 
-        AverageKinetic, defaults to 0.01 .
+    particleNumber: int, optional 
+        Number of particles in the bunch (defaults to 3).
+    
+    positionSigma: float/int, optional
+        The S.D of the particles' normal position distribution 
+        about the origin in metres (defaults to 0.01 m).
+
+    Methods:
+    --------
+    createBunch
+        Returns a list of Charged Particle objects representing a bunch of protons.
+    
+    assignVelocities
+        Returns a list of the initial 3D velocity vectors for all the particles in the bunch in m/s.
     """
-    def __init__(self, AverageKinetic, particleNumber=3):
+
+    def __init__(self, AverageKinetic, particleNumber=3, positionSigma=0.01):
         self.particleName = 'proton'
         self.particleMass = const.m_p
         self.particleCharge = const.e
         self.bunchName = self.particleName + '-bunch'
-        super().__init__(AverageKinetic=AverageKinetic, particleNumber=particleNumber)
+        super().__init__(AverageKinetic=AverageKinetic, particleNumber=particleNumber, positionSigma=positionSigma)
 
     def createBunch(self):
-        positions = self.assignPositions()
-        velocities = self.assignVelocities()
+        """
+        This method returns a list of charged particle objects to represent a bunch of protons. This list
+        is then assigned to bunch attribute of the ProtonBunch instance.
+        """
+
+        positions = self.assignPositions() # get the positions for all the particles in the bunch
+        velocities = self.assignVelocities() # get the initial velocities of particles 
         proton_bunch= []
         i = 0
         log.logger.info('generating bunch')
@@ -44,7 +58,13 @@ class ProtonBunch(Bunch):
         return proton_bunch
 
     def assignVelocities(self):
-        energies = self.distributeEnergies() # get distribution of kineitc energies
+        """
+        Using the sampled kinetic energies in the distributeEnergies method, this method will convert them
+        to linear speeds and return a list of velocity vectors where the linear speeds make up the x-component
+        of these velocity vectors.
+        """
+
+        energies = self.distributeEnergies() # get the kinetic energies
         gamma = lambda x: 1 + (x*self.conversion)/(self.particleMass*const.c*const.c) # function that returns gamma, given kinetic energy
-        speed = lambda x: const.c*math.sqrt(1-1/(x*x)) # function that returns linear speed, given gamma
+        speed = lambda x: const.c*math.sqrt(1-1/(x*x)) # function that returns a linear speed, given gamma
         return [[speed(gamma(i)),0,0] for i in energies]

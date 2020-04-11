@@ -1,6 +1,7 @@
 import pytest
 import scipy.constants as const
 import numpy as np
+import math
 from unittest.mock import patch
 from ProtonBunch import ProtonBunch
 from EMField import EMField
@@ -30,7 +31,7 @@ def test_averageVelocity():
 def test_momentum():
     """
     This will test that the momentum function in the Bunch ABC is correctly returning the average
-    kinetic energy for a particle in the bunch. If method is called and True is parsed into it, then
+    kinetic energy for a particle in the bunch. If method is called and True is passed into it, then
     then this will also test that the method is correctly returning the total momentum of the bunch.
     """
     calculated_average_momentum = const.m_p * np.array([2500,1500,-1500],dtype=float)
@@ -42,12 +43,12 @@ def test_momentum():
 def test_KineticEnergy():
     """
     This will test that the KineticEnergy function in the Bunch ABC is correctly returning the 
-    average kinetic energy for a particle in the bunch. If method is called and True is parsed into 
+    average kinetic energy for a particle in the bunch. If method is called and True is passed into 
     it, then then this will also test that the method is correctly returning the total kinetic 
     energy of the bunch.
     """
-    calculated_average_kinetic = 0.237502831 # eV
-    calculated_total_kinetic = 0.475005663 # eV
+    calculated_average_kinetic = 0.237502831 # units: eV
+    calculated_total_kinetic = 0.475005663 # units: eV
 
     assert calculated_average_kinetic == pytest.approx(bunch_of_protons.KineticEnergy())
     assert calculated_total_kinetic == pytest.approx(bunch_of_protons.KineticEnergy(True))
@@ -63,7 +64,18 @@ def test_assignVelocities(mock_energies):
     velocity_1, velocity_2 = [128369776.9,0,0], [11986.4508,0,0]
     calculated_velocities = [velocity_1, velocity_2]
     assigned_velocities = bunch_of_protons.assignVelocities()
-    assert np.allclose(calculated_velocities, assigned_velocities, rtol=10**(-4)) # FIXME Why only accurate to 10^(-4)?
+    assert np.allclose(calculated_velocities, assigned_velocities, rtol=10**(-4))
+
+@patch.object(ProtonBunch, 'assignVelocities')
+def test_gamma(mock_velocities):
+    """
+    This will test that the Lorentz factor of a particle bunch is correctly calculated using the average
+    velocity of a particle in the bunch.
+    """
+    mock_velocities.return_value = [np.array([0.6*const.c,0,0]), np.array([0.7*const.c,0,0]), np.array([0.8*const.c,0,0])]
+    protons = ProtonBunch(1)
+    expected_gamma = 1.400280084
+    assert protons.gamma() == pytest.approx(expected_gamma)
 
 def test_positionSpread():
     """

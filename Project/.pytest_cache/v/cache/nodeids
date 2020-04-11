@@ -20,6 +20,7 @@
   "test_ProtonBunch.py::test_momentum",
   "test_ProtonBunch.py::test_KineticEnergy",
   "test_ProtonBunch.py::test_assignVelocities",
+  "test_ProtonBunch.py::test_gamma",
   "test_ProtonBunch.py::test_positionSpread",
   "test_ProtonBunch.py::test_energySpread",
   "test_ProtonBunch.py::test_createBunch",
