@@ -7,6 +7,18 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
+"""
+This file generates a file called "cyclotron_data.npz" it contains a time series and four lists containing
+copies of a proton bunch in a cyclotron at every time value in the time series. These seperate lists were 
+updated using different numerical methods.
+
+The numerical methods are:
+    Euler
+    Euler-Cromer
+    Velocity Verlet
+    Fourth order Runge-Kutta
+"""
+
 field = EMField([500000,0,0], [0,0,0.07]) 
 protons_1 = ProtonBunch(10**(6),3) ; protons_2 = copy.deepcopy(protons_1)
 protons_3 = copy.deepcopy(protons_1) ; protons_4 = copy.deepcopy(protons_1)

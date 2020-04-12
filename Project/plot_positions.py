@@ -3,6 +3,12 @@ import scipy.constants as const
 import matplotlib.pyplot as plt
 import matplotlib
 
+"""
+This file will plot the path of proton bunch in a cyclotron and synchrocyclotron, it will show the electric
+field and direction of the magnetic field. If you do not have the data files containing the proton bunch
+data, they will be generated.
+"""
+
 try:
     simulation_data = np.load('cyclotron_data.npz',allow_pickle=True)
 except FileNotFoundError:

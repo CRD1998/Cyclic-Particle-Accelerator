@@ -6,6 +6,11 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
+"""
+This file generates a file called "synchrocyclotron_data.npz" it contains a time series and a list 
+containing copies of a proton bunch in a synchrocyclotron at every time value in the time series.
+"""
+
 field = EMField([50*10**3,0,0], [0,0,2.82], [-0.029,0.029]) 
 protons = ProtonBunch(120*10**(6),5)
 

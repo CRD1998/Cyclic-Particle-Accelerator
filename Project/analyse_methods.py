@@ -7,6 +7,15 @@ import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
+"""
+This file will load the data from the file generated from the RecordCyclotron.py file and plot the
+fractional kinetic energy and momentum of a proton bunch.
+
+If you do not have the file, the RecordCyclotron.py file will be ran and the data file will be generated
+for you. The revolution axis on the plots marks theoretical revolutions, not revolutions measured by the 
+simulation, see analyse_period.py which shows that meausred and theoretical revolutions are very similar.
+"""
+
 try:
     simulation_data = np.load('cyclotron_data.npz',allow_pickle=True)
 except FileNotFoundError:

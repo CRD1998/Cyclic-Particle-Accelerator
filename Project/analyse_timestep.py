@@ -3,14 +3,20 @@ import numpy as np
 import scipy.constants as const
 import matplotlib.pyplot as plt
 import matplotlib
-
 import copy
 from EMField import EMField
 from ProtonBunch import ProtonBunch
 
 """
-foo
+This file will analyse the how time step effects the accuracy of the simulation. It will record a cyclotron
+simulation using velocity Verlet method using three different time steps. It will then plot the fractional 
+kinetic energy and momentum against time for each time step.
+
+If you do not have the data file: timestep_data.npz which contains the kinetic energy and momentum data then
+the file will be generated for you. I would recommend you reduce the size of the bunch and the simulation's 
+duration otherwise the run time will be quite long.
 """
+
 timesteps = [10**(-8), 4.5*10**(-9), 10**(-9)]
 step_strings = ['1e-8 s', '5e-9 s', '1e-9 s']
 step_dict = {step_strings[i]:timesteps[i] for i in range(len(timesteps))}

@@ -8,16 +8,13 @@ from EMField import EMField
 from ProtonBunch import ProtonBunch
 
 """
-This file will analyse several different electric field phase shifts. It will then plot the spread of
-the x-position of a proton bunch as well as the bunch's spread of kinetic energy against time. It will
-then fit a linear curve to the position and energy spreads so the variation of the spreads against time
-can be more easily visualised.
+This file will analyse several different electric field phase shifts in a cyclotron. It will then plot the 
+spread of the y-position of a proton bunch as well as the bunch's spread of kinetic energy against time.
 
 The 'phase_data.npz' contains the position and kinetic energy spreads for a proton bunch containing
-100 protons over approximately 100 revolutions. If you do not have the file in the same location as
+100 protons over approximately 10 revolutions. If you do not have the file in the same location as
 this file, the simulation will run and generate it for you. I would recommend you reduce the size of the
-bunch and the simulation's duration as running the simulation for 100 revolutions with a 100 particle
-bunch size took just over six hours to run on my machine.
+bunch and the simulation's duration otherwise the run time will be quite long.
 """
 
 phase_keys = [
@@ -32,7 +29,7 @@ phases = list(phase_dict.values())
 
 def generate_file(phases):
     field = EMField([50000,0,0], [0,0,0.07]) 
-    inital_bunch = ProtonBunch(10**(6),5,10**(-12))
+    inital_bunch = ProtonBunch(10**(6),100,10**(-12))
     field.setFrequency(inital_bunch)
 
     deltaT, duration = 10**(-9), 10**(-6)*10
@@ -47,8 +44,8 @@ def generate_file(phases):
 
     for (angle,loop_1,loop_2) in zip(phases,positionSpread,energySpread):
         time = 0
-        field.phase = angle
-        protons = copy.deepcopy(inital_bunch)
+        field.phase = angle # apply the new phase shift to the electric field
+        protons = copy.deepcopy(inital_bunch) # reset the proton bunch
         log.logger.info('phase currently being investigated: %s radians' % angle)
         while time <= duration:
             time += deltaT

@@ -8,7 +8,15 @@ from EMField import EMField
 from ProtonBunch import ProtonBunch
 
 """
-5 protons for 4 revolutions gives a very good result
+This file will analyse several different electric field phase shifts in a synchrocyclotron. It will then 
+plot the spread of the y-position of a proton bunch as well as the bunch's spread of kinetic energy against 
+time. It will then fit a linear curve to the energy spreads so the variation of the spreads against time 
+can be more easily visualised.
+
+The 'phase_synchro_data.npz' contains the position and kinetic energy spreads for a proton bunch containing
+100 protons over approximately 10 revolutions. If you do not have the file in the same location as
+this file, the simulation will run and generate it for you. I would recommend you reduce the size of the
+bunch and the simulation's duration otherwise the run time will be quite long.
 """
 
 phase_keys = [
@@ -23,7 +31,7 @@ phases = list(phase_dict.values())
 
 def generate_file(phases):
     field = EMField([500*10**3,0,0], [0,0,2.82], [-0.029,0.029]) 
-    protons = ProtonBunch(500*10**(6),5)
+    protons = ProtonBunch(500*10**(6),100)
     inital_bunch = copy.deepcopy(protons)
 
     deltaT, duration = 10**(-11), 2.78*10**(-8)*4
@@ -39,8 +47,8 @@ def generate_file(phases):
 
     for (angle,loop_1,loop_2,loop_3) in zip(phases,positionSpread,energySpread,timeSeries):
         time = 0
-        field.phase = angle
-        protons = copy.deepcopy(inital_bunch)
+        field.phase = angle # apply the new phase shift to the electric field
+        protons = copy.deepcopy(inital_bunch) # reset the proton bunch
         log.logger.info('phase currently being investigated: %s radians' % angle)
         while time <= duration:
             dt = protons.adaptiveStep(deltaT,field)
