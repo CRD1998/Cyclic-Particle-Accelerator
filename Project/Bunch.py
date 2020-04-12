@@ -34,8 +34,8 @@ class Bunch(ABC):
         distribution with a mean of [0,0,0].
         
     distributeEnergies 
-        Returns an array of kinetic energies (in eV), sampled from a
-        normal distribution with the mean (AverageKinetic) passed into the child classes.
+        Returns an array of kinetic energies (in eV), sampled from anormal distribution with the 
+        mean (AverageKinetic) which is passed into the child classes.
     
     KineticEnergy(total=False)
         Takes an optional arguement "total" (defaults to False). Returns the 

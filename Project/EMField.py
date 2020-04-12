@@ -6,15 +6,15 @@ import math
 class EMField:
     """
     Class to represent an  electromagnetic field in a (synchro)cyclotron. It consists of a constant
-    magnetic field and a time varying electric field of the form Acos(wt+phi) in the. The electric field 
+    magnetic field and a time varying electric field of the form Acos(wt+phi). The electric field 
     only exists across a small region representing the accelerating gap in an accelerator.
 
     Attributes:
     -----------
     electric: list
-        A 3D list containing the electric field's amplitudes and directions of the field the in x,y,z 
-        directions. It will be converted to the time-varying electric, the electric field has units of 
-        N/C or V/m.
+        A 3D list containing the electric field's amplitudes and directions of the field the in x,y,z. 
+        It will be converted to the time-varying electric field, the electric field has units of N/C or 
+        V/m.
 
     magnetic: list
         A 3D numpy array containing the magnetic field's amplitudes and directions of the field the in 
