@@ -1,20 +1,20 @@
-2020-04-11 23:02:30,882 - {Particle.py:64} - INFO - proton has been generated
-2020-04-11 23:02:30,882 - {Particle.py:64} - INFO - proton has been generated
-2020-04-11 23:02:30,883 - {Particle.py:64} - INFO - proton has been generated
-2020-04-11 23:02:30,883 - {Particle.py:64} - INFO - proton has been generated
-2020-04-11 23:02:31,093 - {Particle.py:64} - INFO - Point has been generated
-2020-04-11 23:02:31,094 - {Particle.py:64} - INFO - Point has been generated
-2020-04-11 23:02:31,094 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 23:02:31,094 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 23:02:31,095 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 23:02:31,095 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 23:02:31,095 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 23:02:31,095 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 23:02:31,095 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 23:02:31,096 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-11 23:02:31,112 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 23:02:31,112 - {Particle.py:64} - INFO - proton-2 has been generated
-2020-04-11 23:02:31,113 - {ProtonBunch.py:52} - INFO - generating bunch
-2020-04-11 23:02:31,113 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-11 23:02:31,113 - {Particle.py:64} - INFO - proton-2 has been generated
-2020-04-11 23:02:31,113 - {ProtonBunch.py:57} - INFO - bunch generated
+2020-04-13 22:20:51,020 - {Particle.py:64} - INFO - proton has been generated
+2020-04-13 22:20:51,020 - {Particle.py:64} - INFO - proton has been generated
+2020-04-13 22:20:51,021 - {Particle.py:64} - INFO - proton has been generated
+2020-04-13 22:20:51,021 - {Particle.py:64} - INFO - proton has been generated
+2020-04-13 22:20:51,037 - {Particle.py:64} - INFO - Point has been generated
+2020-04-13 22:20:51,038 - {Particle.py:64} - INFO - Point has been generated
+2020-04-13 22:20:51,038 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-13 22:20:51,038 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-13 22:20:51,039 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-13 22:20:51,039 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-13 22:20:51,039 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-13 22:20:51,039 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-13 22:20:51,039 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-13 22:20:51,039 - {EMField.py:66} - INFO - electromagentic field generated
+2020-04-13 22:20:51,048 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-13 22:20:51,048 - {Particle.py:64} - INFO - proton-2 has been generated
+2020-04-13 22:20:51,049 - {ProtonBunch.py:52} - INFO - generating bunch
+2020-04-13 22:20:51,049 - {Particle.py:64} - INFO - proton-1 has been generated
+2020-04-13 22:20:51,049 - {Particle.py:64} - INFO - proton-2 has been generated
+2020-04-13 22:20:51,049 - {ProtonBunch.py:57} - INFO - bunch generated
