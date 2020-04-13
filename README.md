@@ -68,5 +68,7 @@ Notes
 
 A file named "log.py" is also included in this project, this writes to a file named "PHYS389.log" and can be used to check on the progress
 of longer simulations as well as follow the execution order of processes in the simulation. The data files required to run all of the 
-analysis files have been inlcuded. If you wish to generate your own, I recommend reducing the simulation's duration and reducing the number
-of particles in the bunch to prevent long run times.
+analysis files have been inlcuded. If you wish to generate your own, I recommend reducing the simulation's duration and reducing the number of particles in the bunch to prevent long run times.
+
+There is also a folder called ".vscode" this contains the configuration for discovering unit tests written in the pytest framework and the 
+project configuration files in the ".ropeproject" folder. For this reason I recommend using Visual Studio Code, so the tests can be ran easily.
