@@ -81,7 +81,7 @@ class Bunch(ABC):
     conversion = const.physical_constants['electron volt'][0] # eV <=> joules
 
     @abstractmethod
-    def __init__(self, AverageKinetic, particleNumber: int = 3, positionSigma: Union[int,float] = 0.01) -> None:
+    def __init__(self, AverageKinetic: Union[int,float], particleNumber: int = 3, positionSigma: Union[int,float] = 0.01) -> None:
         self.average_kinetic_energy= float(AverageKinetic)
         self.bunch_number = int(particleNumber)
         self.positionSigma = float(positionSigma)
