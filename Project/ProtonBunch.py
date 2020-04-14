@@ -1,6 +1,7 @@
 import log
 import scipy.constants as const
 import math
+from typing import Union, List
 from statistics import mean
 from Bunch import Bunch
 from ChargedParticle import ChargedParticle
@@ -32,14 +33,14 @@ class ProtonBunch(Bunch):
         Returns a list of the initial 3D velocity vectors for all the particles in the bunch in m/s.
     """
 
-    def __init__(self, AverageKinetic, particleNumber=3, positionSigma=0.01):
+    def __init__(self, AverageKinetic: Union[int,float], particleNumber: int = 3, positionSigma: Union[int,float] = 0.01) -> None:
         self.particleName = 'proton'
         self.particleMass = const.m_p
         self.particleCharge = const.e
         self.bunchName = self.particleName + '-bunch'
         super().__init__(AverageKinetic=AverageKinetic, particleNumber=particleNumber, positionSigma=positionSigma)
 
-    def createBunch(self):
+    def createBunch(self) -> List['ChargedParticle']:
         """
         This method returns a list of charged particle objects to represent a bunch of protons. This list
         is then assigned to bunch attribute of the ProtonBunch instance.
@@ -57,7 +58,7 @@ class ProtonBunch(Bunch):
         log.logger.info('bunch generated')
         return proton_bunch
 
-    def assignVelocities(self):
+    def assignVelocities(self) -> list:
         """
         Using the sampled kinetic energies in the distributeEnergies method, this method will convert them
         to linear speeds and return a list of velocity vectors where the linear speeds make up the x-component

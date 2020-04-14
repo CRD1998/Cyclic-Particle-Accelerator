@@ -1,20 +1,20 @@
-2020-04-13 22:20:51,020 - {Particle.py:64} - INFO - proton has been generated
-2020-04-13 22:20:51,020 - {Particle.py:64} - INFO - proton has been generated
-2020-04-13 22:20:51,021 - {Particle.py:64} - INFO - proton has been generated
-2020-04-13 22:20:51,021 - {Particle.py:64} - INFO - proton has been generated
-2020-04-13 22:20:51,037 - {Particle.py:64} - INFO - Point has been generated
-2020-04-13 22:20:51,038 - {Particle.py:64} - INFO - Point has been generated
-2020-04-13 22:20:51,038 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-13 22:20:51,038 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-13 22:20:51,039 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-13 22:20:51,039 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-13 22:20:51,039 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-13 22:20:51,039 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-13 22:20:51,039 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-13 22:20:51,039 - {EMField.py:66} - INFO - electromagentic field generated
-2020-04-13 22:20:51,048 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-13 22:20:51,048 - {Particle.py:64} - INFO - proton-2 has been generated
-2020-04-13 22:20:51,049 - {ProtonBunch.py:52} - INFO - generating bunch
-2020-04-13 22:20:51,049 - {Particle.py:64} - INFO - proton-1 has been generated
-2020-04-13 22:20:51,049 - {Particle.py:64} - INFO - proton-2 has been generated
-2020-04-13 22:20:51,049 - {ProtonBunch.py:57} - INFO - bunch generated
+2020-04-14 22:18:12,181 - {EMField.py:67} - INFO - electromagentic field generated
+2020-04-14 22:18:12,181 - {ProtonBunch.py:53} - INFO - generating bunch
+2020-04-14 22:18:12,181 - {Particle.py:66} - INFO - proton-1 has been generated
+2020-04-14 22:18:12,181 - {Particle.py:66} - INFO - proton-2 has been generated
+2020-04-14 22:18:12,182 - {Particle.py:66} - INFO - proton-3 has been generated
+2020-04-14 22:18:12,182 - {ProtonBunch.py:58} - INFO - bunch generated
+2020-04-14 22:18:12,182 - {constantB.py:14} - INFO - Initial average kinetic energy: 999954.948545266 eV
+2020-04-14 22:18:12,182 - {constantB.py:15} - INFO - Initial average momentum: [2.31566099e-20 0.00000000e+00 0.00000000e+00] kg m/s
+2020-04-14 22:18:12,183 - {constantB.py:16} - INFO - Initial average position [-0.008825   0.0008624  0.       ] m
+2020-04-14 22:18:12,183 - {constantB.py:17} - INFO - Initial bunch position spread: [0.00805172 0.00405011 0.        ] m
+2020-04-14 22:18:12,183 - {constantB.py:18} - INFO - Initial bunch energy spread: 36.56660972864078 eV
+2020-04-14 22:18:12,183 - {constantB.py:28} - INFO - starting simulation
+2020-04-14 22:18:24,223 - {constantB.py:40} - INFO - simulation finished
+2020-04-14 22:18:24,223 - {constantB.py:41} - INFO - building lists
+2020-04-14 22:18:24,733 - {constantB.py:51} - INFO - Final average kinetic energy: 1634974.9184824042 eV
+2020-04-14 22:18:24,733 - {constantB.py:52} - INFO - Final average momentum: [ 2.32213516e-20 -1.83797507e-20  0.00000000e+00] kg m/s
+2020-04-14 22:18:24,733 - {constantB.py:53} - INFO - Final average position [ 1.74185494 -0.03342454  0.        ] m
+2020-04-14 22:18:24,734 - {constantB.py:54} - INFO - Final bunch position spread: [0.00509747 0.00143557 0.        ] m
+2020-04-14 22:18:24,734 - {constantB.py:55} - INFO - Final bunch energy spread: 3454.5072445280016 eV
+2020-04-14 22:18:24,734 - {constantB.py:57} - INFO - creating plots

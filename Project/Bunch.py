@@ -1,5 +1,6 @@
 import log
 from abc import ABC, abstractmethod
+from typing import Union
 import numpy as np
 import math
 import copy
@@ -80,7 +81,7 @@ class Bunch(ABC):
     conversion = const.physical_constants['electron volt'][0] # eV <=> joules
 
     @abstractmethod
-    def __init__(self, AverageKinetic, particleNumber=3, positionSigma=0.01):
+    def __init__(self, AverageKinetic, particleNumber: int = 3, positionSigma: Union[int,float] = 0.01) -> None:
         self.average_kinetic_energy= float(AverageKinetic)
         self.bunch_number = int(particleNumber)
         self.positionSigma = float(positionSigma)
@@ -110,7 +111,7 @@ class Bunch(ABC):
             particle.name = new_name
         return new_bunch # return a Bunch object made up of the two passed bunches
 
-    def assignPositions(self):
+    def assignPositions(self) -> np.ndarray:
         """
         This method returns a list of 3D position vectors, each ordinate in every vector is sampled from
         a Gaussian distribution and the z-ordinate in every vector is set to 0.
@@ -123,7 +124,7 @@ class Bunch(ABC):
             i[2] = 0. # set all z values to zero
         return positions
 
-    def distributeEnergies(self):
+    def distributeEnergies(self) -> np.ndarray:
         """
         Using the inputted mean kinetic energy, this method returns a list of kinetic energies, sampled 
         from a Gaussian distribution. It takes the standard deviation as 1% of the inputted mean. If a 
@@ -140,20 +141,20 @@ class Bunch(ABC):
                     energies[energies_list.index(energy)] = np.random.normal(mu, sigma)
         return energies
     
-    def averagePosition(self):
+    def averagePosition(self) -> np.ndarray:
         """
         Returns the average position of the bunch as 3D numpy array.
         """
 
         return np.array(np.mean([i.position for i in self.bunch],axis=0),dtype=float)
 
-    def averageVelocity(self):
+    def averageVelocity(self) -> np.ndarray:
         """
         Returns the average velocity of the bunch as 3D numpy array.
         """
         return np.array(np.mean([i.velocity for i in self.bunch],axis=0),dtype=float)
 
-    def KineticEnergy(self, total=False):
+    def KineticEnergy(self, total: bool = False) -> float:
         """
         Returns either the average kinetic energy of particle in the bunch or the total momentum of the 
         bunch. The returned energy has units of eV.
@@ -169,7 +170,7 @@ class Bunch(ABC):
             return mean([i.KineticEnergy() for i in self.bunch])/self.conversion # units: eV
         return sum([i.KineticEnergy() for i in self.bunch])/self.conversion # units: eV
 
-    def momentum(self, total=False):
+    def momentum(self, total: bool = False) -> float:
         """
         Returns either the average momentum of particle in the bunch or the total momentum of the bunch. 
         The returned value has units of kg m/s.
@@ -185,7 +186,7 @@ class Bunch(ABC):
             return np.array(np.mean([i.momentum() for i in self.bunch],axis=0),dtype=float) # units: kg m/s
         return np.array(np.sum([i.momentum() for i in self.bunch],axis=0),dtype=float) # units: kg m/s
 
-    def positionSpread(self):
+    def positionSpread(self) -> np.ndarray:
         """
         Returns the standard deviation in the x,y,z positions of all particles in the bunch as a 3D numpy
         array. 
@@ -193,7 +194,7 @@ class Bunch(ABC):
 
         return np.array(np.std([i.position for i in self.bunch],axis=0),dtype=float)
 
-    def energySpread(self):
+    def energySpread(self) -> float:
         """
         Returns the standard deviation of the kinetic energy for all the particles in a bunch.
 
@@ -202,7 +203,7 @@ class Bunch(ABC):
 
         return np.std([i.KineticEnergy() for i in self.bunch])/self.conversion # units: eV
 
-    def gamma(self):
+    def gamma(self) -> float:
         """
         Returns the Lorenz factor for bunch, using the magnitude of the average velocity.
         """
@@ -210,7 +211,7 @@ class Bunch(ABC):
         speed = np.linalg.norm(self.averageVelocity())
         return 1/(math.sqrt(1-(speed*speed)/(const.c*const.c)))
 
-    def adaptiveStep(self,deltaT,field):
+    def adaptiveStep(self, deltaT: Union[int,float], field: 'EMField') -> Union[int,float]:
         """
         For any integrator that is updating a bunch's positions and velocities, this method will reduce the
         the step size in the integrator by a factor of 100 if any of the particles in a bunch are in the 
@@ -233,7 +234,7 @@ class Bunch(ABC):
         else:
             return deltaT
 
-    def update(self,deltaT, field, time, set_method=3):
+    def update(self, deltaT: Union[int,float], field: 'EMField', time: Union[int,float], set_method: int = 3) -> None:
         """
         This method loops through every particle in the bunch and calls for them to be updated. The user
         can select which update method to used by passing in an integer value from 0-3. If an invalid

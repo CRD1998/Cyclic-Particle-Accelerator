@@ -3,6 +3,7 @@ import numpy as np
 import math
 import copy
 import scipy.constants as const
+from typing import Union, Sequence
 
 class Particle:
     """
@@ -50,7 +51,8 @@ class Particle:
     RungeKutta4
         Updates the position and velocity of the particle using the fourth order Runge-Kutta method.
     """
-    def __init__(self,  Name='Point', Mass=1.0, Position=np.array([0,0,0], dtype=float), Velocity=np.array([0,0,0], dtype=float), Acceleration=np.array([0,0,0], dtype=float)):
+    def __init__(self,  Name: str = 'Point', Mass: Union[int,float] = 1.0, Position: Sequence[Union[int,float]] = np.array([0,0,0], dtype=float), 
+                Velocity: Sequence[Union[int,float]] = np.array([0,0,0], dtype=float), Acceleration: Sequence[Union[int,float]] = np.array([0,0,0], dtype=float)) -> None:
         self.name = str(Name)
         self.position = np.array(Position,dtype=float)
         self.velocity = np.array(Velocity,dtype=float)
@@ -63,7 +65,7 @@ class Particle:
         else:
             log.logger.info('%s has been generated' % self.name)
 
-    def __repr__(self):
+    def __repr__(self) -> None:
         return 'Particle: {0}, Mass: {1:12.3e}, Position: {2}, Velocity: {3}, Acceleration: {4}'.format(self.name,self.mass,self.position, self.velocity,self.acceleration)
 
     def __eq__(self, other):
@@ -79,7 +81,7 @@ class Particle:
             equality.append(i==j)
         return all(equality)
     
-    def gamma(self):
+    def gamma(self) -> float:
         """
         Returns the Lorentz factor for any given Particle object.
 
@@ -99,7 +101,7 @@ class Particle:
         else:
             return lorentz_factor
 
-    def magnitude(self, vector):
+    def magnitude(self, vector: np.ndarray) -> float:
         """
         Returns the magnitude of a vector.
 
@@ -111,21 +113,21 @@ class Particle:
 
         return np.linalg.norm(vector)
 
-    def KineticEnergy(self):
+    def KineticEnergy(self) -> float:
         """
         Returns the current kinetic energy of the particle instance in joules.
         """
 
         return (self.gamma()-1)*self.mass*const.c*const.c
   
-    def momentum(self):
+    def momentum(self) -> float:
         """
         Returns the current momnetum of the particle instance in kg m/s.
         """
 
         return self.gamma()*self.mass*self.velocity
 
-    def euler(self, deltaT):
+    def euler(self, deltaT: Union[int,float]) -> None:
         """
         Updates the particle's position and velocity using the Euler method.
 
@@ -145,7 +147,7 @@ class Particle:
             log.logger.error("%s's speed is equal to or greater than the speed of light" % self.name)
             raise ValueError("%s's speed is equal to or greater than the speed of light" % self.name)
 
-    def eulerCromer(self, deltaT):
+    def eulerCromer(self, deltaT: Union[int,float]) -> None:
         """
         Updates the particle's position and velocity using the Euler-Cromer method.
 
@@ -165,7 +167,7 @@ class Particle:
             log.logger.error("%s's speed is equal to or greater than the speed of light" % self.name)
             raise ValueError("%s's speed is equal to or greater than the speed of light" % self.name)
 
-    def velocityVerlet(self, deltaT, field, time):
+    def velocityVerlet(self, deltaT: Union[int,float], field: 'EMField', time: Union[int,float]) -> None:
         """
         Updates the particle's position and velocity using the velocity Verlet method.
 
@@ -200,7 +202,7 @@ class Particle:
             log.logger.error("%s's speed is equal to or greater than the speed of light" % self.name)
             raise ValueError("%s's speed is equal to or greater than the speed of light" % self.name)
 
-    def RungeKutta4(self, deltaT, field, time):
+    def RungeKutta4(self, deltaT: Union[int,float], field: 'EMField', time: Union[int,float]) -> None:
         """
         Updates the particle's position and velocity using the fourth order Runge-Kutta method.
 

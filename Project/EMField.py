@@ -2,6 +2,7 @@ import log
 import numpy as np
 import scipy.constants as const
 import math
+from typing import Union, Sequence, List
 
 class EMField:
     """
@@ -53,10 +54,10 @@ class EMField:
         using the relativistic form of Newton's second law.
     """
 
-    def __init__(self, ElectricField = np.array([0,0,0], dtype=float), 
-                MagneticField = np.array([0,0,0], dtype=float), 
-                ElectricFieldWidth = np.array([-0.103,0.103], dtype=float),
-                ElectricFieldPhase=0):
+    def __init__(self, ElectricField: Sequence[Union[int,float]] = np.array([0,0,0], dtype=float), 
+                MagneticField: Sequence[Union[int,float]] = np.array([0,0,0], dtype=float), 
+                ElectricFieldWidth: Sequence[Union[int,float]] = np.array([-0.103,0.103], dtype=float),
+                ElectricFieldPhase: Sequence[Union[int,float]] = 0) -> None:
         self.magnetic = np.array(MagneticField,dtype=float)
         self.electric = np.array(ElectricField,dtype=float)
         self.electricLowerBound  = float(ElectricFieldWidth[0])
@@ -65,24 +66,24 @@ class EMField:
         self.frequency = 0.
         log.logger.info('electromagentic field generated')
 
-    def __repr__(self):
+    def __repr__(self) -> None:
         return 'EM Field: \n Electric Field = {0}  \n Magnetic Field = {1}'.format(self.electric,self.magnetic)
 
-    def electricMag(self):
+    def electricMag(self) -> float:
         """
         Returns the amplitude of the electric field at its peak value in N/m.
         """
 
         return np.linalg.norm(self.electric)
     
-    def magneticMag(self):
+    def magneticMag(self) -> float:
         """
         Returns the magnitude of the magnetic field in teslas.
         """
 
         return np.linalg.norm(self.magnetic)
     
-    def setFrequency(self,bunch):
+    def setFrequency(self,bunch) -> None:
         """
         Given a particle bunch, this method will calculate the angular frequnecy of the bunch and assign
         it to frequency attribute.
@@ -95,7 +96,7 @@ class EMField:
 
         self.frequency = abs(bunch.particleCharge)*self.magneticMag()/(bunch.particleMass*bunch.gamma())
 
-    def getAcceleration(self,particleBunch,time,deltaT):
+    def getAcceleration(self, particleBunch: List['ChargedParticle'], time: Union[int,float], deltaT: Union[int,float]) -> None:
         """
         Calculates the acceleration of every particle in a bunch due to the Lorentz force and assigns the
         the acceleration to particle's acceleration attribute.
