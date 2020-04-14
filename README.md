@@ -22,6 +22,8 @@ Simulation Files
 
 To run this simulation, open the RecordCyclotron.py or RecordSynchrocyclotron.py and change the initial average kinetic energy and bunch size to your desired parameters. Changing the initial kinetic energy will likely mean that the electric magnetic field will also need changing. After these objects have adjusted, you can change the time step and length of the simulation.
 
+A flowchart is shown at the bottom of this file to visualise the structure of the simulation.
+
 Analysis Files
 --------------
 
@@ -61,3 +63,8 @@ analysis files have been included. If you wish to generate your own, I recommend
 
 There is also a folder called ".vscode" this contains the configuration for discovering unit tests written in the pytest framework and the 
 project configuration files in the ".ropeproject" folder. For this reason I recommend using Visual Studio Code, so the tests can be ran easily.
+
+Flowchart
+---------
+
+![flowchart](https://github.com/Lancaster-Physics-Phys389-2020/phys389-2020-project-CRD1998/blob/master/Project/Figures/phys389_synchrocyclotron.png)
