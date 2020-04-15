@@ -36,7 +36,7 @@ class Bunch(ABC):
 
     assignPositions
         Returns an array of ndarrays, sampled from a normal
-        distribution with a mean of [0,0,0].
+        distribution with a mean of [0,0,0] m.
         
     distributeEnergies 
         Returns an array of kinetic energies (in eV), sampled from anormal distribution with the 
@@ -45,6 +45,12 @@ class Bunch(ABC):
     assignVelocities
         Returns a list of the initial 3D velocity vectors for all the particles in the bunch in m/s.
     
+    averagePosition
+        Returns the average position of a particle in a bunch, units: m.
+    
+    averageVelocity
+        Returns the average velocity of a particle in a bunch, units: m/s.
+
     KineticEnergy(total=False)
         Takes an optional arguement "total" (defaults to False). Returns the 
         average kinetic energy for a particle in a bunch (eV). If total is True then it returns
@@ -158,8 +164,8 @@ class Bunch(ABC):
     def assignVelocities(self) -> list:
         """
         Using the sampled kinetic energies in the distributeEnergies method, this method will convert them
-        to linear speeds and return a list of velocity vectors where the linear speeds make up the x-component
-        of these velocity vectors.
+        to linear speeds and return a list of velocity vectors (in m/s) where the linear speeds make up the 
+        x-component of these velocity vectors.
         """
 
         energies = self.distributeEnergies() # get the kinetic energies
@@ -169,14 +175,14 @@ class Bunch(ABC):
 
     def averagePosition(self) -> np.ndarray:
         """
-        Returns the average position of the bunch as 3D numpy array.
+        Returns the average position of the bunch as 3D numpy array, units: m.
         """
 
         return np.array(np.mean([i.position for i in self.bunch],axis=0),dtype=float)
 
     def averageVelocity(self) -> np.ndarray:
         """
-        Returns the average velocity of the bunch as 3D numpy array.
+        Returns the average velocity of the bunch as 3D numpy array, units: m/s.
         """
         return np.array(np.mean([i.velocity for i in self.bunch],axis=0),dtype=float)
 
@@ -215,7 +221,7 @@ class Bunch(ABC):
     def positionSpread(self) -> np.ndarray:
         """
         Returns the standard deviation in the x,y,z positions of all particles in the bunch as a 3D numpy
-        array. 
+        array, units: m. 
         """
 
         return np.array(np.std([i.position for i in self.bunch],axis=0),dtype=float)
