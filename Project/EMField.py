@@ -94,7 +94,7 @@ class EMField:
             The particle bunch whose angular frequency will be calculated.
         """
 
-        self.frequency = abs(bunch.particleCharge)*self.magneticMag()/(bunch.particleMass*bunch.gamma())
+        self.frequency = abs(bunch._particleCharge)*self.magneticMag()/(bunch._particleMass*bunch.gamma())
 
     def getAcceleration(self, particleBunch: List['ChargedParticle'], time: Union[int,float], deltaT: Union[int,float]) -> None:
         """
@@ -112,13 +112,12 @@ class EMField:
         
         deltaT
             The time step used in the integrator, in seconds
-        """
-
+        """  
         for particle in particleBunch:
-            electricField = lambda x: [i*math.cos(self.frequency*time+self.phase) for i in self.electric] if self.electricLowerBound < x < self.electricUpperBound else [0,0,0]
-            lorentz = np.array(electricField(particle.position[0]),dtype=float)
-            if not self.electricLowerBound < particle.position[0] < self.electricUpperBound:
-                lorentz += np.cross(particle.velocity, self.magnetic)
+            if self.electricLowerBound < particle.position[0] < self.electricUpperBound:
+                lorentz = np.array([i*math.cos(self.frequency*time+self.phase) for i in self.electric],dtype=float)
+            else:
+                lorentz = np.cross(particle.velocity, self.magnetic)
             lorentz *= particle.charge
             acc = 1/(particle.mass*particle.gamma()) * (lorentz - (np.dot(particle.velocity,lorentz)*particle.velocity)/(const.c*const.c)) # relativistic acceleration equation
             particle.acceleration = acc
