@@ -27,7 +27,7 @@ def test_frequency(test_input,expected):
                         ((ChargedParticle('proton-1', const.m_p, const.e, [0,0,0], [2000,-4000,6000]),EMField([0,0,0], [6*10**(-5),-7*10**(-5),8*10**(-5)])), [0,0,0])])
 def test_getAcceleration(test_input,expected):
     # BUG if you run the tests, they pass as expected but if you debug the tests you get an 
-    # unbound local error in the EMField getAcceleration method but the tests still pass
+    # unbound local error in the EMField getAcceleration method but the tests still pass?
     """
     This function will test the getAcceleration method in the EMField class, it will check that in
     the acceleration is correctly calculated. It will also check that the electric field is being 

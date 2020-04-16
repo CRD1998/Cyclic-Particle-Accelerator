@@ -34,7 +34,7 @@ def generate_file(phases):
     protons = ProtonBunch(500*10**(6),100)
     inital_bunch = copy.deepcopy(protons)
 
-    deltaT, duration = 10**(-11), 2.78*10**(-8)*4
+    deltaT, duration = 10**(-11), 2.78*10**(-8)*10
     timeSeries = []
     positionSpread = []
     energySpread = []

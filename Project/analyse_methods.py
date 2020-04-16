@@ -15,12 +15,14 @@ If you do not have the file, the RecordCyclotron.py file will be ran and the dat
 for you. The revolution axis on the plots marks theoretical revolutions, not revolutions measured by the 
 simulation, see analyse_period.py which shows that meausred and theoretical revolutions are very similar.
 """
-
 try:
-    simulation_data = np.load('cyclotron_data.npz',allow_pickle=True)
+    simulation_data= np.load('methods_data.npz',allow_pickle=True)
 except FileNotFoundError:
-    import RecordCyclotron
-    simulation_data = np.load('cyclotron_data.npz',allow_pickle=True)
+    try:
+        simulation_data = np.load('cyclotron_data.npz',allow_pickle=True)
+    except FileNotFoundError:
+        import RecordCyclotron
+        simulation_data = np.load('cyclotron_data.npz',allow_pickle=True)
 
 def timeTOrev(t):
     T = 2*const.pi*const.m_p / (const.e*0.07)

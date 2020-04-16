@@ -10,8 +10,8 @@ from ChargedParticle import ChargedParticle
 
 class Bunch(ABC):
     """
-    This abstract base class provides the skeleton for child classes that will generate a bunch of
-    charged particle objects. 
+    This abstract base class provides the blueprint for subclasses that will generate a bunch of
+    ChargedParticle objects. 
 
     Attributes:
     -----------
@@ -22,7 +22,7 @@ class Bunch(ABC):
     bunch_number: int
         The number of particles in the bunch.
     
-    positionSigma: float, units: cm
+    positionSigma: float, units: m
         The initial standard deviation of all the particle positions in the bunch, defaults to 1cm.
         This class assumes the same inital position standard deviation in x,y and z.
 
@@ -35,8 +35,7 @@ class Bunch(ABC):
         Returns a list of Charged Particle objects representing a bunch of charged particles.
 
     assignPositions
-        Returns an array of ndarrays, sampled from a normal
-        distribution with a mean of [0,0,0] m.
+        Returns an array of ndarrays, sampled from a normal distribution with a mean of [0,0,0] m.
         
     distributeEnergies 
         Returns an array of kinetic energies (in eV), sampled from anormal distribution with the 
@@ -91,7 +90,7 @@ class Bunch(ABC):
         self.bunchName = self._particleName + '-bunch'
         self.bunch_number = int(particleNumber)
 
-        self.__average_kinetic_energy= float(AverageKinetic) # make these attributes private so they cannot be accessed once an instance has been created
+        self.__average_kinetic_energy= float(AverageKinetic) # make these attributes private so they cannot be accessed outside the class
         self.__positionSigma = float(positionSigma)
         
         self.bunch = self.createBunch()
@@ -184,6 +183,7 @@ class Bunch(ABC):
         """
         Returns the average velocity of the bunch as 3D numpy array, units: m/s.
         """
+
         return np.array(np.mean([i.velocity for i in self.bunch],axis=0),dtype=float)
 
     def KineticEnergy(self, total: bool = False) -> float:
