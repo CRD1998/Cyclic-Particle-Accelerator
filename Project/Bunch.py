@@ -1,16 +1,17 @@
 import log
 from abc import ABC, abstractmethod
-from typing import Union
+from typing import Union, List
 import numpy as np
 import math
 import copy
 from statistics import mean
 import scipy.constants as const
+from ChargedParticle import ChargedParticle
 
 class Bunch(ABC):
     """
-    This abstract base class provides the skeleton for child classes that will generate a bunch of
-    charged particle objects. 
+    This abstract base class provides the blueprint for subclasses that will generate a bunch of
+    ChargedParticle objects. 
 
     Attributes:
     -----------
@@ -21,7 +22,7 @@ class Bunch(ABC):
     bunch_number: int
         The number of particles in the bunch.
     
-    positionSigma: float, units: cm
+    positionSigma: float, units: m
         The initial standard deviation of all the particle positions in the bunch, defaults to 1cm.
         This class assumes the same inital position standard deviation in x,y and z.
 
@@ -30,14 +31,25 @@ class Bunch(ABC):
 
     Concrete Methods:
     -----------------
+    createBunch
+        Returns a list of Charged Particle objects representing a bunch of charged particles.
+
     assignPositions
-        Returns an array of ndarrays, sampled from a normal
-        distribution with a mean of [0,0,0].
+        Returns an array of ndarrays, sampled from a normal distribution with a mean of [0,0,0] m.
         
     distributeEnergies 
         Returns an array of kinetic energies (in eV), sampled from anormal distribution with the 
         mean (AverageKinetic) which is passed into the child classes.
     
+    assignVelocities
+        Returns a list of the initial 3D velocity vectors for all the particles in the bunch in m/s.
+    
+    averagePosition
+        Returns the average position of a particle in a bunch, units: m.
+    
+    averageVelocity
+        Returns the average velocity of a particle in a bunch, units: m/s.
+
     KineticEnergy(total=False)
         Takes an optional arguement "total" (defaults to False). Returns the 
         average kinetic energy for a particle in a bunch (eV). If total is True then it returns
@@ -65,38 +77,28 @@ class Bunch(ABC):
     update 
         Sets the integrator to be used to update the position and velocity of every particle
         in the bunch 
-
-    Abstract Methods:
-    -----------------
-    assignVelocites 
-        Every bunch class must implement a method that returns calculates
-        a linear speed from every kinetic energy that is returned from the distributeEnergies
-        method. This method is abstract because it depends on the chosen particle's mass.
-
-    createBunch 
-        Every bunch class must implement a method that actually generates
-        the final list of Charged Particle objects.
     """
 
     conversion = const.physical_constants['electron volt'][0] # eV <=> joules
 
     @abstractmethod
-    def __init__(self, AverageKinetic: Union[int,float], particleNumber: int = 3, positionSigma: Union[int,float] = 0.01) -> None:
-        self.average_kinetic_energy= float(AverageKinetic)
+    def __init__(self, particleName: str, particleMass: Union[int,float], particleCharge: Union[int,float,],
+                AverageKinetic: Union[int,float], particleNumber: int = 3, positionSigma: Union[int,float] = 0.01) -> None:
+        self._particleName = particleName # protect these attributes as they should not change 
+        self._particleMass = particleMass
+        self._particleCharge = particleCharge
+        self.bunchName = self._particleName + '-bunch'
         self.bunch_number = int(particleNumber)
-        self.positionSigma = float(positionSigma)
+
+        self.__average_kinetic_energy= float(AverageKinetic) # make these attributes private so they cannot be accessed outside the class
+        self.__positionSigma = float(positionSigma)
         
         self.bunch = self.createBunch()
 
         super(Bunch, self).__init__()
 
-    @abstractmethod
-    def createBunch(self):
-        pass
-
-    @abstractmethod
-    def assignVelocities(self):
-        pass
+    def __repr__(self) -> None:
+        return 'Bunch Type: {0}, Number of Particles: {1}'.format(self._particleName,self.bunch_number)
 
     def __add__(self, other):
         if not isinstance(other, self.__class__):
@@ -105,11 +107,28 @@ class Bunch(ABC):
         new_bunch.bunch += other.bunch # add the bunches of the two passed Bunch objects together
         new_bunch.bunch_number += other.bunch_number
         new_bunch.bunchName = 'combined ' + other.bunchName
-        delattr(new_bunch, 'average_kinetic_energy')
         for particle in new_bunch.bunch:
             new_name = particle.name[:-1] + str(new_bunch.bunch.index(particle)+1)
             particle.name = new_name
         return new_bunch # return a Bunch object made up of the two passed bunches
+
+    def createBunch(self) -> List['ChargedParticle']:
+        """
+        This method returns a list of charged particle objects to represent a bunch of particles. This list
+        is then assigned to the bunch attribute of the subclass' instance.
+        """
+
+        positions = self.assignPositions() # get the positions for all the particles in the bunch
+        velocities = self.assignVelocities() # get the initial velocities of particles 
+        particle_bunch= []
+        i = 0
+        log.logger.info('generating bunch')
+        for (j,k) in zip(positions,velocities):
+            i += 1
+            particle_bunch.append(ChargedParticle(self._particleName+'-'+str(i), self._particleMass, 
+            self._particleCharge, j, k))
+        log.logger.info('bunch generated')
+        return particle_bunch
 
     def assignPositions(self) -> np.ndarray:
         """
@@ -118,7 +137,7 @@ class Bunch(ABC):
         """
 
         mu = 0. # the mean position of the bunch is the origin
-        sigma = self.positionSigma
+        sigma = self.__positionSigma
         positions = np.random.normal(mu, sigma, (self.bunch_number,3))
         for i in positions:
             i[2] = 0. # set all z values to zero
@@ -131,27 +150,40 @@ class Bunch(ABC):
         zero or negative energy is sampled it is repeatedly resampled until the value is positive.
         """
 
-        mu = self.average_kinetic_energy
-        sigma = 0.0001 * mu
+        mu = self.__average_kinetic_energy
+        sigma = 0.01 * mu
         energies = np.random.normal(mu, sigma, self.bunch_number)
-        while all([i>0 for i in energies]) is not True:
+        while all([i>0 for i in energies]) is not True: # resample non-zero or negative energies
             for energy in energies:
                 energies_list = list(energies)
                 if energy <= 0:
                     energies[energies_list.index(energy)] = np.random.normal(mu, sigma)
         return energies
-    
+
+    def assignVelocities(self) -> list:
+        """
+        Using the sampled kinetic energies in the distributeEnergies method, this method will convert them
+        to linear speeds and return a list of velocity vectors (in m/s) where the linear speeds make up the 
+        x-component of these velocity vectors.
+        """
+
+        energies = self.distributeEnergies() # get the kinetic energies
+        def gamma(Ke: float) -> float: return 1 + (Ke*self.conversion)/(self._particleMass*const.c*const.c) # function that returns gamma, given kinetic energy
+        def speed(y: float) -> float: return const.c*math.sqrt(1-1/(y*y)) # function that returns a linear speed, given gamma
+        return [[speed(gamma(i)),0,0] for i in energies]
+
     def averagePosition(self) -> np.ndarray:
         """
-        Returns the average position of the bunch as 3D numpy array.
+        Returns the average position of the bunch as 3D numpy array, units: m.
         """
 
         return np.array(np.mean([i.position for i in self.bunch],axis=0),dtype=float)
 
     def averageVelocity(self) -> np.ndarray:
         """
-        Returns the average velocity of the bunch as 3D numpy array.
+        Returns the average velocity of the bunch as 3D numpy array, units: m/s.
         """
+
         return np.array(np.mean([i.velocity for i in self.bunch],axis=0),dtype=float)
 
     def KineticEnergy(self, total: bool = False) -> float:
@@ -189,7 +221,7 @@ class Bunch(ABC):
     def positionSpread(self) -> np.ndarray:
         """
         Returns the standard deviation in the x,y,z positions of all particles in the bunch as a 3D numpy
-        array. 
+        array, units: m. 
         """
 
         return np.array(np.std([i.position for i in self.bunch],axis=0),dtype=float)
@@ -223,7 +255,7 @@ class Bunch(ABC):
             The timestep the integrator is currently using.
         
         field: EMField object
-            The electromagnetic field present in the simulation that the proton bunch is travelling through.
+            The electromagnetic field present in the simulation that the particle bunch is travelling through.
         """
 
         lowerBound = field.electricLowerBound - 0.1*abs(field.electricLowerBound)
@@ -246,7 +278,7 @@ class Bunch(ABC):
             The timestep the integrator is currently using.
 
         field: EMField object
-            The electromagnetic field present in the simulation that the proton bunch is travelling through.
+            The electromagnetic field present in the simulation that the particle bunch is travelling through.
         
         time: float/int
             The current value of time in the simulation.

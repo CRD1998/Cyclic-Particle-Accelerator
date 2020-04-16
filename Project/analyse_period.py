@@ -19,10 +19,11 @@ the csv file for you. It will then print the mean time period and its error (one
 time period predicted by the equation above. Finally it will print, the ratio of the two time periods; the 
 simulated time period divided by the theoretical one.
 """
+
 field = EMField([0.1,0,0], [0,0,1.6*10**(-5)])
 proton = ChargedParticle('proton', const.m_p, const.e, [0,0,0], [3000,0,0])
 protons = ProtonBunch(100,1) # create a random bunch obeject
-protons.bunch = [proton] # overwrite bunch atrribute to to remove the pseudo-random characteristics
+protons.bunch = [proton] # overwrite bunch atrribute to to remove the pseudorandom characteristics
 field.setFrequency(protons)
 theoretical_period = 2*const.pi*proton.mass / (proton.charge*field.magneticMag())
 
