@@ -42,7 +42,6 @@ def generate_file(protons,field):
     for (step,loop_1,loop_2,loop_3) in zip(timesteps,timeSeries,kineticEnergies,momenta):
         time = 0
         deltaT = step
-        field.phase = step
         protons = copy.deepcopy(inital_bunch)
         log.logger.info('time step currently being investigated: %s s' % step)
         while time <= duration:
